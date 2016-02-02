@@ -3,6 +3,7 @@
  */
 package model;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import observer.Observable;
@@ -35,7 +36,7 @@ public class Simulation implements Observable {
 	}
 	
 	public void calcul() {
-		this.total = this.montant + ((this.montant * this.taux)/100);
+		this.total = new Double(this.montant + ((this.montant * this.taux)/100));
 		this.mensualite = this.total / this.duree;
 		this.notifyObserver();
 	}

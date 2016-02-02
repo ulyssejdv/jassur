@@ -160,7 +160,7 @@ public class SimulationController {
 	 * @return String message ACK
 	 */
 	public String saveAction(Simulation s) {
-		
+		s.toString();
 		Simulation simulation = s;
 		simulation.takeId();
 		simulationList.addSimulation(simulation);
