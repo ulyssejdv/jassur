@@ -28,6 +28,10 @@ public class MainMenuPanel extends JPanel {
 		JButton btnShowAll = new JButton("Voir les simulations");
 		btnShowAll.addActionListener(new ListListener());
 		add(btnShowAll);
+		
+		JButton btnPing = new JButton("ping");
+		btnPing.addActionListener(new PingListener());
+		add(btnPing);
 
 	}
 	
@@ -42,6 +46,14 @@ public class MainMenuPanel extends JPanel {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			sc.listAction();
+		}
+	}
+	
+	class PingListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			sc.pingAction();
 		}
 	}
 

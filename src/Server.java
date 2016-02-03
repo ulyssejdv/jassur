@@ -1,89 +1,73 @@
-import java.io.File;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
-import java.sql.Connection;
+import java.io.InputStreamReader;
+import java.net.ServerSocket;
+import java.net.Socket;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-
+import database.ConfigurationDB;
+import database.Connexion;
+import database.PoolConnexion;
+import message.Message;
 import model.ConnectionDB;
+import model.ListPret;
+import model.Pret;
 
 public class Server {
+	
+	private PoolConnexion pc = null;
 
 	public static void main(String[] args) {
 		
-		String dbName = new String();
-		String dbHost = new String();
-		String dbPort = new String();
-		String dbLogin = new String();
-		String dbPass = new String();
-		String dbEnv = new String();
-		/* Read the configuration file */
-		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		/* Loading DB configuration */
+		System.out.println("Loading configuration file ...");
+		ConfigurationDB conf = new ConfigurationDB();
+		
+		System.out.println("Creating connexion pool ...");
+		PoolConnexion pc = new PoolConnexion();
+		
+		/* Create the connection pool */
+		for (int i = 0; i < PoolConnexion.MAX_CONNEXION; i++) {
+			System.out.println("Connexion "+i+" OK");
+			pc.push(new Connexion(conf));
+		}
+		
+		ServerSocket serverSocket = null;
+		String clientMsg = new String();
 		
 		try {
-			DocumentBuilder db = dbf.newDocumentBuilder();
-			
+			serverSocket = new ServerSocket(6789);
+			System.out.println("Server now listening on :"+serverSocket.getLocalPort()+" ...");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		/* Start the server */
+		while (true) {
 			try {
-				Document doc = db.parse(new File("conf/srv_conf.xml"));
+				Socket socket = serverSocket.accept();
+				BufferedReader inputClient = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+				DataOutputStream outputClient = new DataOutputStream(socket.getOutputStream());
 				
-				Element root = doc.getDocumentElement();
+				clientMsg = inputClient.readLine();
 				
-				NodeList dbList = root.getElementsByTagName("database");
+				Message message = new Message(clientMsg);
 				
-				System.out.println("Reading configuration file ...");
+				ConnectionDB cdb = new ConnectionDB(pc.pop().getConnection());
+				ListPret lp = new ListPret(cdb.getPrets());
+				System.out.println(lp.toXml());
+				outputClient.writeBytes(lp.toXml()+'\n');
 				
-				for (int i = 0; i < dbList.getLength(); i++) {
-					Node dbase = dbList.item(i);
-					if (dbase.getNodeType() == Node.ELEMENT_NODE) {
-			               Element ele = (Element) dbase;
-			               
-			               dbName = ele.getElementsByTagName("name").item(0).getTextContent();
-			               System.out.println("Name : "+ dbName);
-			               
-			               dbHost = ele.getElementsByTagName("host").item(0).getTextContent();
-			               System.out.println("Host : "+dbHost);
-			               
-			               dbPort = ele.getElementsByTagName("port").item(0).getTextContent();
-			               System.out.println("Port : "+dbPort);
-			               
-			               dbLogin = ele.getElementsByTagName("login").item(0).getTextContent();
-			               System.out.println("Login : "+dbLogin);
-			               
-			               dbPass = ele.getElementsByTagName("pass").item(0).getTextContent();
-			               System.out.println("Pass : "+ dbPass);
-			               
-			               dbEnv = ele.getElementsByTagName("env").item(0).getTextContent();
-			               System.out.println("Env : "+dbEnv);
-					} else {
-						System.out.println("non");
-					}
-				}
+				System.out.println(message.toString());
+			
 				
-			} catch (SAXException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
 		}
-		
-		/* Create the connection pool */
-		Connection conn = ConnectionDB.connect("jdbc:mysql://"+dbHost+":"+dbPort+"/"+dbName+"",dbLogin,dbPass);
-		ConnectionDB database= new ConnectionDB(conn);
-		
-		/* Start the server */
-
 	}
 
 }

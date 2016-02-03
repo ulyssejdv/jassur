@@ -1,4 +1,5 @@
 package model;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -18,6 +19,15 @@ public class ConnectionDB {
 	ArrayList<PersonneMorale> personne_morales;
 	ArrayList<PersonnePhysique> personne_physiques;
 	ArrayList<Pret> prets;
+	
+	public ArrayList<Pret> getPrets() {
+		return prets;
+	}
+
+	public void setPrets(ArrayList<Pret> prets) {
+		this.prets = prets;
+	}
+
 	Connection conn;
 	
 	public ConnectionDB(Connection conn) {
@@ -162,7 +172,6 @@ public class ConnectionDB {
 	
 	private void reloadPersonnePhysique(){
 		this.personne_physiques = PersonnePhysique.selectPersonnePhysique(conn,this);
-
 	}
 	
 	private void reloadClient(){
@@ -206,6 +215,7 @@ public class ConnectionDB {
 				}
 		}
 	}
+	
 	public static Connection connect(String url, String utilisateur, String motDePasse){
 		Connection connexion = null;
 		
@@ -215,17 +225,16 @@ public class ConnectionDB {
 			System.out.println("erreur "+e.getMessage());
 		}
 	
-		    try {
-				connexion = DriverManager.getConnection( url, utilisateur, motDePasse );
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		    /*System.out.println("Connexion établie");*/
+	    try {
+			connexion = DriverManager.getConnection( url, utilisateur, motDePasse );
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 		return connexion;
 	}
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		Connection conn = ConnectionDB.connect("jdbc:mysql://localhost:8889/mydb","root","root");
 		ConnectionDB database= new ConnectionDB(conn);
 		
@@ -264,7 +273,7 @@ public class ConnectionDB {
 					}
 			}
 		}
-	}
+	}*/
 
 }
 

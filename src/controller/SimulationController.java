@@ -3,6 +3,14 @@
  */
 package controller;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
+import message.Message;
 import model.Simulation;
 import model.SimulationList;
 import view.CreateSimPanel;
@@ -83,10 +91,56 @@ public class SimulationController {
 	}
 	
 	public void listAction() {
-		ListSimPanel lsp = new ListSimPanel(this);
+		/*ListSimPanel lsp = new ListSimPanel(this);
 		simulationList.addObserver(lsp);
 		simulationList.notifyObserver();
-		this.mainFrame.render(lsp);
+		this.mainFrame.render(lsp);*/
+		
+		String rsp = new String();
+		Message m = new Message("get", "pret");
+		
+		String xmlMsg = m.toXML();
+		
+		Socket socket = null;
+		try {
+			System.out.println("Creating the socket");
+			socket = new Socket("localhost", 6789);
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			DataOutputStream outToSrv = new DataOutputStream(socket.getOutputStream());
+			
+			BufferedReader inFromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			
+			outToSrv.writeBytes(xmlMsg+'\n');
+			
+			rsp = inFromServer.readLine();
+			
+			System.out.println("Server response : "+rsp);
+			
+			simulationList.parseXML(rsp);
+			
+			ListSimPanel lsp = new ListSimPanel(this);
+			simulationList.addObserver(lsp);
+			simulationList.notifyObserver();
+			this.mainFrame.render(lsp);
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				socket.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	/**
@@ -174,5 +228,48 @@ public class SimulationController {
 
 	public void setMainFrame(MainFrame mf) {
 		this.mainFrame = mf;
+	}
+
+	public void pingAction() {
+	
+		String rsp = new String();
+		Message m = new Message("get", "pret");
+		
+		String xmlMsg = m.toXML();
+		
+		Socket socket = null;
+		try {
+			System.out.println("Creating the socket");
+			socket = new Socket("localhost", 6789);
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			DataOutputStream outToSrv = new DataOutputStream(socket.getOutputStream());
+			
+			BufferedReader inFromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			
+			outToSrv.writeBytes(xmlMsg+'\n');
+			
+			rsp = inFromServer.readLine();
+			
+			System.out.println("Server response : "+rsp);
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				socket.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 	}
 }

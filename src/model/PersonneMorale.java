@@ -1,4 +1,4 @@
-// default package
+package model;
 // Generated 6 janv. 2016 11:04:49 by Hibernate Tools 4.3.1.Final
 
 import java.sql.Connection;
