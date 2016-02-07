@@ -9,13 +9,11 @@ import database.ConfigurationDB;
 import database.Connexion;
 import database.PoolConnexion;
 import message.Message;
-import model.ConnectionDB;
-import model.ListPret;
-import model.Pret;
+import message.Routeur;
 
 public class Server {
 	
-	private PoolConnexion pc = null;
+	private static PoolConnexion poolConnexion = null;
 
 	public static void main(String[] args) {
 		
@@ -24,12 +22,12 @@ public class Server {
 		ConfigurationDB conf = new ConfigurationDB();
 		
 		System.out.println("Creating connexion pool ...");
-		PoolConnexion pc = new PoolConnexion();
+		poolConnexion = new PoolConnexion();
 		
 		/* Create the connection pool */
 		for (int i = 0; i < PoolConnexion.MAX_CONNEXION; i++) {
 			System.out.println("Connexion "+i+" OK");
-			pc.push(new Connexion(conf));
+			poolConnexion.push(new Connexion(conf));
 		}
 		
 		ServerSocket serverSocket = null;
@@ -49,25 +47,20 @@ public class Server {
 				BufferedReader inputClient = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				DataOutputStream outputClient = new DataOutputStream(socket.getOutputStream());
 				
-				clientMsg = inputClient.readLine();
+				/* Read input client message */
+				Message message = new Message();
+				message.read(inputClient.readLine());
 				
-				Message message = new Message(clientMsg);
-				
-				ConnectionDB cdb = new ConnectionDB(pc.pop().getConnection());
-				ListPret lp = new ListPret(cdb.getPrets());
-				System.out.println(lp.toXml());
-				outputClient.writeBytes(lp.toXml()+'\n');
-				
-				System.out.println(message.toString());
-			
-				
+				/* Start analyze of the message for routing 
+				 * and give the phone (outpuClient) to the router 
+				 * for callback
+				 */
+				Routeur routeur = new Routeur(outputClient, poolConnexion);
+				routeur.analyse(message);	
 				
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-			
-		}
+			}	
+		} // end infinite loop
 	}
-
 }

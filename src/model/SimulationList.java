@@ -3,8 +3,13 @@
  */
 package model;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.StringReader;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -44,6 +49,9 @@ public class SimulationList implements Observable {
 			
 			try {
 				//System.out.println(msg);
+				
+				this.listSimulation = new ArrayList<Simulation>();
+				
 				InputSource is = new  InputSource(new StringReader(xml));
 				Document doc = db.parse(is);
 				
@@ -57,11 +65,10 @@ public class SimulationList implements Observable {
 			               
 			               boolean ajouter = true;
 			               
-			               s.setId( Integer.parseInt(ele.getElementsByTagName("id").item(0).getTextContent()));
-			               
-			               //this.action = ele.getElementsByTagName("action").item(0).getTextContent();
-			               
-			               //this.ressource = ele.getElementsByTagName("ressource").item(0).getTextContent();
+			               s.setId(Integer.parseInt(ele.getElementsByTagName("id").item(0).getTextContent()));
+			               s.setDuree(Integer.parseInt(ele.getElementsByTagName("nbmensualite").item(0).getTextContent()));
+			               s.setMensualite(Double.parseDouble(ele.getElementsByTagName("mensualite").item(0).getTextContent()));
+			               s.setMontant(Double.parseDouble(ele.getElementsByTagName("montant").item(0).getTextContent()));
 			               
 			               for (Simulation sim : listSimulation) {
 			            	   if (sim.getId() == s.getId()) {
@@ -92,6 +99,48 @@ public class SimulationList implements Observable {
 		}
 		
 	}
+
+	
+	public void sendRequestGetList(String xmlMsg) {
+		/* Create the Client socket */
+		Socket socket = null;
+		try {
+			System.out.println("Creating the socket");
+			socket = new Socket("localhost", 6789);
+			
+			/* Sending request to the server */
+			try {
+				DataOutputStream outToSrv = new DataOutputStream(socket.getOutputStream());
+				
+				BufferedReader inFromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+				
+				/* send xml request */
+				outToSrv.writeBytes(xmlMsg+'\n');
+				
+				/* receive the xml response */
+				String rsp = inFromServer.readLine();
+				
+				System.out.println("Server response : "+rsp);
+				
+				/* Parse xml response and creating real resources */
+				this.parseXML(rsp);
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					socket.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 	public void addSimulation(Simulation s) {
 		listSimulation.add(s);

@@ -1,11 +1,11 @@
 package model;
 
+import java.sql.Connection;
 import java.util.ArrayList;
-import java.util.Iterator;
 
-public class ListPret {
+public class ListPret extends Model {
 	
-	ArrayList<Pret> listPret = null;
+	private ArrayList<Pret> listPret = null;
 	
 	public ListPret(ArrayList<Pret> lp) {
 		this.listPret = lp;
@@ -18,23 +18,50 @@ public class ListPret {
 	public void setListPret(ArrayList<Pret> listPret) {
 		this.listPret = listPret;
 	}
-	
-	
-	public String toXml() {
-		String strXml = new String();
+
+	@Override
+	public int insert(Connection conn) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void get(Connection conn, int id) {
+		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public int update(Connection conn) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int delete(Connection con) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public String toXML() {
+		String strXml = new String();
 		strXml += "<prets>";
 		for (Pret pret : listPret) {
-			strXml += "<pret>";
-			strXml += "<id>"+pret.getIdPret()+"</id>";
-			strXml += "<montant>"+pret.getMontant()+"</montant>";
-			strXml += "<mensualite>"+pret.getMontantEcheance()+"</mensualite>";
-			strXml += "<nbmensualite>"+pret.getNombreEcheance()+"</nbmensualite>";
-			strXml += "</pret>";
+			strXml += pret.toXML();
+			System.out.println(pret.toString());
 		}
 		strXml += "</prets>";
 		
+		
+		System.out.println("CONSTRUIT : "+strXml);
 		return strXml;
+	}
+
+	@Override
+	public void parseXML(String xml) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

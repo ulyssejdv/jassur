@@ -79,8 +79,7 @@ public class ResSimPanel extends JPanel implements Observer {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			int idSimulation = 1;
-			String res = sc.saveAction(s);
-			lblMessage.setText(res);
+			sc.saveAction(s);
 		}
 	}
 }

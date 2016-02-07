@@ -35,28 +35,13 @@ public class SimulationController {
 	public SimulationController(Simulation s, SimulationList sl) {
 		this.simulation = s;
 		this.simulationList = sl;
-		//this.simulationList.addSimulation(sim);
 	}
 	
 	public String calculAction(String m, String t, String d) {
 		
-		/*
-		 * Hydratation of the model with the user's input data
-		 */
-		/*if (m.length()>0 && t.length()>0 && d.length()>0) {
-			simulation.setMontant(Integer.parseInt(m));
-			simulation.setTaux(Double.parseDouble(t));
-			simulation.setDuree(Integer.parseInt(d));
-			simulation.calcul();
-			
-			return "Calcul OK !";
-		} else {
-			return "error from input";
-		}*/
-		
 		if (m.length()>0 && t.length()>0 && d.length()>0) {
 			Simulation s = new Simulation();
-			s.setMontant(Integer.parseInt(m));
+			s.setMontant(Double.parseDouble(m));
 			s.setTaux(Double.parseDouble(t));
 			s.setDuree(Integer.parseInt(d));
 			s.calcul();
@@ -91,56 +76,19 @@ public class SimulationController {
 	}
 	
 	public void listAction() {
-		/*ListSimPanel lsp = new ListSimPanel(this);
+		
+		/* Building of xml REST message */
+		Message m = new Message();
+		String xmlMsg = m.get("pret");
+		
+		simulationList.parseXML(xmlMsg);
+		
+		/* Rending the list view panel */
+		ListSimPanel lsp = new ListSimPanel(this);
 		simulationList.addObserver(lsp);
 		simulationList.notifyObserver();
-		this.mainFrame.render(lsp);*/
+		this.mainFrame.render(lsp);
 		
-		String rsp = new String();
-		Message m = new Message("get", "pret");
-		
-		String xmlMsg = m.toXML();
-		
-		Socket socket = null;
-		try {
-			System.out.println("Creating the socket");
-			socket = new Socket("localhost", 6789);
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			DataOutputStream outToSrv = new DataOutputStream(socket.getOutputStream());
-			
-			BufferedReader inFromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			
-			outToSrv.writeBytes(xmlMsg+'\n');
-			
-			rsp = inFromServer.readLine();
-			
-			System.out.println("Server response : "+rsp);
-			
-			simulationList.parseXML(rsp);
-			
-			ListSimPanel lsp = new ListSimPanel(this);
-			simulationList.addObserver(lsp);
-			simulationList.notifyObserver();
-			this.mainFrame.render(lsp);
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			try {
-				socket.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
 	}
 	
 	/**
@@ -148,17 +96,18 @@ public class SimulationController {
 	 * @param idSimulation
 	 */
 	public void readAction(int idSimulation) {
+		
+		/* Building of xml REST message */
+		Message m = new Message();
+		String xmlMsg = m.get("pret", idSimulation);
+		
+		Simulation simulation = new Simulation();
+		
+		simulation.parseXML(xmlMsg);
+		
 		ReadSimPanel rsp = new ReadSimPanel(this);
-		Simulation tmpSim = new Simulation();
-		
-		for	(Simulation s : simulationList.getListSimulation()) {
-			if (s.getId() == idSimulation) {
-				tmpSim = s;
-			}
-		}
-		
-		tmpSim.addObserver(rsp);
-		tmpSim.notifyObserver();
+		simulation.addObserver(rsp);
+		simulation.notifyObserver();
 		
 		this.mainFrame.render(rsp);
 	}
@@ -185,27 +134,20 @@ public class SimulationController {
 	 * Delete this simulation
 	 * @param idSimulation
 	 */
-	public String deleteAction(int idSimulation) {
+	public void deleteAction(int idSimulation) {
 		
-		String msg = new String();
+		Message m = new Message();
 		
+		String xmlMsg = m.delete("pret", idSimulation);
+	
 		Simulation tmpSim = new Simulation();
 		
-		for	(Simulation s : simulationList.getListSimulation()) {
-			if (s.getId() == idSimulation) {
-				tmpSim = s;
-				msg = "Simulation deleted";
-			}
-		}
+		System.out.println("Message envoyé : "+m.toString());
 		
-		simulationList.removeSimulation(tmpSim);
+		tmpSim.sendRequestDelete(xmlMsg);
 		
-		ListSimPanel lsp = new ListSimPanel(this);
-		simulationList.addObserver(lsp);
-		simulationList.notifyObserver();
-		this.mainFrame.render(lsp);
-		
-		return msg;
+		/* Go To the list */
+		this.listAction();
 	}
 	
 	/**
@@ -213,17 +155,29 @@ public class SimulationController {
 	 * @param s
 	 * @return String message ACK
 	 */
-	public String saveAction(Simulation s) {
-		s.toString();
+	public void saveAction(Simulation s) {
+		
+		// il faut envoyer une requete POST pour ajouter ce pret
+		
+		/*s.toString();
 		Simulation simulation = s;
 		simulation.takeId();
-		simulationList.addSimulation(simulation);
+		simulationList.addSimulation(simulation);*/
 		
-		ListSimPanel lsp = new ListSimPanel(this);
+		Message m = new Message();
+		
+		/* On execute une requete de type post
+		 * et on s'attend à avoir une reponse au format XML 
+		 * (dans le cas présent si ça s'est bien passé ou non
+		 */
+		String rsp = m.post("pret", s.toXML());
+		
+		/*ListSimPanel lsp = new ListSimPanel(this);
 		simulationList.addObserver(lsp);
 		simulationList.notifyObserver();
-		this.mainFrame.render(lsp);
-		return "Simulation added.";
+		this.mainFrame.render(lsp);*/
+		
+		this.listAction();
 	}
 
 	public void setMainFrame(MainFrame mf) {
@@ -232,44 +186,7 @@ public class SimulationController {
 
 	public void pingAction() {
 	
-		String rsp = new String();
-		Message m = new Message("get", "pret");
 		
-		String xmlMsg = m.toXML();
-		
-		Socket socket = null;
-		try {
-			System.out.println("Creating the socket");
-			socket = new Socket("localhost", 6789);
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			DataOutputStream outToSrv = new DataOutputStream(socket.getOutputStream());
-			
-			BufferedReader inFromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			
-			outToSrv.writeBytes(xmlMsg+'\n');
-			
-			rsp = inFromServer.readLine();
-			
-			System.out.println("Server response : "+rsp);
-			
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			try {
-				socket.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
 		
 	}
 }
