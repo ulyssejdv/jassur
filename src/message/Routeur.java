@@ -124,20 +124,28 @@ public class Routeur {
 	private void dealingDelete(Message message) {
 		
 		System.out.println(message.toString());
+		Connection conn = this.poolConnexion.pop().getConnection();
 		
 		switch (message.getResourceType()) {
 		case "pret":
-			Integer res = Pret.deletePret(this.poolConnexion.pop().getConnection(), message.getResourceId());
+			//Integer res = Pret.deletePret(this.poolConnexion.pop().getConnection(), message.getResourceId());
+			
+			Pret p = new Pret();
+			p.setIdPret(message.getResourceId());
+			Integer res = p.delete(conn);
+			
 			try {
 				dataOutputStream.writeBytes("<message><code>"+res.toString()+"</code></message>"+'\n');
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			System.out.println(message.toString());
+			
 			break;
 
 		default:
 			break;
 		}
+		
+		System.out.println(message.toString());
 	}
 }

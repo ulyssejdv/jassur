@@ -139,12 +139,14 @@ public class SimulationController {
 		Message m = new Message();
 		
 		String xmlMsg = m.delete("pret", idSimulation);
-	
-		Simulation tmpSim = new Simulation();
+		
+		System.out.println("resultat du delete : "+xmlMsg);
+		
+		//Simulation tmpSim = new Simulation();
 		
 		System.out.println("Message envoyé : "+m.toString());
 		
-		tmpSim.sendRequestDelete(xmlMsg);
+		//tmpSim.sendRequestDelete(xmlMsg);
 		
 		/* Go To the list */
 		this.listAction();
