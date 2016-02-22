@@ -28,7 +28,15 @@ public class ConfigurationDB {
 		this.load();
 	}
 	
+	@Override
+	public String toString() {
+		return "ConfigurationDB [dbName=" + dbName + ", dbHost=" + dbHost + ", dbPort=" + dbPort + ", dbLogin="
+				+ dbLogin + ", dbPass=" + dbPass + ", dbEnv=" + dbEnv + ", dbUrl=" + dbUrl + "]";
+	}
+
 	public void load() {
+		System.out.println("Loading configuration file ...");
+		
 		/* Read the configuration file */
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		
@@ -48,38 +56,34 @@ public class ConfigurationDB {
 			               Element ele = (Element) dbase;
 			               
 			               dbName = ele.getElementsByTagName("name").item(0).getTextContent();
-			               System.out.println("Name : "+ dbName);
 			               
 			               dbHost = ele.getElementsByTagName("host").item(0).getTextContent();
-			               System.out.println("Host : "+dbHost);
 			               
 			               dbPort = ele.getElementsByTagName("port").item(0).getTextContent();
-			               System.out.println("Port : "+dbPort);
 			               
 			               dbLogin = ele.getElementsByTagName("login").item(0).getTextContent();
-			               System.out.println("Login : "+dbLogin);
 			               
 			               dbPass = ele.getElementsByTagName("pass").item(0).getTextContent();
-			               System.out.println("Pass : "+ dbPass);
 			               
 			               dbEnv = ele.getElementsByTagName("env").item(0).getTextContent();
-			               System.out.println("Env : "+dbEnv);
 					} else {
 						System.out.println("non");
 					}
 				}
 				
 			} catch (SAXException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.println(e.getMessage());
+				System.out.println("EXIT ...");
+				System.exit(0);
 			}
 		} catch (ParserConfigurationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		System.out.println(this.toString());
 	}
 	
 	

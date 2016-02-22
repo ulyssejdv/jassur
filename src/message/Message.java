@@ -4,164 +4,132 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.StringReader;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-
-import model.Model;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 public class Message {
 	
-	private String resourceType = null;
+	private String resource = null;
 	
-	private String methode = null;
+	private String method = null;
 	
-	private int resourceId = -1;
+	private String body = null;
 	
-	private String fullMsgString = null;
+	private String fullMessage = null;
 
 	
 	public void read(String m) {
 		
-		this.setFullMsgString(m);
+		this.setFullMessage(m);
 		
-		/* Read the message */
-		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		JSONParser parser = new JSONParser();
+		
 		try {
-			DocumentBuilder db = dbf.newDocumentBuilder();
+			JSONObject obj = (JSONObject) parser.parse(m);
 			
-			try {
-				//System.out.println(msg);
-				InputSource is = new  InputSource(new StringReader(m));
-				Document doc = db.parse(is);
-				
-				NodeList dbList = doc.getElementsByTagName("message");
-				
-				for (int i = 0; i < dbList.getLength(); i++) {
-					Node dbase = dbList.item(i);
-					if (dbase.getNodeType() == Node.ELEMENT_NODE) {
-			               Element ele = (Element) dbase;
-			               this.methode = ele.getElementsByTagName("methode").item(0).getTextContent();
-			               this.resourceType = ele.getElementsByTagName("resourceType").item(0).getTextContent();
-			               this.resourceId = Integer.parseInt(ele.getElementsByTagName("resourceId").item(0).getTextContent());
-					} else {
-						System.out.println("non");
-					}
-				}
-				
-			} catch (SAXException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			obj.get("resource");
+			
+			this.setResource((String) obj.get("resource")); 
+			this.setMethod((String) obj.get("method"));
+			
+			if (obj.get("body") != null) {
+				this.setBody((String) obj.get("body").toString());
 			}
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
+		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	
-	/**
-	 * Request for reading N resources
-	 */
-	public String get(String rt) {
-		this.methode = "GET";
-		String xmlStr = new String();
-		xmlStr = 
-		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-		+"<message>"
-			+"<methode>"+this.methode+"</methode>"
-			+"<resourceType>"+rt+"</resourceType>"
-			+"<resourceId>"+this.resourceId+"</resourceId>"
-		+"</message>";
 		
-		return this.execRequest(xmlStr);
 	}
 	
-	/**
-	 * Request for reading 1 resource given by id
-	 */
-	public String get(String rt, int id) {
-	
-		this.methode = "GET";
-		String xmlStr = new String();
-		xmlStr = 
-		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-		+"<message>"
-			+"<methode>"+this.methode+"</methode>"
-			+"<resourceType>"+rt+"</resourceType>"
-			+"<resourceId>"+id+"</resourceId>"
-		+"</message>";
-		
-		return this.execRequest(xmlStr);
-	}
-	
-	/**
-	 * Request for create resources
-	 */
-	public String post(String rt, String xml) {
-		this.methode = "POST";
-		String xmlStr = new String();
-		xmlStr = 
-		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-		+"<message>"
-			+"<methode>"+this.methode+"</methode>"
-			+"<resourceType>"+rt+"</resourceType>"
-			+"<resourceId>"+this.resourceId+"</resourceId>"
-			+"<resource>"+xml+"</resource>"
-		+"</message>";
-		
-		return this.execRequest(xmlStr);
-	}
-	
-	/**
-	 * Request for update resources
-	 */
-	public String put(String xml) {
-		this.methode = "PUT";
-		String xmlStr = new String();
-		xmlStr = 
-		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-		+"<message>"
-			+"<methode>"+this.methode+"</methode>"
-			+"<resourceType>"+this.resourceType+"</resourceType>"
-			+"<resourceId>"+this.resourceId+"</resourceId>"
-		+"</message>";
-		
-		return xmlStr;
-	}
-	
-	/**
-	 * Request for delete resources
-	 */
-	public String delete(String r, int id) {
 
-		String xmlStr = new String();
-		xmlStr = 
-		"<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-		+"<message>"
-			+"<methode>DELETE</methode>"
-			+"<resourceType>"+r+"</resourceType>"
-			+"<resourceId>"+id+"</resourceId>"
-		+"</message>";
+
+	/**
+	 * Send GET request for collect the specified resource 
+	 * 
+	 * @param resource
+	 * @return String
+	 */
+	@SuppressWarnings("unchecked")
+	public String get(String resource) {
+		JSONObject json = new JSONObject();
 		
-		return this.execRequest(xmlStr);
+		json.put("method", "GET");
+		json.put("resource", resource);
+		
+		return json.toJSONString();
 	}
 	
 	
+	
+	/**
+	 * Send POST request for create a resource in the body bellow
+	 * 
+	 * @param String resource
+	 * @param JSONObject body
+	 * @return String
+	 */
+	@SuppressWarnings("unchecked")
+	public String post(String resource, JSONObject body) {
+		JSONObject json = new JSONObject();
+		
+		json.put("method", "POST");
+		json.put("resource", resource);
+		json.put("body", body);
+		
+		return json.toJSONString();
+	}
+	
+	
+	
+	/**
+	 * Send PUT request for update the resource with the body bellow
+	 * 
+	 * @param resource
+	 * @param body
+	 * @return String 
+	 */
+	@SuppressWarnings("unchecked")
+	public String put(String resource, JSONObject body) {
+		JSONObject json = new JSONObject();
+		
+		json.put("method", "PUT");
+		json.put("resource", resource);
+		json.put("body", body);
+		
+		return json.toJSONString();
+	}
+	
+	
+	
+	/**
+	 * Send DELETE request for delete the resource bellow
+	 * 
+	 * @param resource
+	 * @return String 
+	 */
+	@SuppressWarnings("unchecked")
+	public String delete(String resource) {
+		JSONObject json = new JSONObject();
+		
+		json.put("method", "DELETE");
+		json.put("resource", resource);
+		
+		return json.toJSONString();
+	}
+	
+	
+	
+	/**
+	 * Execute the request (using socket) given to the server 
+	 * and catch his response in a String 
+	 * 
+	 * @param req
+	 * @return String 
+	 */
 	public String execRequest(String req) {
 		
 		String rep = new String();
@@ -215,58 +183,51 @@ public class Message {
 	}
 	
 	
-
-
+	
 	@Override
 	public String toString() {
-		return "Message [resourceType=" + resourceType + ", methode=" + methode + ", resourceId=" + resourceId + "]";
+		return "Message [resource=" + resource + ", method=" + method + ", body=" + body + "]";
 	}
 
 
-	public String getResourceType() {
-		return resourceType;
+
+	public String getResource() {
+		return resource;
 	}
 
 
-	public void setResourceType(String resourceType) {
-		this.resourceType = resourceType;
+	public void setResource(String resource) {
+		this.resource = resource;
 	}
 
 
-	public String getMethode() {
-		return methode;
+	public String getMethod() {
+		return method;
 	}
 
 
-	public void setMethode(String methode) {
-		this.methode = methode;
+	public void setMethod(String method) {
+		this.method = method;
 	}
 
 
-	public int getResourceId() {
-		return resourceId;
+	public String getBody() {
+		return body;
 	}
 
 
-	public void setResourceId(int resourceId) {
-		this.resourceId = resourceId;
+	public void setBody(String body) {
+		this.body = body;
 	}
 
 
-	/**
-	 * @return the fullMsgString
-	 */
-	public String getFullMsgString() {
-		return fullMsgString;
+	public String getFullMessage() {
+		return fullMessage;
 	}
 
 
-	/**
-	 * @param fullMsgString the fullMsgString to set
-	 */
-	public void setFullMsgString(String fullMsgString) {
-		this.fullMsgString = fullMsgString;
+	public void setFullMessage(String fullMessage) {
+		this.fullMessage = fullMessage;
 	}
-	
 	
 }

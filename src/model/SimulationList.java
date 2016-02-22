@@ -69,6 +69,8 @@ public class SimulationList implements Observable {
 			               s.setDuree(Integer.parseInt(ele.getElementsByTagName("nbmensualite").item(0).getTextContent()));
 			               s.setMensualite(Double.parseDouble(ele.getElementsByTagName("mensualite").item(0).getTextContent()));
 			               s.setMontant(Double.parseDouble(ele.getElementsByTagName("montant").item(0).getTextContent()));
+			               s.setTaux(Double.parseDouble(ele.getElementsByTagName("taux").item(0).getTextContent()));
+			               s.setTotal(Double.parseDouble(ele.getElementsByTagName("total").item(0).getTextContent()));
 			               
 			               for (Simulation sim : listSimulation) {
 			            	   if (sim.getId() == s.getId()) {

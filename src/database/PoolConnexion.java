@@ -2,8 +2,6 @@ package database;
 
 import java.util.ArrayList;
 
-import model.ConnectionDB;
-
 public class PoolConnexion {
 	
 	public final static int MAX_CONNEXION = 15;
@@ -12,8 +10,25 @@ public class PoolConnexion {
 	
 	private ArrayList<Connexion> listConnexion;
 	
+	private ConfigurationDB conf = null;
+	
 	public PoolConnexion() {
+		
+		/* Loading DB configuration */
+		this.conf = new ConfigurationDB();
+		
+		/* Initialize connection list */
 		this.listConnexion = new ArrayList<Connexion>();
+		this.initPool();
+	}
+	
+	private void initPool() {
+		System.out.println("Connection pool initialisation ...");
+		/* Create the connection pool */
+		for (int i = 0; i < PoolConnexion.MAX_CONNEXION; i++) {
+			System.out.println("Connexion "+i+" OK");
+			this.push(new Connexion(conf));
+		}
 	}
 	
 	/* Add new connexion */

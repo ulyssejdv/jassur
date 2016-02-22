@@ -119,8 +119,8 @@ public class SimulationController {
 	 * @param taux
 	 * @param duree
 	 */
-	public void updateAction(int idSimulation, String m, String t, String d) {
-		// TODO
+	public void updateAction(Simulation s) {
+		System.out.println("modification de : "+s.toXML());
 	}
 	
 	

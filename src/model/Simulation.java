@@ -168,7 +168,8 @@ public class Simulation extends Model implements Observable {
 						this.setDuree(Integer.parseInt(ele.getElementsByTagName("nbmensualite").item(0).getTextContent()));
 						this.setMensualite(Double.parseDouble(ele.getElementsByTagName("mensualite").item(0).getTextContent()));
 						this.setMontant(Double.parseDouble(ele.getElementsByTagName("montant").item(0).getTextContent()));
-
+						this.setTaux(Double.parseDouble(ele.getElementsByTagName("taux").item(0).getTextContent()));
+						this.setTotal(Double.parseDouble(ele.getElementsByTagName("total").item(0).getTextContent()));
 					} else {
 						System.out.println("non");
 					}
@@ -302,6 +303,8 @@ public class Simulation extends Model implements Observable {
 		strXml += "<montant>"+this.getMontant()+"</montant>";
 		strXml += "<mensualite>"+this.getMensualite()+"</mensualite>";
 		strXml += "<nbmensualite>"+this.getDuree()+"</nbmensualite>";
+		strXml += "<taux>"+this.getTaux()+"</taux>";
+		strXml += "<total>"+this.getTotal()+"</total>";
 		strXml += "</pret>";
 		return strXml;
 	}

@@ -1,62 +1,150 @@
 package model;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.sql.Connection;
+
+import org.json.simple.JSONObject;
 
 
-public class Client implements java.io.Serializable {
-
-	private int idClient;
-	private TypeClient typeClient;
+public class Client extends Model {
 	
+	/*
+	 * Has one
+	 */
+	private Address address;
+	
+	/*
+	 * Has many
+	 */
+	private ArrayList<Loan> loans;
+	
+	/*
+	 * Attributes
+	 */
+	private String firstName;
+	private String lastName;
+	private String phone;
+	private String email;
+	
+	private boolean business;
+	
+	
+	
+	/*
+	 * Constructors
+	 */
 	public Client() {
-	}
-
-	public Client(int idClient, TypeClient typeClient) {
-		this.idClient = idClient;
-		this.typeClient = typeClient;
+	
 	}
 	
-	public int getIdClient() {
-		return this.idClient;
+
+	@Override
+	public int insert() {
+		int id_address = this.address.insert();
+		
+		return 0;
 	}
 
-	public void setIdClient(int idClient) {
-		this.idClient = idClient;
+	@Override
+	public void get() {
+
 	}
 
-	public TypeClient getTypeClient() {
-		return this.typeClient;
+	@Override
+	public int update() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
-	public void setTypeClient(TypeClient typeClient) {
-		this.typeClient = typeClient;
-	}
-	
-	public String toString(){
-		return Integer.toString(this.idClient)+" "+Integer.toString(this.typeClient.getIdTypeClient());
+	@Override
+	public int delete() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
-	public static ArrayList<Client> selectClient(Connection conn, ConnectionDB database) {
-		Statement statement = null;
-		ResultSet resultat= null;
-		ArrayList<Client> clients=new ArrayList<Client>();
-		try {
-			statement = conn.createStatement();
-	        resultat = statement.executeQuery( "select * from client" );
-	 
-	        while ( resultat.next() ) {
-	        	clients.add(new Client(Integer.parseInt(resultat.getString(1)),database.getTypeClient(Integer.parseInt(resultat.getString(2)))));
-		}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        
-		return clients;
-}
+	@Override
+	public JSONObject toJSON() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void parseJSON(String json) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public Address getAddress() {
+		return address;
+	}
+
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+
+	public ArrayList<Loan> getLoans() {
+		return loans;
+	}
+
+
+	public void setLoans(ArrayList<Loan> loans) {
+		this.loans = loans;
+	}
+
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+
+	public String getLastName() {
+		return lastName;
+	}
+
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+
+	public String getPhone() {
+		return phone;
+	}
+
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+	public boolean isBusiness() {
+		return business;
+	}
+
+
+	public void setBusiness(boolean business) {
+		this.business = business;
+	}
 	
 }

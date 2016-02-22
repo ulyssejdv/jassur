@@ -26,6 +26,7 @@ public class ResSimPanel extends JPanel implements Observer {
 	private JPanel panel_1;
 	private JButton btnBack;
 	private JButton btnSave;
+	private JButton btnUpdate;
 	
 	/**
 	 * Create the panel.
@@ -57,6 +58,7 @@ public class ResSimPanel extends JPanel implements Observer {
 		btnSave = new JButton("Save");
 		btnSave.addActionListener(new SaveListener());
 		panel_1.add(btnSave);
+	
 	}
 
 	@Override
@@ -72,6 +74,14 @@ public class ResSimPanel extends JPanel implements Observer {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			sc.createAction();
+		}
+	}
+	
+	class UpdateListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			sc.updateAction(s);
 		}
 	}
 	

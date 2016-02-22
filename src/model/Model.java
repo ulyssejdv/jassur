@@ -1,6 +1,9 @@
 package model;
 
 import java.sql.Connection;
+import java.util.Date;
+
+import org.json.simple.JSONObject;
 
 public abstract class Model {
 	
@@ -8,19 +11,55 @@ public abstract class Model {
 	
 	protected String tableName = null;
 	
+	protected int id;
 	
-	/* Intercation with DB */
-	public abstract int insert(Connection conn);
+	protected Date createdAt;
 	
-	public abstract void get(Connection conn, int id);
+	protected Date updatedAt;
 	
-	public abstract int update(Connection conn);
-	
-	public abstract int delete(Connection con);
+	protected Connection connection = null;
 	
 	
-	/* Do you speak XML ? */
-	public abstract String toXML();
 	
-	public abstract void parseXML(String xml);
+	/* CRUD PART */
+	public abstract int insert();
+	
+	public abstract void get();
+	
+	public abstract int update();
+	
+	public abstract int delete();
+	
+
+	
+	/* Do you speak JSON ? */
+	public abstract JSONObject toJSON();
+	
+	public abstract void parseJSON(String json);
+	
+	
+	
+	public String getPrimaryKey() {
+		return primaryKey;
+	}
+
+	public void setPrimaryKey(String primaryKey) {
+		this.primaryKey = primaryKey;
+	}
+
+	public String getTableName() {
+		return tableName;
+	}
+
+	public void setTableName(String tableName) {
+		this.tableName = tableName;
+	}
+
+	public Connection getConnection() {
+		return connection;
+	}
+
+	public void setConnection(Connection connection) {
+		this.connection = connection;
+	}
 }

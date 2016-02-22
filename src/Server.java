@@ -4,31 +4,47 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import database.ConfigurationDB;
 import database.Connexion;
 import database.PoolConnexion;
 import message.Message;
 import message.Routeur;
+import model.Pret;
 
 public class Server {
 	
 	private static PoolConnexion poolConnexion = null;
 
+	@SuppressWarnings("unchecked")
 	public static void main(String[] args) {
 		
-		/* Loading DB configuration */
-		System.out.println("Loading configuration file ...");
-		ConfigurationDB conf = new ConfigurationDB();
-		
-		System.out.println("Creating connexion pool ...");
+		/* Create Connection Pool */
 		poolConnexion = new PoolConnexion();
 		
-		/* Create the connection pool */
-		for (int i = 0; i < PoolConnexion.MAX_CONNEXION; i++) {
-			System.out.println("Connexion "+i+" OK");
-			poolConnexion.push(new Connexion(conf));
-		}
+		JSONObject o = new JSONObject();
+		
+		// Test de création de message
+		/*Message out = new Message();
+		Message in = new Message();
+		
+		JSONObject o = new JSONObject();
+		
+		o.put("montant", 10000.0);
+		o.put("taux", 1.90);
+		o.put("mensualite", 24);
+		
+		
+		in.read(out.post("pret", o));
+		
+		System.out.println(in.toString());
+		System.exit(0);*/
+		
 		
 		ServerSocket serverSocket = null;
 		String clientMsg = new String();
@@ -50,6 +66,8 @@ public class Server {
 				/* Read input client message */
 				Message message = new Message();
 				message.read(inputClient.readLine());
+				
+				
 				
 				/* Start analyze of the message for routing 
 				 * and give the phone (outpuClient) to the router 

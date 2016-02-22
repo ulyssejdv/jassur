@@ -75,7 +75,10 @@ public class Routeur {
 				/* Need a new connectionDB for interact with it (Pool)*/
 				ConnectionDB cdb = new ConnectionDB(this.poolConnexion.pop().getConnection());
 				/* Get all the pret beacause we know client need it ;) */
-				Pret p = Pret.get(this.poolConnexion.pop().getConnection(), cdb, message.getResourceId());
+				//Pret p = Pret.get(this.poolConnexion.pop().getConnection(), cdb, message.getResourceId());
+				Pret p = new Pret();
+				p.get(this.poolConnexion.pop().getConnection(), message.getResourceId());
+				System.out.println(p.toXML());
 				/* Send list of pret in xml over the socket */
 				try {
 					dataOutputStream.writeBytes(p.toXML()+'\n');
