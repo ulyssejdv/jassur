@@ -1,10 +1,10 @@
-import dao.DAO;
-import dao.LoanDAO;
-import database.PoolConnexion;
-import model.Category;
-import model.Loan;
-import model.Rate;
-import model.State;
+import com.jassur.dao.DAO;
+import com.jassur.dao.LoanDAO;
+import com.jassur.database.PoolConnexion;
+import com.jassur.model.Category;
+import com.jassur.model.Loan;
+import com.jassur.model.Rate;
+import com.jassur.model.State;
 
 public class Test {
 
@@ -41,7 +41,6 @@ public class Test {
 		Loan loan = loanDAO.find(1);
 		
 		System.out.println(loan);
-		
 	}
 
 }

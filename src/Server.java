@@ -10,12 +10,12 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import database.ConfigurationDB;
-import database.Connexion;
-import database.PoolConnexion;
-import message.Message;
-import message.Routeur;
-import model.Pret;
+import com.jassur.database.ConfigurationDB;
+import com.jassur.database.Connexion;
+import com.jassur.database.PoolConnexion;
+import com.jassur.message.Message;
+import com.jassur.message.Routeur;
+import com.jassur.model.Pret;
 
 public class Server {
 	
