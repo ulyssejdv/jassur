@@ -5,29 +5,27 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.jassur.model.Loan;
+import com.jassur.model.Client;
 import com.jassur.model.Rate;
 import com.jassur.model.State;
 import com.mysql.jdbc.Statement;
 
-public class LoanDAO extends DAO<Loan> {
+public class ClientDAO extends DAO<Client> {
 
-	public LoanDAO(Connection conn) {
+	public ClientDAO(Connection conn) {
 		super(conn);
 	}
 
 	@Override
-	public boolean create(Loan obj) {
-		
+	public boolean create(Client obj) {
 		String sql = 
-				"INSERT INTO loans "+
-				"(client_id, category_id, amount, total_duration, total_amount) "+
+				"INSERT INTO client "+
+				"(last_name, first_name, phone, email, business) "+
 				"VALUES (?, ?, ?, ?, ?)";
 		
 		try {
 			PreparedStatement statement = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			// truc chelou la !
-			statement.setInt(1, obj.getClient().getId());
+			statement.setInt(1, obj.getId());
 			statement.setInt(2, obj.getCategory().getId());
 			statement.setInt(3, obj.getAmount());
 			statement.setInt(4, obj.getTotalDuration());
@@ -68,18 +66,20 @@ public class LoanDAO extends DAO<Loan> {
 	}
 
 	@Override
-	public boolean delete(Loan obj) {
+	public boolean delete(Client obj) {
+		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean update(Loan obj) {
+	public boolean update(Client obj) {
+		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public Loan find(int id) {
-		Loan loan = null;
+	public Client find(int id) {
+		Client client = null;
 		
 		try {
 			ResultSet result = this.connect.createStatement(
@@ -87,43 +87,31 @@ public class LoanDAO extends DAO<Loan> {
 					ResultSet.CONCUR_READ_ONLY
 			).executeQuery(
 					"SELECT * "+
-				    "FROM loans LEFT JOIN rates ON loans.id_loan = rates.loan_id "+
-					"LEFT JOIN states ON loans.id_loan = states.loan_id "+
-					"WHERE loans.id_loan = "+id+";");
+				    "FROM clients INNER JOIN addresses ON clients.address_id = addresses.id_address "+
+					"WHERE clients.id_client = "+id+";");
 			
 			if (result.first()) {
 				
-				loan = new Loan();
+				client = new Client();
 				
-				loan.setId(id);
-				loan.setAmount(result.getInt("amount"));
-				loan.setTotalAmount(result.getInt("total_amount"));
-				loan.setTotalDuration(result.getInt("total_duration"));
+				client.setId(id);
+				client.setBusiness(result.getBoolean("business"));
+				client.setEmail(result.getString("email"));
+				client.setFirstName(result.getString("first_name"));
+				client.setLastName(result.getString("last_name"));
+				client.setPhone(result.getString("phone"));
 				
 				/* Get the category */
-				CategoryDAO categoryDAO = new CategoryDAO(this.connect);
-				loan.setCategory(categoryDAO.find(result.getInt("category_id")));
-				
-				/* Get all the rates */
-				result.beforeFirst();
-				RateDAO rateDAO = new RateDAO(this.connect);
-				while (result.next()) {
-					loan.addRate(rateDAO.find(result.getInt("id_rate")));
-				}
-				
-				/* Get all the states */
-				result.beforeFirst();
-				StateDAO stateDAO = new StateDAO(this.connect);
-				while (result.next()) {
-					loan.addState(stateDAO.find(result.getInt("id_rate")));
-				}
+				AddressDAO addressDAO = new AddressDAO(this.connect);
+				client.setAddress(addressDAO.find(result.getInt("address_id")));
+			
 				
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return loan;
+		return client;
 	}
 
 }

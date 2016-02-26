@@ -2,7 +2,9 @@ package com.jassur.model;
 
 import org.json.simple.JSONObject;
 
-public class Address extends Model {
+public class Address {
+	
+	private int id = 0;
 	
 	private String street;
 	private String city;
@@ -11,40 +13,14 @@ public class Address extends Model {
 	
 	private int zip;
 
-	@Override
-	public int insert() {
-		// TODO Auto-generated method stub
-		return 0;
+	
+	
+	public int getId() {
+		return id;
 	}
 
-	@Override
-	public void get() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public int update() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int delete() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public JSONObject toJSON() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void parseJSON(String json) {
-		// TODO Auto-generated method stub
-
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getStreet() {
