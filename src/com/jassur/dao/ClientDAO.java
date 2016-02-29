@@ -1,36 +1,32 @@
 package com.jassur.dao;
 
-import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.jassur.model.Client;
-import com.jassur.model.Rate;
-import com.jassur.model.State;
 import com.mysql.jdbc.Statement;
 
 public class ClientDAO extends DAO<Client> {
 
-	public ClientDAO(Connection conn) {
-		super(conn);
-	}
 
 	@Override
 	public boolean create(Client obj) {
+		
 		String sql = 
-				"INSERT INTO client "+
-				"(last_name, first_name, phone, email, business) "+
-				"VALUES (?, ?, ?, ?, ?)";
+				"INSERT INTO clients "+
+				"(last_name, first_name, phone, email, business, created_at) "+
+				"VALUES (?, ?, ?, ?, ?, ?)";
 		
 		try {
 			PreparedStatement statement = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			statement.setInt(1, obj.getId());
-			statement.setInt(2, obj.getCategory().getId());
-			statement.setInt(3, obj.getAmount());
-			statement.setInt(4, obj.getTotalDuration());
-			
-			statement.setDouble(5, obj.getTotalAmount());
+			statement.setString(1, obj.getLastName());
+			statement.setString(2, obj.getFirstName());
+			statement.setString(3, obj.getPhone());
+			statement.setString(4, obj.getEmail());
+			statement.setBoolean(5, obj.getBusiness());
+			statement.setDate(6, new Date(System.currentTimeMillis()));
 			
 			int rowInserted = statement.executeUpdate();
 			
@@ -38,21 +34,12 @@ public class ClientDAO extends DAO<Client> {
 				ResultSet generatedKeys = statement.getGeneratedKeys();
 				
 				if (generatedKeys.next()) {
+					/* Get the generated id for the client and set it */
 	                obj.setId(generatedKeys.getInt(1));
-	                
-	                RateDAO rateDAO = new RateDAO(this.connect);
-	                StateDAO stateDAO = new StateDAO(this.connect);
-	                
-	                for (Rate rate : obj.getRates()) {
-						rate.setLoanId(obj.getId());
-						rateDAO.create(rate);
-					}
-	                
-	                for (State state : obj.getStates()) {
-						state.setLoanId(obj.getId());
-						stateDAO.create(state);
-					}
-	                
+	                obj.getAddress().setClientId(obj.getId());
+	                AddressDAO addressDAO = new AddressDAO();
+	                addressDAO.setConnect(connect);
+	                addressDAO.create(obj.getAddress());
 	            }
 				
 				return true;
@@ -102,7 +89,7 @@ public class ClientDAO extends DAO<Client> {
 				client.setPhone(result.getString("phone"));
 				
 				/* Get the category */
-				AddressDAO addressDAO = new AddressDAO(this.connect);
+				AddressDAO addressDAO = new AddressDAO();
 				client.setAddress(addressDAO.find(result.getInt("address_id")));
 			
 				

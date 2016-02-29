@@ -1,7 +1,5 @@
 package com.jassur.model;
 
-import org.json.simple.JSONObject;
-
 public class Address {
 	
 	private int id = 0;
@@ -12,9 +10,19 @@ public class Address {
 	private String region;
 	
 	private int zip;
+	
+	private int clientId;
 
 	
 	
+	public int getClientId() {
+		return clientId;
+	}
+
+	public void setClientId(int clientId) {
+		this.clientId = clientId;
+	}
+
 	public int getId() {
 		return id;
 	}

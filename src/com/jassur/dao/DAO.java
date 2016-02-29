@@ -6,10 +6,20 @@ public abstract class DAO<T> {
 	
 	protected Connection connect = null;
 	
-	public DAO(Connection conn) {
-		this.connect = conn;
+	public Connection getConnect() {
+		return connect;
+	}
+
+	public void setConnect(Connection connect) {
+		this.connect = connect;
 	}
 	
+	/*public DAO(Connection conn) {
+		this.connect = conn;
+	}*/
+	
+	
+
 	/**
 	 * Insert object into DB
 	 * @param obj

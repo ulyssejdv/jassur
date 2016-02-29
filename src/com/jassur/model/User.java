@@ -3,13 +3,11 @@
  */
 package com.jassur.model;
 
-import org.json.simple.JSONObject;
-
 /**
  * @author ulysse
  *
  */
-public class User extends Model {
+public class User {
 	
 	
 	/*
@@ -20,59 +18,34 @@ public class User extends Model {
 	private String firstName;
 	private String email;
 	private String phone;
-	
-	/* (non-Javadoc)
-	 * @see model.Model#insert()
-	 */
-	@Override
-	public int insert() {
-		// TODO Auto-generated method stub
-		return 0;
+	public String getPassword() {
+		return password;
 	}
-
-	/* (non-Javadoc)
-	 * @see model.Model#get()
-	 */
-	@Override
-	public void get() {
-		// TODO Auto-generated method stub
-
+	public void setPassword(String password) {
+		this.password = password;
 	}
-
-	/* (non-Javadoc)
-	 * @see model.Model#update()
-	 */
-	@Override
-	public int update() {
-		// TODO Auto-generated method stub
-		return 0;
+	public String getLastName() {
+		return lastName;
 	}
-
-	/* (non-Javadoc)
-	 * @see model.Model#delete()
-	 */
-	@Override
-	public int delete() {
-		// TODO Auto-generated method stub
-		return 0;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
-
-	/* (non-Javadoc)
-	 * @see model.Model#toJSON()
-	 */
-	@Override
-	public JSONObject toJSON() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getFirstName() {
+		return firstName;
 	}
-
-	/* (non-Javadoc)
-	 * @see model.Model#parseJSON(java.lang.String)
-	 */
-	@Override
-	public void parseJSON(String json) {
-		// TODO Auto-generated method stub
-
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
-
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 }

@@ -1,6 +1,5 @@
 package com.jassur.dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,10 +7,6 @@ import java.sql.SQLException;
 import com.jassur.model.Rate;
 
 public class RateDAO extends DAO<Rate> {
-
-	public RateDAO(Connection conn) {
-		super(conn);
-	}
 
 	@Override
 	public boolean create(Rate obj) {

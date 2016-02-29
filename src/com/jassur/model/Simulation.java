@@ -10,8 +10,6 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.sql.Connection;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -32,7 +30,7 @@ import com.jassur.observer.Observer;
  * @author ulysse
  *
  */
-public class Simulation extends Model implements Observable {
+public class Simulation implements Observable {
 	
 	public static int compteur = 0;
 	
@@ -269,46 +267,6 @@ public class Simulation extends Model implements Observable {
 		for	(Observer obs : listObserver) {
 			obs.update(this);
 		}
-	}
-
-	@Override
-	public int insert(Connection conn) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void get(Connection conn, int id) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public int update(Connection conn) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int delete(Connection con) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public String toXML() {
-		String strXml = new String();
-		strXml += "<pret>";
-		strXml += "<id>"+this.getId()+"</id>";
-		strXml += "<montant>"+this.getMontant()+"</montant>";
-		strXml += "<mensualite>"+this.getMensualite()+"</mensualite>";
-		strXml += "<nbmensualite>"+this.getDuree()+"</nbmensualite>";
-		strXml += "<taux>"+this.getTaux()+"</taux>";
-		strXml += "<total>"+this.getTotal()+"</total>";
-		strXml += "</pret>";
-		return strXml;
-	}
-
-	
+	}	
 
 }

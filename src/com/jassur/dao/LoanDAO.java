@@ -1,6 +1,5 @@
 package com.jassur.dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,10 +10,7 @@ import com.jassur.model.State;
 import com.mysql.jdbc.Statement;
 
 public class LoanDAO extends DAO<Loan> {
-
-	public LoanDAO(Connection conn) {
-		super(conn);
-	}
+	
 
 	@Override
 	public boolean create(Loan obj) {
@@ -26,7 +22,6 @@ public class LoanDAO extends DAO<Loan> {
 		
 		try {
 			PreparedStatement statement = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			// truc chelou la !
 			statement.setInt(1, obj.getClient().getId());
 			statement.setInt(2, obj.getCategory().getId());
 			statement.setInt(3, obj.getAmount());
@@ -42,8 +37,10 @@ public class LoanDAO extends DAO<Loan> {
 				if (generatedKeys.next()) {
 	                obj.setId(generatedKeys.getInt(1));
 	                
-	                RateDAO rateDAO = new RateDAO(this.connect);
-	                StateDAO stateDAO = new StateDAO(this.connect);
+	                RateDAO rateDAO = new RateDAO();
+	                rateDAO.setConnect(connect);
+	                StateDAO stateDAO = new StateDAO();
+	                stateDAO.setConnect(connect);
 	                
 	                for (Rate rate : obj.getRates()) {
 						rate.setLoanId(obj.getId());
@@ -101,19 +98,23 @@ public class LoanDAO extends DAO<Loan> {
 				loan.setTotalDuration(result.getInt("total_duration"));
 				
 				/* Get the category */
-				CategoryDAO categoryDAO = new CategoryDAO(this.connect);
+				CategoryDAO categoryDAO = new CategoryDAO();
+				categoryDAO.setConnect(connect);
 				loan.setCategory(categoryDAO.find(result.getInt("category_id")));
 				
 				/* Get all the rates */
 				result.beforeFirst();
-				RateDAO rateDAO = new RateDAO(this.connect);
+				RateDAO rateDAO = new RateDAO();
+				rateDAO.setConnect(connect);
+				
 				while (result.next()) {
 					loan.addRate(rateDAO.find(result.getInt("id_rate")));
 				}
 				
 				/* Get all the states */
 				result.beforeFirst();
-				StateDAO stateDAO = new StateDAO(this.connect);
+				StateDAO stateDAO = new StateDAO();
+				stateDAO.setConnect(connect);
 				while (result.next()) {
 					loan.addState(stateDAO.find(result.getInt("id_rate")));
 				}

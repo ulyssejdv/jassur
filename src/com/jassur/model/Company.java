@@ -3,13 +3,11 @@
  */
 package com.jassur.model;
 
-import org.json.simple.JSONObject;
-
 /**
  * @author ulysse
  *
  */
-public class Company extends Model {
+public class Company {
 	
 	/*
 	 * Has one
@@ -21,61 +19,29 @@ public class Company extends Model {
 	 * Attributes
 	 */
 	private String name;
-	
 
-	
-	/* (non-Javadoc)
-	 * @see model.Model#insert()
-	 */
-	@Override
-	public int insert() {
-		// TODO Auto-generated method stub
-		return 0;
+	public Address getAddress() {
+		return address;
 	}
 
-	/* (non-Javadoc)
-	 * @see model.Model#get()
-	 */
-	@Override
-	public void get() {
-		// TODO Auto-generated method stub
-
+	public void setAddress(Address address) {
+		this.address = address;
 	}
 
-	/* (non-Javadoc)
-	 * @see model.Model#update()
-	 */
-	@Override
-	public int update() {
-		// TODO Auto-generated method stub
-		return 0;
+	public Client getClient() {
+		return client;
 	}
 
-	/* (non-Javadoc)
-	 * @see model.Model#delete()
-	 */
-	@Override
-	public int delete() {
-		// TODO Auto-generated method stub
-		return 0;
+	public void setClient(Client client) {
+		this.client = client;
 	}
 
-	/* (non-Javadoc)
-	 * @see model.Model#toJSON()
-	 */
-	@Override
-	public JSONObject toJSON() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getName() {
+		return name;
 	}
 
-	/* (non-Javadoc)
-	 * @see model.Model#parseJSON(java.lang.String)
-	 */
-	@Override
-	public void parseJSON(String json) {
-		// TODO Auto-generated method stub
-
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

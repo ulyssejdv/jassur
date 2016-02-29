@@ -1,6 +1,5 @@
 package com.jassur.dao;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -8,9 +7,6 @@ import com.jassur.model.Category;
 
 public class CategoryDAO extends DAO<Category> {
 
-	public CategoryDAO(Connection conn) {
-		super(conn);
-	}
 
 	@Override
 	public boolean create(Category obj) {

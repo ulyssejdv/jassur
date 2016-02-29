@@ -11,6 +11,8 @@ public class Client {
 	 * Has one
 	 */
 	private Address address;
+	private int addressId;
+	
 	
 	/*
 	 * Has many
@@ -26,6 +28,7 @@ public class Client {
 	private String email;
 	
 	private boolean business;
+
 	
 	
 	
@@ -101,11 +104,19 @@ public class Client {
 
 
 	
-	public boolean isBusiness() {
+	public boolean getBusiness() {
 		return business;
 	}
 	public void setBusiness(boolean business) {
 		this.business = business;
+	}
+	
+	
+	public int getAddressId() {
+		return addressId;
+	}
+	public void setAddressId(int addressId) {
+		this.addressId = addressId;
 	}
 	
 }

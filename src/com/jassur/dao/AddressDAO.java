@@ -1,6 +1,5 @@
 package com.jassur.dao;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,16 +8,12 @@ import com.jassur.model.Address;
 
 public class AddressDAO extends DAO<Address> {
 
-	public AddressDAO(Connection conn) {
-		super(conn);
-	}
-
 	@Override
 	public boolean create(Address obj) {
-		String sql = 
-				"INSERT INTO addresses "+
-				"(street, city, country, region, zip) "+
-				"VALUES (?, ?, ?, ?, ?)";
+		
+		String sql = "INSERT INTO addresses "+
+				"(street, city, country, region, zip, client_id) "+
+				"VALUES (?, ?, ?, ?, ?, ?)";
 		
 		try {
 			
@@ -28,7 +23,9 @@ public class AddressDAO extends DAO<Address> {
 			statement.setString(2, obj.getCity());
 			statement.setString(3, obj.getCountry());
 			statement.setString(4, obj.getRegion());
+			
 			statement.setInt(5, obj.getZip());
+			statement.setInt(6, obj.getClientId());
 			
 			int rowInserted = statement.executeUpdate();
 			
