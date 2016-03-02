@@ -2,8 +2,10 @@ package com.jassur.model;
 
 import java.util.ArrayList;
 
+import org.json.simple.JSONObject;
 
-public class Client {
+
+public class Client implements Model {
 	
 	private int id = 0;
 	
@@ -117,6 +119,40 @@ public class Client {
 	}
 	public void setAddressId(int addressId) {
 		this.addressId = addressId;
+	}
+
+
+	@Override
+	public JSONObject toJSON() {
+		
+		JSONObject jObj = new JSONObject();
+		
+		jObj.put("id_client", this.id);
+		jObj.put("first_name", this.firstName);
+		jObj.put("last_name", this.lastName);
+		jObj.put("phone", this.phone);
+		jObj.put("email", this.email);
+		jObj.put("business", this.business);
+		jObj.put("address", this.address.toJSON());
+		
+		return jObj;
+	}
+
+
+
+	@Override
+	public void parseJSON(JSONObject jo) {
+		this.id = (int) (long)jo.get("id_client");
+		this.firstName = (String)jo.get("first_name");
+		this.lastName = (String)jo.get("last_name");
+		this.phone = (String)jo.get("phone");
+		this.email = (String)jo.get("email");
+		this.business = (boolean)jo.get("business");
+		
+		Address ad = new Address();
+		ad.parseJSON((JSONObject) jo.get("address"));
+		this.address = ad;
+		
 	}
 	
 }

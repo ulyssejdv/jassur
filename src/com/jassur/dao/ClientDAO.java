@@ -4,7 +4,9 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
+import com.jassur.model.Address;
 import com.jassur.model.Client;
 import com.mysql.jdbc.Statement;
 
@@ -74,7 +76,7 @@ public class ClientDAO extends DAO<Client> {
 					ResultSet.CONCUR_READ_ONLY
 			).executeQuery(
 					"SELECT * "+
-				    "FROM clients INNER JOIN addresses ON clients.address_id = addresses.id_address "+
+				    "FROM clients INNER JOIN addresses ON clients.id_client = addresses.client_id "+
 					"WHERE clients.id_client = "+id+";");
 			
 			if (result.first()) {
@@ -88,9 +90,15 @@ public class ClientDAO extends DAO<Client> {
 				client.setLastName(result.getString("last_name"));
 				client.setPhone(result.getString("phone"));
 				
-				/* Get the category */
-				AddressDAO addressDAO = new AddressDAO();
-				client.setAddress(addressDAO.find(result.getInt("address_id")));
+				
+				Address address = new Address();
+				address.setCity(result.getString("city"));
+				address.setStreet(result.getString("street"));
+				address.setCountry(result.getString("country"));
+				address.setRegion(result.getString("region"));
+				address.setZip(result.getInt("zip"));
+				
+				client.setAddress(address);
 			
 				
 			}
@@ -99,6 +107,51 @@ public class ClientDAO extends DAO<Client> {
 			e.printStackTrace();
 		}
 		return client;
+	}
+
+	@Override
+	public ArrayList<Client> find() {
+		ArrayList<Client> clients = new ArrayList<Client>();
+		
+		try {
+			ResultSet result = this.connect.createStatement(
+					ResultSet.TYPE_SCROLL_INSENSITIVE,
+					ResultSet.CONCUR_READ_ONLY
+			).executeQuery(
+					"SELECT * "+
+				    "FROM clients INNER JOIN addresses ON clients.id_client = addresses.client_id ");
+			
+			if (result.first()) {
+				
+				while (result.next()) {
+					Client client = new Client();
+					
+					client.setId(result.getInt("id_client"));
+					client.setBusiness(result.getBoolean("business"));
+					client.setEmail(result.getString("email"));
+					client.setFirstName(result.getString("first_name"));
+					client.setLastName(result.getString("last_name"));
+					client.setPhone(result.getString("phone"));
+					
+					
+					Address address = new Address();
+					address.setCity(result.getString("city"));
+					address.setStreet(result.getString("street"));
+					address.setCountry(result.getString("country"));
+					address.setRegion(result.getString("region"));
+					address.setZip(result.getInt("zip"));
+					
+					client.setAddress(address);
+					
+					clients.add(client);
+				}		
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return clients;
 	}
 
 }

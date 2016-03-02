@@ -2,7 +2,17 @@ package com.jassur.database;
 
 import java.util.ArrayList;
 
-public class PoolConnexion {
+/*
+ * 
+ * 
+ * 
+ * 
+ * MUST BE A SINGLETON : TO BE IMPLEMENTED
+ * 
+ * 
+ */
+
+public class PoolConnection {
 	
 	public final static int MAX_CONNEXION = 15;
 	
@@ -12,7 +22,7 @@ public class PoolConnexion {
 	
 	private ConfigurationDB conf = null;
 	
-	public PoolConnexion() {
+	public PoolConnection() {
 		
 		/* Loading DB configuration */
 		this.conf = new ConfigurationDB();
@@ -25,7 +35,7 @@ public class PoolConnexion {
 	private void initPool() {
 		System.out.println("Connection pool initialisation ...");
 		/* Create the connection pool */
-		for (int i = 0; i < PoolConnexion.MAX_CONNEXION; i++) {
+		for (int i = 0; i < PoolConnection.MAX_CONNEXION; i++) {
 			System.out.println("Connexion "+i+" OK");
 			this.push(new Connexion(conf));
 		}

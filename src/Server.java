@@ -4,81 +4,63 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-
-import com.jassur.database.ConfigurationDB;
-import com.jassur.database.Connexion;
-import com.jassur.database.PoolConnexion;
+import com.jassur.database.PoolConnection;
+import com.jassur.message.Dispatcher;
 import com.jassur.message.Message;
-import com.jassur.message.Routeur;
-import com.jassur.model.Pret;
+import com.jassur.message.RequestBuilder;
 
 public class Server {
 	
-	private static PoolConnexion poolConnexion = null;
+	private static PoolConnection poolConnection = null;
 
-	@SuppressWarnings("unchecked")
 	public static void main(String[] args) {
 		
 		/* Create Connection Pool */
-		poolConnexion = new PoolConnexion();
-		
-		JSONObject o = new JSONObject();
-		
-		// Test de création de message
-		/*Message out = new Message();
-		Message in = new Message();
-		
-		JSONObject o = new JSONObject();
-		
-		o.put("montant", 10000.0);
-		o.put("taux", 1.90);
-		o.put("mensualite", 24);
-		
-		
-		in.read(out.post("pret", o));
-		
-		System.out.println(in.toString());
-		System.exit(0);*/
-		
+		poolConnection = new PoolConnection();
+	
 		
 		ServerSocket serverSocket = null;
-		String clientMsg = new String();
 		
 		try {
+			
 			serverSocket = new ServerSocket(6789);
 			System.out.println("Server now listening on :"+serverSocket.getLocalPort()+" ...");
+			
+			/* Start the server */
+			while (true) {
+				
+				BufferedReader inputClient = null;
+				DataOutputStream outputClient = null;
+				
+				try {
+					Socket socket = serverSocket.accept();
+					inputClient = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+					outputClient = new DataOutputStream(socket.getOutputStream());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+					
+				try {
+					/* Read input client message */
+					String message = inputClient.readLine();	
+					
+					System.out.println(message); // OK
+					
+					/* Start analyze of the message for routing 
+					 * and give the phone (outpuClient) to the router 
+					 * for callback
+					 */
+					Dispatcher dispatcher = new Dispatcher(outputClient, poolConnection);
+					dispatcher.analyze(message);	
+					
+				} catch (IOException e) {
+					e.printStackTrace();
+				}	
+			} // end infinite loop
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		/* Start the server */
-		while (true) {
-			try {
-				Socket socket = serverSocket.accept();
-				BufferedReader inputClient = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-				DataOutputStream outputClient = new DataOutputStream(socket.getOutputStream());
-				
-				/* Read input client message */
-				Message message = new Message();
-				message.read(inputClient.readLine());
-				
-				
-				
-				/* Start analyze of the message for routing 
-				 * and give the phone (outpuClient) to the router 
-				 * for callback
-				 */
-				Routeur routeur = new Routeur(outputClient, poolConnexion);
-				routeur.analyse(message);	
-				
-			} catch (IOException e) {
-				e.printStackTrace();
-			}	
-		} // end infinite loop
 	}
 }

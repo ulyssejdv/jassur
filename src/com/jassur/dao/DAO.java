@@ -1,22 +1,13 @@
 package com.jassur.dao;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 public abstract class DAO<T> {
 	
+	
+	
 	protected Connection connect = null;
-	
-	public Connection getConnect() {
-		return connect;
-	}
-
-	public void setConnect(Connection connect) {
-		this.connect = connect;
-	}
-	
-	/*public DAO(Connection conn) {
-		this.connect = conn;
-	}*/
 	
 	
 
@@ -47,4 +38,21 @@ public abstract class DAO<T> {
 	 * @return
 	 */
 	public abstract T find(int id);
+	
+	
+	/**
+	 * Get all the objects in the DB
+	 * @return
+	 */
+	public abstract ArrayList<T> find();
+	
+	
+	
+	public Connection getConnect() {
+		return connect;
+	}
+
+	public void setConnect(Connection connect) {
+		this.connect = connect;
+	}
 }

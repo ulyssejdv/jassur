@@ -1,6 +1,6 @@
 import com.jassur.dao.DAO;
 import com.jassur.dao.DAOFactory;
-import com.jassur.database.PoolConnexion;
+import com.jassur.database.PoolConnection;
 import com.jassur.model.Address;
 import com.jassur.model.Category;
 import com.jassur.model.Client;
@@ -12,7 +12,7 @@ public class Test {
 
 	public static void main(String[] args) {
 		
-		PoolConnexion poolConnexion = new PoolConnexion();
+		PoolConnection poolConnexion = new PoolConnection();
 		
 		// Get dao for mysql
 		DAOFactory daoFactory = DAOFactory.getFactory(DAOFactory.MYSQL_DAO_FACTORY);
@@ -54,7 +54,7 @@ public class Test {
 		client.setPhone("0154982635");
 		l.setClient(client);
 		
-		loanDAO.create(l);
+		//loanDAO.create(l);
 		
 		Loan loan = loanDAO.find(1);
 		
@@ -81,7 +81,9 @@ public class Test {
 		// setup the connection
 		clientDAO.setConnect(poolConnexion.pop().getConnection());
 		
-		clientDAO.create(client2);
+		//clientDAO.create(client2);
+		Client c2 = clientDAO.find(13);
+		System.out.println(c2.toJSON());
 		
 	}
 

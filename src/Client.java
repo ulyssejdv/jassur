@@ -1,3 +1,5 @@
+import org.json.simple.JSONObject;
+
 import com.jassur.controller.SimulationController;
 import com.jassur.model.Simulation;
 import com.jassur.model.SimulationList;
@@ -11,7 +13,7 @@ import com.jassur.view.MainFrame;
  * @author ulysse
  *
  */
-public class Main {
+public class Client {
 
 	/**
 	 * @param args

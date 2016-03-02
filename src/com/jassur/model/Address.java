@@ -1,6 +1,8 @@
 package com.jassur.model;
 
-public class Address {
+import org.json.simple.JSONObject;
+
+public class Address implements Model {
 	
 	private int id = 0;
 	
@@ -69,6 +71,30 @@ public class Address {
 
 	public void setZip(int zip) {
 		this.zip = zip;
+	}
+
+	@Override
+	public JSONObject toJSON() {
+		JSONObject jObj = new JSONObject();
+		
+		jObj.put("id_address", this.id);
+		jObj.put("street", this.street);
+		jObj.put("city", this.city);
+		jObj.put("country", this.country);
+		jObj.put("region", this.region);
+		jObj.put("zip", this.zip);
+		
+		return jObj;
+	}
+
+	@Override
+	public void parseJSON(JSONObject jo) {
+		this.id = (int) (long)jo.get("id_address");
+		this.street = (String)jo.get("street");
+		this.city = (String)jo.get("city");
+		this.country = (String)jo.get("country");
+		this.region = (String)jo.get("region");
+		this.zip = (int) (long)jo.get("zip");
 	}
 	
 
