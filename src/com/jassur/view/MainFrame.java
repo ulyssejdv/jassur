@@ -1,40 +1,100 @@
 package com.jassur.view;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 
-import com.jassur.controller.SimulationController;
+import com.jassur.controller.ClientController;
+import java.awt.CardLayout;
+import java.awt.FlowLayout;
 
 public class MainFrame extends JFrame {
-
-	private JPanel contentPane;
 	
-	private SimulationController simulationController;
-
+	
+	private JPanel context;
+	
+	private static MainFrame INSTANCE = null;
+	
+	public static MainFrame getInstance(JPanel p) {
+		if (INSTANCE == null) {
+			INSTANCE = new MainFrame(p);
+		} else {
+			INSTANCE.dispose();
+			INSTANCE = new MainFrame(p);
+		}
+		
+		return INSTANCE;
+	}
+	
+	
 	/**
 	 * Create the frame.
 	 */
-	public MainFrame(SimulationController sc) {
+	private MainFrame(JPanel p) {
 		
-		/* Give the controller who refer to */
-		this.simulationController = sc;
-		
+		setTitle("JASSUR - Client");
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
+		setBounds(100, 100, 900, 600);
+		
+		
+		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
+		JPanel panelLeft = new JPanel();
+		panelLeft.setBorder(new TitledBorder(null, "Menu", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		contentPane.add(panelLeft, BorderLayout.WEST);
+		panelLeft.setLayout(new BoxLayout(panelLeft, BoxLayout.Y_AXIS));
+		
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(null, "Clients", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panelLeft.add(panel);
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		
+		JButton btnClientList = new JButton("Liste");
+		btnClientList.addActionListener(new ClientListListener());
+		panel.add(btnClientList);
+		
+		JButton btnClientForm = new JButton("Ajouter");
+		btnClientForm.addActionListener(new ClientFormListener());
+		panel.add(btnClientForm);
+		
+		// context = new JPanel();
+		contentPane.add(p, BorderLayout.CENTER);
+		//context.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		this.setVisible(true);
 	}
 	
 	public void render(JPanel p) {
-		this.setContentPane(p);
-		this.setVisible(true);
+		getContentPane().removeAll();
+		getContentPane().add(p);
+		getContentPane().revalidate();
+	}
+	
+	
+	class ClientListListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			ClientController cc = new ClientController();
+			cc.indexAction();
+		}
+	}
+	
+	class ClientFormListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			ClientController cc = new ClientController();
+			cc.newAction();
+		}
 	}
 
 }

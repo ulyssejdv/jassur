@@ -3,6 +3,7 @@ package com.jassur.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.jassur.model.State;
 
@@ -68,6 +69,12 @@ public class StateDAO extends DAO<State> {
 			e.printStackTrace();
 		}
 		return state;
+	}
+
+	@Override
+	public ArrayList<State> find() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

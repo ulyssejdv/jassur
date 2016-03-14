@@ -16,7 +16,7 @@ public abstract class DAO<T> {
 	 * @param obj
 	 * @return
 	 */
-	public abstract boolean create(T obj);
+	public abstract T create(T obj);
 	
 	/**
 	 * Delete object of the DB
@@ -30,7 +30,7 @@ public abstract class DAO<T> {
 	 * @param obj
 	 * @return
 	 */
-	public abstract boolean update(T obj);
+	public abstract T update(T obj);
 	
 	/**
 	 * Get the object in the DB with the specified ID

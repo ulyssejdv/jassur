@@ -3,6 +3,7 @@ package com.jassur.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.jassur.model.Rate;
 
@@ -69,6 +70,12 @@ public class RateDAO extends DAO<Rate> {
 			e.printStackTrace();
 		}
 		return rate;
+	}
+
+	@Override
+	public ArrayList<Rate> find() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -10,7 +10,7 @@ import com.jassur.message.Dispatcher;
 import com.jassur.message.Message;
 import com.jassur.message.RequestBuilder;
 
-public class Server {
+public class ServerJassur {
 	
 	private static PoolConnection poolConnection = null;
 
@@ -45,12 +45,11 @@ public class Server {
 					/* Read input client message */
 					String message = inputClient.readLine();	
 					
-					System.out.println(message); // OK
-					
-					/* Start analyze of the message for routing 
+					/* Start message analyze 
 					 * and give the phone (outpuClient) to the router 
 					 * for callback
 					 */
+					
 					Dispatcher dispatcher = new Dispatcher(outputClient, poolConnection);
 					dispatcher.analyze(message);	
 					

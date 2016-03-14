@@ -18,16 +18,21 @@ public class Dispatcher {
 	
 	private DataOutputStream dataOutputStream = null;
 	private PoolConnection poolConnexion = null;
+	private DAOFactory daoFactory = null;
+	
+	private String responseString = new String();
 
 	public Dispatcher(DataOutputStream outputClient, PoolConnection pc) {
 		this.dataOutputStream = outputClient;
 		this.poolConnexion = pc;
+		this.daoFactory = DAOFactory.getFactory(DAOFactory.MYSQL_DAO_FACTORY);
 	}
 
 	public void analyze(String request) {
 		
 		String method = "";
 		String route = "";
+		JSONObject resource = null;
 		
 		JSONParser parser = new JSONParser();
 		
@@ -40,27 +45,29 @@ public class Dispatcher {
 			method = (String) jsonObj.get("method");
 			route = (String) jsonObj.get("route");
 			
+			if (jsonObj.containsKey("resource")) {
+				resource = (JSONObject) jsonObj.get("resource");
+			}
+			
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
-		System.out.println("Method : "+method);
-		System.out.println("Route : "+route);
 		
 		switch (method) {
 		case "GET":
 			this.dealingGet(route);
 			break;
 		case "POST":
-			//this.dealingPost(request);
+			this.dealingPost(route, resource);
 			break;
 		case "PUT":
-			//this.dealingPut(request);
+			this.dealingPut(route, resource);
 			break;
 		case "DELETE":
-			//this.dealingDelete(request);
+			this.dealingDelete(route);
 			break;
 		default:
+			System.out.println("Unknown method");
 			break;
 		}
 		
@@ -68,21 +75,19 @@ public class Dispatcher {
 	
 	private void dealingGet(String route) {
 		
-		System.out.println("Deal with GET request");
-		
-		DAOFactory daoFactory = DAOFactory.getFactory(DAOFactory.MYSQL_DAO_FACTORY);
-		
-		String responseString = new String();
-		
+		/* explode route 
+		 * and put fragments in items[]
+		 */
 		Pattern pattern = Pattern.compile("/");
 		String[] items = pattern.split(route);
 		
-		System.out.println("Number of items in request : "+items.length);
-		
 		if (items.length == 1) {
-			System.out.println("Item : "+items[0]);
+			
+			/*
+			 * Client
+			 */
 			if (items[0].equals("clients")) {
-				// get all the clients 
+				/* Get all clients and push them to a JSON array */
 				DAO<Client> clientDAO = daoFactory.getClientDAO();
 				clientDAO.setConnect(poolConnexion.pop().getConnection());
 				JSONArray array = new JSONArray();
@@ -91,7 +96,12 @@ public class Dispatcher {
 				}
 				responseString = array.toJSONString();
 			}
+			
 		} else if (items.length == 2) {
+			
+			/*
+			 * Client
+			 */
 			if (items[0].equals("clients")) {
 				DAO<Client> clientDAO = daoFactory.getClientDAO();
 				clientDAO.setConnect(poolConnexion.pop().getConnection());
@@ -108,60 +118,115 @@ public class Dispatcher {
 		}
 	}
 	
-	/*private void dealingPost(String message) {
+	private void dealingPost(String route, JSONObject resource) {
 		
-		Connection conn = this.poolConnexion.pop().getConnection(); 
-		Integer res = new Integer(0);
-		switch (message.getResourceType()) {
-		case "pret":
-			System.out.println("detect resource : pret");
-			Pret p = new Pret();
-			p.parseXML(message.getFullMsgString());
-			res = p.insert(conn);
-			break;
-
-		default:
-			break;
+		/* explode route 
+		 * and put fragments in items[]
+		 */
+		Pattern pattern = Pattern.compile("/");
+		String[] items = pattern.split(route);
+		
+		if (items.length == 1) {
+			
+			/*
+			 * Client
+			 */
+			if (items[0].equals("clients")) {
+				/* Get all clients and push them to a JSON array */
+				DAO<Client> clientDAO = daoFactory.getClientDAO();
+				clientDAO.setConnect(poolConnexion.pop().getConnection());
+				Client c = new Client();
+				c.parseJSON(resource);
+				c = clientDAO.create(c);
+				
+				if(c != null) {
+					Model model = c;
+					responseString = model.toJSON().toJSONString();
+				} else {
+					responseString = "[]"; // server error
+				}
+			}	
 		}
 		
+		/* Write the response in the socket */
 		try {
-			dataOutputStream.writeBytes("<message><code>"+res.toString()+"</code></message>"+'\n');
+			dataOutputStream.writeBytes(responseString+'\n');
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		System.out.println(message.toString());
 	}
 	
-	private void dealingPut(String message) {
+	private void dealingPut(String route, JSONObject resource) {
+		/* explode route 
+		 * and put fragments in items[]
+		 */
+		Pattern pattern = Pattern.compile("/");
+		String[] items = pattern.split(route);
 		
-	}
-	
-	private void dealingDelete(String message) {
-		
-		System.out.println(message.toString());
-		Connection conn = this.poolConnexion.pop().getConnection();
-		
-		switch (message.getResourceType()) {
-		case "pret":
-			//Integer res = Pret.deletePret(this.poolConnexion.pop().getConnection(), message.getResourceId());
+		if (items.length == 2) {
 			
-			Pret p = new Pret();
-			p.setIdPret(message.getResourceId());
-			Integer res = p.delete(conn);
-			
-			try {
-				dataOutputStream.writeBytes("<message><code>"+res.toString()+"</code></message>"+'\n');
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-			break;
-
-		default:
-			break;
+			/*
+			 * Client
+			 */
+			if (items[0].equals("clients")) {
+				/* Get all clients and push them to a JSON array */
+				DAO<Client> clientDAO = daoFactory.getClientDAO();
+				clientDAO.setConnect(poolConnexion.pop().getConnection());
+				
+				Client c = clientDAO.find(Integer.parseInt(items[1]));
+				
+				if (c != null) {
+					
+					c.parseJSON(resource);
+					c = clientDAO.update(c);
+					if(c != null) {
+						Model model = c;
+						responseString = model.toJSON().toJSONString();
+					} else {
+						responseString = "[]"; // server error
+					}	
+				}
+			}	
 		}
 		
-		System.out.println(message.toString());
-	}*/
+		/* Write the response in the socket */
+		try {
+			dataOutputStream.writeBytes(responseString+'\n');
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void dealingDelete(String route) {
+		/* explode route 
+		 * and put fragments in items[]
+		 */
+		Pattern pattern = Pattern.compile("/");
+		String[] items = pattern.split(route);
+		
+		if (items.length == 2) {
+			
+			/*
+			 * Client
+			 */
+			if (items[0].equals("clients")) {
+				/* Get all clients and push them to a JSON array */
+				DAO<Client> clientDAO = daoFactory.getClientDAO();
+				clientDAO.setConnect(poolConnexion.pop().getConnection());
+				Client c = clientDAO.find(Integer.parseInt(items[1]));
+				
+				if (c != null) {
+					clientDAO.delete(c);
+				}
+				responseString = "[]";
+			}	
+		}
+		
+		/* Write the response in the socket */
+		try {
+			dataOutputStream.writeBytes(responseString+'\n');
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

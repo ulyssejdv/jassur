@@ -2,6 +2,7 @@ package com.jassur.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.jassur.model.Category;
 
@@ -42,6 +43,12 @@ public class CategoryDAO extends DAO<Category> {
 			e.printStackTrace();
 		}
 		return category;
+	}
+
+	@Override
+	public ArrayList<Category> find() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

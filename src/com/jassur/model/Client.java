@@ -12,7 +12,7 @@ public class Client implements Model {
 	/*
 	 * Has one
 	 */
-	private Address address;
+	private Address address = null;
 	private int addressId;
 	
 	
@@ -24,10 +24,10 @@ public class Client implements Model {
 	/*
 	 * Attributes
 	 */
-	private String firstName;
-	private String lastName;
-	private String phone;
-	private String email;
+	private String firstName = "";
+	private String lastName = "";
+	private String phone = "";
+	private String email = "";
 	
 	private boolean business;
 
@@ -133,7 +133,10 @@ public class Client implements Model {
 		jObj.put("phone", this.phone);
 		jObj.put("email", this.email);
 		jObj.put("business", this.business);
-		jObj.put("address", this.address.toJSON());
+		if (this.address != null) {
+			jObj.put("address", this.address.toJSON());
+		}
+		
 		
 		return jObj;
 	}
@@ -149,10 +152,12 @@ public class Client implements Model {
 		this.email = (String)jo.get("email");
 		this.business = (boolean)jo.get("business");
 		
-		Address ad = new Address();
-		ad.parseJSON((JSONObject) jo.get("address"));
-		this.address = ad;
-		
+		if (jo.containsKey("address")) {
+			Address ad = new Address();
+			ad.parseJSON((JSONObject) jo.get("address"));
+			this.address = ad;
+		}
+	
 	}
 	
 }

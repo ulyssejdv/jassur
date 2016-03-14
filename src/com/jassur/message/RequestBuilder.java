@@ -2,6 +2,8 @@ package com.jassur.message;
 
 import org.json.simple.JSONObject;
 
+import com.jassur.model.Model;
+
 public class RequestBuilder {
 	
 	public static final int GET = 1;
@@ -11,21 +13,22 @@ public class RequestBuilder {
 	
 	private int method;
 	private String route;
-	private Object resource = null;
+	private Model resource = null;
 	
-	private JSONObject jObject = new JSONObject(); 
 	
 	public RequestBuilder(int method, String route) {
 		this.method = method;
 		this.route = route;
 	}
 	
-	public RequestBuilder(int method, String route, Object resource) {
+	public RequestBuilder(int method, String route, Model resource) {
 		this.method = method;
 		this.route = route;
 		this.resource = resource;
 	}
 	
+	
+	@SuppressWarnings("unchecked")
 	public String toJSONString() {
 		
 		JSONObject obj = new JSONObject();
@@ -50,9 +53,35 @@ public class RequestBuilder {
 		obj.put("route", this.route);
 		
 		if (this.resource != null) {
-			obj.put("resource", this.resource);
+			obj.put("resource", this.resource.toJSON());
 		}
-		
 		return obj.toJSONString();
-	}	
+	}
+
+	public int getMethod() {
+		return method;
+	}
+
+	public void setMethod(int method) {
+		this.method = method;
+	}
+
+	public String getRoute() {
+		return route;
+	}
+
+	public void setRoute(String route) {
+		this.route = route;
+	}
+
+	public Model getResource() {
+		return resource;
+	}
+
+	public void setResource(Model resource) {
+		this.resource = resource;
+	}
+	
+	
+	
 }

@@ -3,6 +3,7 @@ package com.jassur.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.jassur.model.Loan;
 import com.jassur.model.Rate;
@@ -125,6 +126,12 @@ public class LoanDAO extends DAO<Loan> {
 			e.printStackTrace();
 		}
 		return loan;
+	}
+
+	@Override
+	public ArrayList<Loan> find() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -6,12 +6,12 @@ public class Address implements Model {
 	
 	private int id = 0;
 	
-	private String street;
-	private String city;
-	private String country;
-	private String region;
+	private String street = "";
+	private String city = "";
+	private String country = "";
+	private String region = "";
 	
-	private int zip;
+	private int zip = 0;
 	
 	private int clientId;
 

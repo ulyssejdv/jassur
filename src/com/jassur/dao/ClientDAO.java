@@ -14,7 +14,7 @@ public class ClientDAO extends DAO<Client> {
 
 
 	@Override
-	public boolean create(Client obj) {
+	public Client create(Client obj) {
 		
 		String sql = 
 				"INSERT INTO clients "+
@@ -35,23 +35,26 @@ public class ClientDAO extends DAO<Client> {
 			if (rowInserted > 0) {
 				ResultSet generatedKeys = statement.getGeneratedKeys();
 				
-				if (generatedKeys.next()) {
-					/* Get the generated id for the client and set it */
-	                obj.setId(generatedKeys.getInt(1));
-	                obj.getAddress().setClientId(obj.getId());
-	                AddressDAO addressDAO = new AddressDAO();
-	                addressDAO.setConnect(connect);
-	                addressDAO.create(obj.getAddress());
-	            }
+				if (obj.getAddress() != null) {
+					if (generatedKeys.next()) {
+						/* Get the generated id for the client and set it */
+		                obj.setId(generatedKeys.getInt(1));
+		                obj.getAddress().setClientId(obj.getId());
+		                AddressDAO addressDAO = new AddressDAO();
+		                addressDAO.setConnect(connect);
+		                Address newAdd = addressDAO.create(obj.getAddress());
+		                obj.setAddress(newAdd);
+		            }
+				}
 				
-				return true;
+				return obj;
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return false;
+		return null;
 	}
 
 	@Override
@@ -61,9 +64,9 @@ public class ClientDAO extends DAO<Client> {
 	}
 
 	@Override
-	public boolean update(Client obj) {
+	public Client update(Client obj) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override
