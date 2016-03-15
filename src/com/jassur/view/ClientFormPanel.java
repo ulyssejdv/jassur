@@ -155,9 +155,9 @@ public class ClientFormPanel extends JPanel {
 			c2.setAddress(a);
 			
 			if (c.getId() != 0) {
-				cc.update(c);
+				cc.update(c2);
 			} else {
-				cc.create(c);
+				cc.create(c2);
 			}
 			
 			

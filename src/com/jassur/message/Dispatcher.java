@@ -214,9 +214,11 @@ public class Dispatcher {
 				DAO<Client> clientDAO = daoFactory.getClientDAO();
 				clientDAO.setConnect(poolConnexion.pop().getConnection());
 				Client c = clientDAO.find(Integer.parseInt(items[1]));
-				
+				System.out.println(c);
 				if (c != null) {
-					clientDAO.delete(c);
+					if (clientDAO.delete(c)) {
+						System.out.println("Deleted");
+					}
 				}
 				responseString = "[]";
 			}	

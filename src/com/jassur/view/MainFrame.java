@@ -23,13 +23,10 @@ public class MainFrame extends JFrame {
 	private static MainFrame INSTANCE = null;
 	
 	public static MainFrame getInstance(JPanel p) {
-		if (INSTANCE == null) {
-			INSTANCE = new MainFrame(p);
-		} else {
+		if (INSTANCE != null) {
 			INSTANCE.dispose();
-			INSTANCE = new MainFrame(p);
 		}
-		
+		INSTANCE = new MainFrame(p);
 		return INSTANCE;
 	}
 	
@@ -60,11 +57,11 @@ public class MainFrame extends JFrame {
 		panelLeft.add(panel);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		
-		JButton btnClientList = new JButton("Liste");
+		JButton btnClientList = new JButton("See all");
 		btnClientList.addActionListener(new ClientListListener());
 		panel.add(btnClientList);
 		
-		JButton btnClientForm = new JButton("Ajouter");
+		JButton btnClientForm = new JButton("Add new");
 		btnClientForm.addActionListener(new ClientFormListener());
 		panel.add(btnClientForm);
 		

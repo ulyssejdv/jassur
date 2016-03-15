@@ -59,8 +59,19 @@ public class ClientDAO extends DAO<Client> {
 
 	@Override
 	public boolean delete(Client obj) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		String sql = "DELETE FROM clients WHERE id_client = "+obj.getId();
+		System.out.println("SQL REQUEST : "+sql);
+		try {
+			int result = this.connect.createStatement().executeUpdate(sql);
+			
+			if (result > 0) {
+				return true;
+			}
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	@Override
