@@ -76,9 +76,38 @@ public class ClientDAO extends DAO<Client> {
 
 	@Override
 	public Client update(Client obj) {
-		// TODO Auto-generated method stub
-		return null;
+		String sql = "UPDATE clients SET last_name = ?, first_name = ?, phone = ?, business = ?, email = ?, updated_at = ? "
+				+"WHERE id_client = ?";
+		System.out.println("SQL REQUEST : "+sql);
+		
+		System.out.println(obj);
+		try {
+	
+			PreparedStatement stateUpdate = connect.prepareStatement(sql);
+			stateUpdate.setString(1,obj.getLastName());
+			stateUpdate.setString(2,obj.getFirstName());
+			stateUpdate.setString(3,obj.getPhone());
+			stateUpdate.setBoolean(4,obj.getBusiness());
+			stateUpdate.setString(5,obj.getEmail());
+			stateUpdate.setDate(6, new Date(System.currentTimeMillis()));
+			stateUpdate.setInt(7,obj.getId());
+			
+			stateUpdate.executeUpdate();
+
+			System.out.println("produit bien modifié");
+			//stateUpdate.close();
+		//	JOptionPane.showMessageDialog(null, "Modification réalisée",
+					//"MODIFICATION", JOptionPane.INFORMATION_MESSAGE);
+			
+			return obj;
+		} catch (Exception e) {
+			
+			System.out.println(e.getMessage());
+			return null;
+		}
+		
 	}
+		
 
 	@Override
 	public Client find(int id) {
