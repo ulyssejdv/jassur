@@ -121,6 +121,17 @@ public class Client implements Model {
 		this.addressId = addressId;
 	}
 
+	
+	
+
+	@Override
+	public String toString() {
+		return "Client [id=" + id + ", address=" + address + ", addressId=" + addressId + ", loans=" + loans
+				+ ", firstName=" + firstName + ", lastName=" + lastName + ", phone=" + phone + ", email=" + email
+				+ ", business=" + business + "]";
+	}
+
+
 
 	@Override
 	public JSONObject toJSON() {

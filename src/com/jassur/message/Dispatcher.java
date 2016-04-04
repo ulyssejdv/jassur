@@ -163,6 +163,8 @@ public class Dispatcher {
 		Pattern pattern = Pattern.compile("/");
 		String[] items = pattern.split(route);
 		
+		System.out.println("OK dealingPut");
+		
 		if (items.length == 2) {
 			
 			/*
@@ -173,11 +175,18 @@ public class Dispatcher {
 				DAO<Client> clientDAO = daoFactory.getClientDAO();
 				clientDAO.setConnect(poolConnexion.pop().getConnection());
 				
+				System.out.println("Client to find : "+Integer.parseInt(items[1]));
+				
 				Client c = clientDAO.find(Integer.parseInt(items[1]));
+				
+				System.out.println("Ok client");
 				
 				if (c != null) {
 					
 					c.parseJSON(resource);
+					
+					System.out.println(c);
+					
 					c = clientDAO.update(c);
 					if(c != null) {
 						Model model = c;
