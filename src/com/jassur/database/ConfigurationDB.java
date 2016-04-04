@@ -68,6 +68,7 @@ public class ConfigurationDB {
 			               dbEnv = ele.getElementsByTagName("env").item(0).getTextContent();
 					} else {
 						System.out.println("non");
+						System.exit(0);
 					}
 				}
 				

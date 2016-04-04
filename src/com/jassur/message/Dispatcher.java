@@ -137,6 +137,8 @@ public class Dispatcher {
 				clientDAO.setConnect(poolConnexion.pop().getConnection());
 				Client c = new Client();
 				c.parseJSON(resource);
+				
+				System.out.println("Insert : "+c);
 				c = clientDAO.create(c);
 				
 				if(c != null) {
