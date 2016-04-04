@@ -5,7 +5,7 @@
 		<host>localhost</host>
 		<port>3306</port>
 		<login>root</login>
-		<pass></pass>
+		<pass>root</pass>
 		<env>DEV</env>
 	</database>
 </databases>
