@@ -76,44 +76,33 @@ public class ClientDAO extends DAO<Client> {
 
 	@Override
 	public Client update(Client obj) {
-		
-		
-		System.out.println("go update :"+obj);
-		
-		String query = "UPDATE clients "
-				+"SET last_name = ?, first_name = ?, phone = ?, email = ?, business = ?, updated_at = ? "
+		String sql = "UPDATE clients SET last_name = ?, first_name = ?, phone = ?, business = ?, email = ?, updated_at = ? "
 				+"WHERE id_client = ?";
+		System.out.println("SQL REQUEST : "+sql);
 		
-		
-		PreparedStatement ps = null;
+		System.out.println(obj);
 		try {
-			 ps = connect.prepareStatement(query);
-			 
-			 ps.setString(1, obj.getLastName());
-			 ps.setString(2, obj.getFirstName());
-			 ps.setString(3, obj.getPhone());
-			 ps.setString(4, obj.getEmail());
-			 
-			 ps.setBoolean(5, obj.getBusiness());
-			 
-			 ps.setDate(6, new Date(System.currentTimeMillis()));
-			 
-			 ps.setInt(7, obj.getId());
-			 
-			 ps.execute();
-			  
-			 return obj;
-			 
-		} catch (SQLException e) {
-			e.printStackTrace();
+	
+			PreparedStatement stateUpdate = connect.prepareStatement(sql);
+			stateUpdate.setString(1,obj.getLastName());
+			stateUpdate.setString(2,obj.getFirstName());
+			stateUpdate.setString(3,obj.getPhone());
+			stateUpdate.setBoolean(4,obj.getBusiness());
+			stateUpdate.setString(5,obj.getEmail());
+			stateUpdate.setDate(6, new Date(System.currentTimeMillis()));
+			stateUpdate.setInt(7,obj.getId());
+			
+			stateUpdate.executeUpdate();
+			
+			return obj;
+		} catch (Exception e) {
+			
+			System.out.println(e.getMessage());
+			return null;
 		}
 		
-		
-		
-		
-		
-		return null;
 	}
+		
 
 	@Override
 	public Client find(int id) {

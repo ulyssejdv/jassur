@@ -154,17 +154,20 @@ public class ClientFormPanel extends JPanel {
 			
 			c2.setAddress(a);
 			
-			/* Test si update */
+			if (c.getId() != 0) {
+				cc.update(c2);
+			} else {
+				cc.create(c2);
+			}
+			
+			c2.setId(c.getId());
 			if (c.getId() != 0) {
 				c2.setId(c.getId());
 				cc.update(c2);
 			} else {
 				cc.create(c2);
 			}
-			
-			
 		}
 		
 	}
-
 }
