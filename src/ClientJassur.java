@@ -14,7 +14,7 @@ public class ClientJassur {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		ClientController cc = new ClientController();
-		cc.indexAction();	
+            ClientController cc = new ClientController();
+            cc.indexAction();	
 	}
 }
