@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="jassur" default="makebin" basedir=".">
+
+
+
+    <property name="project.name" value="jassur" />
+    <property name="project.version" value="3.0.10" />
+    <property name="project.src.dir" value="src"/>
+    <property name="project.bin.dir" value="bin" />
+    <property name="project.lib.dir" value="lib" />
+    
+
+
+    <!-- Define the classpath -->
+    <path id="project.classpath">
+        <fileset dir="${project.lib.dir}">
+            <include name="*.jar" />
+        </fileset>
+        <pathelement location="${project.bin.dir}" />
+    </path>
+    
+
+
+    <!-- dir bin/ init -->
+    <target name="init">
+        <mkdir dir="${basedir}/bin" />
+    </target> 
+    
+
+
+    <!-- Compile all project -->
+    <target name="compile" depends="init">
+        <javac srcdir="${project.src.dir}" 
+            destdir="${project.bin.dir}" 
+            debug="on" 
+            optimize="off" 
+            deprecation="on">
+            <classpath refid="project.classpath"/>
+        </javac>
+    </target>
+
+
+
+    <target name="startServer" depends="compile">
+        <java classname="com.jassur.server.ServerJassur">
+            <classpath refid="project.classpath" />
+        </java>
+    </target>
+
+
+    <target name="distclient" depends="compile">
+        <jar destfile="dist/client/ClientJassur.jar">
+            <fileset dir="${project.bin.dir}" /> 
+            <manifest>
+              <attribute name="Main-Class" value="com.jassur.server.ServerJassur"/>
+            </manifest>
+        </jar>
+    </target>
+
+
+
+    <target name="clean" description="clean up">
+        <delete dir="${project.bin.dir}"/>
+    </target>
+
+
+
+</project>
