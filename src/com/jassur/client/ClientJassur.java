@@ -1,3 +1,4 @@
+package com.jassur.client;
 import com.jassur.controller.ClientController;
 
 /**

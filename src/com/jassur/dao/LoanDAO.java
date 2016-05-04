@@ -14,7 +14,7 @@ public class LoanDAO extends DAO<Loan> {
 	
 
 	@Override
-	public boolean create(Loan obj) {
+	public Loan create(Loan obj) {
 		
 		String sql = 
 				"INSERT INTO loans "+
@@ -55,14 +55,14 @@ public class LoanDAO extends DAO<Loan> {
 	                
 	            }
 				
-				return true;
+				return obj;
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return false;
+		return obj;
 	}
 
 	@Override
@@ -71,8 +71,8 @@ public class LoanDAO extends DAO<Loan> {
 	}
 
 	@Override
-	public boolean update(Loan obj) {
-		return false;
+	public Loan update(Loan obj) {
+		return obj;
 	}
 
 	@Override
