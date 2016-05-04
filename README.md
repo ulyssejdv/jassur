@@ -1,26 +1,27 @@
 
 #1. Utilisation de Ant
 
-##Création du repertoire bin :
+###Création du repertoire bin :
 ```
 $ ant init
 ```
 
-##Supprimer le répertoire bin :
+###Supprimer le répertoire bin :
 ```
 $ ant clean
 ```
 
-##Compilation du projet :
+###Compilation du projet :
 ```
 $ ant compile
 ```
 
-##Démarer le serveur :
+###Démarer le serveur :
 ```
 $ ant startServer
+```
 
-##Créer le JAR distribuable du client :
+###Créer le JAR distribuable du client :
 ```
 $ ant distclient
 ```
