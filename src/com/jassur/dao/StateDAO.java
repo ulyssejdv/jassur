@@ -10,7 +10,7 @@ import com.jassur.model.State;
 public class StateDAO extends DAO<State> {
 	
 	@Override
-	public boolean create(State obj) {
+	public State create(State obj) {
 		
 		String sql = 
 				"INSERT INTO states "+
@@ -27,14 +27,14 @@ public class StateDAO extends DAO<State> {
 			int rowInserted = statement.executeUpdate();
 			
 			if (rowInserted > 0) {
-				return true;
+				return obj;
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return false;
+		return null;
 	}
 
 	@Override
@@ -43,8 +43,8 @@ public class StateDAO extends DAO<State> {
 	}
 
 	@Override
-	public boolean update(State obj) {
-		return false;
+	public State update(State obj) {
+		return null;
 	}
 
 	@Override

@@ -10,7 +10,7 @@ import com.jassur.model.Rate;
 public class RateDAO extends DAO<Rate> {
 
 	@Override
-	public boolean create(Rate obj) {
+	public Rate create(Rate obj) {
 		String sql = 
 				"INSERT INTO rates "+
 				"(loan_id, interest_rate, duration, monthly_payment) "+
@@ -28,14 +28,14 @@ public class RateDAO extends DAO<Rate> {
 			int rowInserted = statement.executeUpdate();
 			
 			if (rowInserted > 0) {
-				return true;
+				return obj;
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return false;
+		return null;
 	}
 
 	@Override
@@ -44,8 +44,8 @@ public class RateDAO extends DAO<Rate> {
 	}
 
 	@Override
-	public boolean update(Rate obj) {
-		return false;
+	public Rate update(Rate obj) {
+		return null;
 	}
 
 	@Override

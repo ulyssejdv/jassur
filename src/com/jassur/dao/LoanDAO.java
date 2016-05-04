@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import com.jassur.model.Loan;
 import com.jassur.model.Rate;
 import com.jassur.model.State;
+
 import com.mysql.jdbc.Statement;
 
 public class LoanDAO extends DAO<Loan> {
@@ -40,6 +41,7 @@ public class LoanDAO extends DAO<Loan> {
 	                
 	                RateDAO rateDAO = new RateDAO();
 	                rateDAO.setConnect(connect);
+	                
 	                StateDAO stateDAO = new StateDAO();
 	                stateDAO.setConnect(connect);
 	                

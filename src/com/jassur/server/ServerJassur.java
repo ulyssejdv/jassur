@@ -8,14 +8,13 @@ import java.net.Socket;
 
 import com.jassur.database.PoolConnection;
 import com.jassur.message.Dispatcher;
-import com.jassur.message.Message;
-import com.jassur.message.RequestBuilder;
 
 public class ServerJassur {
 	
 	private static PoolConnection poolConnection = null;
 
 	public static void main(String[] args) {
+		
 		
 		/* Create Connection Pool */
 		poolConnection = new PoolConnection();

@@ -10,8 +10,8 @@ public class CategoryDAO extends DAO<Category> {
 
 
 	@Override
-	public boolean create(Category obj) {
-		return false;
+	public Category create(Category obj) {
+		return null;
 	}
 
 	@Override
@@ -20,8 +20,8 @@ public class CategoryDAO extends DAO<Category> {
 	}
 
 	@Override
-	public boolean update(Category obj) {
-		return false;
+	public Category update(Category obj) {
+		return null;
 	}
 
 	@Override

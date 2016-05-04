@@ -9,9 +9,11 @@ import org.json.simple.parser.ParseException;
 
 import com.jassur.message.Message;
 import com.jassur.message.RequestBuilder;
+
 import com.jassur.model.Address;
 import com.jassur.model.Client;
 import com.jassur.model.Model;
+
 import com.jassur.view.ClientCardPanel;
 import com.jassur.view.ClientFormPanel;
 import com.jassur.view.ClientListPanel;

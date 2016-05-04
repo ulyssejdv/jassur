@@ -12,7 +12,7 @@ public class Client implements Model {
 	/*
 	 * Has one
 	 */
-	private Address address = null;
+	private Address address;
 	private int addressId;
 	
 	
