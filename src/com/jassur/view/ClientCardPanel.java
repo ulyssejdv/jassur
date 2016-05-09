@@ -1,11 +1,11 @@
 package com.jassur.view;
 
+import javax.swing.BoxLayout;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 import com.jassur.model.Client;
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
 
 public class ClientCardPanel extends JPanel {
 	

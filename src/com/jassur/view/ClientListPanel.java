@@ -223,7 +223,7 @@ public class ClientListPanel extends JPanel {
 					cc.showAction((int)table.getValueAt(this.row, 0));
 					break;
 				case "Delete":
-					cc.destroy((int)table.getValueAt(this.row, 0));
+					cc.destroyAction((int)table.getValueAt(this.row, 0));
 					break;
 				case "Update":
 					cc.editAction((int)table.getValueAt(this.row, 0));
