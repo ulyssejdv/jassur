@@ -19,14 +19,8 @@ import com.jassur.view.ClientFormPanel;
 import com.jassur.view.ClientListPanel;
 import com.jassur.view.MainFrame;
 
-public class ClientController {
+public class ClientController implements Controller{
 	
-	
-	/**
-	 * Action for display all the clients
-	 * - get full client list from the server
-	 * - render the ClientsList panel
-	 */
 	public void indexAction() {
 		
 		/* Build a new request */
@@ -64,12 +58,6 @@ public class ClientController {
 		MainFrame.getInstance(cl);
 	}
 	
-	/**
-	 * Action for display the client given
-	 * - get the client with the id given from the server
-	 * - render the ClientCard panel
-	 * @param id
-	 */
 	public void showAction(int id) {
 		
 		/* Build a new request */
@@ -97,10 +85,6 @@ public class ClientController {
 		MainFrame.getInstance(ccp);
 	}
 	
-	/**
-	 * Action for display new Client form
-	 * - render the client form with empty client
-	 */
 	public void newAction() {
 		Client c = new Client();
 		c.setAddress(new Address());
@@ -109,25 +93,13 @@ public class ClientController {
 		MainFrame.getInstance(cfp);
 	}
 	
-	/**
-	 * Action for create a client
-	 * - get the form information
-	 * - send them to the server 
-	 * - render ClientsList or ClientForm
-	 * @param JSONObject input
-	 */
-	public void create(Model m) {
+	public void createAction(Model m) {
 		/* Build a new request */
 		RequestBuilder rb = new RequestBuilder(RequestBuilder.POST, "clients/", m);
 		String resp = Message.execRequest(rb.toJSONString());
 		indexAction();
 	}
 	
-	/**
-	 * Action for display edit client form
-	 * - render the client form with selected client
-	 * @param id
-	 */
 	public void editAction(int id) {
 		/* Build a new request */
 		RequestBuilder rb = new RequestBuilder(RequestBuilder.GET, "clients/"+id);
@@ -154,26 +126,16 @@ public class ClientController {
 		MainFrame.getInstance(ccp);
 	}
 	
-	/**
-	 * Action for update the client given
-	 * - get the form information
-	 * - send them to the server
-	 * -render ClientsList or ClientForm
-	 * @param JSONObject input
-	 */
-	public void update(Client input) {
+	public void updateAction(Client input) {
 		RequestBuilder rb = new RequestBuilder(RequestBuilder.PUT, "clients/"+input.getId()+"/", input);
 		String resp = Message.execRequest(rb.toJSONString());
 		indexAction();
 	}
 	
-	/**
-	 * Action for delete the client given
-	 * @param id
-	 */
-	public void destroy(int id) {
+	public void destroyAction(int id) {
 		RequestBuilder rb = new RequestBuilder(RequestBuilder.DELETE, "clients/"+id+"/");
 		String resp = Message.execRequest(rb.toJSONString());
 		indexAction();
 	}
+	
 }
