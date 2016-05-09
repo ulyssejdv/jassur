@@ -12,6 +12,7 @@ import com.jassur.dao.DAO;
 import com.jassur.dao.DAOFactory;
 import com.jassur.database.PoolConnection;
 import com.jassur.model.Client;
+import com.jassur.model.Loan;
 import com.jassur.model.Model;
 
 public class Dispatcher {
@@ -99,15 +100,26 @@ public class Dispatcher {
 			
 		} else if (items.length == 2) {
 			
-			/*
-			 * Client
-			 */
-			if (items[0].equals("clients")) {
+			Model model = null;
+		
+			switch (items[0]) {
+			case "clients":
 				DAO<Client> clientDAO = daoFactory.getClientDAO();
 				clientDAO.setConnect(poolConnexion.pop().getConnection());
-				Model model = clientDAO.find(Integer.parseInt(items[1]));
+				model = clientDAO.find(Integer.parseInt(items[1]));
 				responseString = model.toJSON().toJSONString();
+				break;
+			case "loans":
+				DAO<Loan> loanDAO = daoFactory.getLoanDAO();
+				loanDAO.setConnect(poolConnexion.pop().getConnection());
+				model = loanDAO.find(Integer.parseInt(items[1]));
+				responseString = model.toJSON().toJSONString();
+				break;
+			default:
+				responseString = "resource does not exists";
+				break;
 			}
+			
 		}
 		
 		/* Write the response in the socket */
