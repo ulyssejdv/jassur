@@ -101,9 +101,9 @@ public class LoanDAO extends DAO<Loan> {
 				loan.setTotalDuration(result.getInt("total_duration"));
 				
 				/* Get the category */
-				CategoryDAO categoryDAO = new CategoryDAO();
-				categoryDAO.setConnect(connect);
-				loan.setCategory(categoryDAO.find(result.getInt("category_id")));
+				// CategoryDAO categoryDAO = new CategoryDAO();
+				// categoryDAO.setConnect(connect);
+				// loan.setCategory(categoryDAO.find(result.getInt("category_id")));
 				
 				/* Get all the rates */
 				result.beforeFirst();

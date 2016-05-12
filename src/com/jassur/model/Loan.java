@@ -3,8 +3,11 @@ package com.jassur.model;
 
 import java.util.ArrayList;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
-public class Loan {
+
+public class Loan implements Model {
 	
 	/*
 	 * Has one
@@ -50,42 +53,49 @@ public class Loan {
 	/*
 	 * JSON
 	 */
-
-	/*public JSONObject toJSON() {
+	
+	@Override
+	public JSONObject toJSON() {
+		JSONObject jObj = new JSONObject();
 		
-		JSONObject jPret = new JSONObject();
+		jObj.put("id_loan", this.id);
+		jObj.put("amount", this.getAmount());
+		jObj.put("total_duration", this.getTotalDuration());
+		jObj.put("total_amount", this.getTotalAmount());
 		
-		jPret.put("id", this.getIdPret());
-		jPret.put("montant", this.getMontant());
-		jPret.put("mensualite", this.getMontantEcheance());
-		jPret.put("nbmensualite", this.getNombreEcheance());
-		jPret.put("taux", this.getTaux());
-		jPret.put("total", this.getTotal());
+		/*if (this.getCategory() != null) {
+			jObj.put("category", this.getCategory().toJSON());
+		}*/
 		
-		return jPret;
-	}*/
-
-
-	/*public void parseJSON(String json) {
-		JSONParser parser = new JSONParser();
-		
-		try {
-			JSONObject obj = (JSONObject) parser.parse(json);
-			
-			obj.get("resource");
-			
-			this.setResource((String) obj.get("resource")); 
-			this.setMethod((String) obj.get("method"));
-			
-			this.set
-			
-			if (obj.get("body") != null) {
-				this.setBody((String) obj.get("body").toString());
+		if (this.getRates() != null) {
+			JSONArray ratesJson = new JSONArray();
+			for (Rate rate : this.getRates()) {
+				ratesJson.add(rate.toJSON());
 			}
-		} catch (ParseException e) {
-			e.printStackTrace();
+			jObj.put("rates", ratesJson);
 		}
-	}*/
+		
+		return jObj;
+	}
+
+	@Override
+	public void parseJSON(JSONObject jo) {
+		this.id = (int)(long)jo.get("id_loan");
+		this.amount = (int)(long)jo.get("amount");
+		this.totalDuration = (int)(long)jo.get("total_duration");
+		this.totalAmount = (double)jo.get("total_amount");
+		
+		if (jo.containsKey("rates")) {
+			Address ad = new Address();
+			JSONArray jarray = (JSONArray) jo.get("rates");
+			
+			for (Object ob : jarray) {
+				Rate r = new Rate();
+				r.parseJSON((JSONObject) ob);
+				addRate(r);
+			}
+		}	
+	}
 	
 	
 	
@@ -203,8 +213,5 @@ public class Loan {
 		return "Loan [category=" + category + ", \n rates=" + rates + ", \n states=" + states + ", \n amount=" + amount
 				+ ", \n totalDuration=" + totalDuration + ", \n totalAmount=" + totalAmount + ", \n id=" + id + "]";
 	}
-	
-	
-	
-	
+
 }

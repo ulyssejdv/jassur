@@ -1,21 +1,17 @@
 package com.jassur.controller;
 
-import java.util.ArrayList;
-
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import com.jassur.message.Message;
 import com.jassur.message.RequestBuilder;
-import com.jassur.model.Address;
 import com.jassur.model.Client;
+import com.jassur.model.Loan;
 import com.jassur.model.Model;
-import com.jassur.view.ClientCardPanel;
-import com.jassur.view.ClientFormPanel;
-import com.jassur.view.ClientListPanel;
-import com.jassur.view.MainFrame;
+import com.jassur.view.BaseGUI;
+import com.jassur.view.LoanCardPanel;
+import com.jassur.view.LoanShowPanel;
 
 public class LoanController implements Controller{
 
@@ -27,8 +23,30 @@ public class LoanController implements Controller{
 
 	@Override
 	public void showAction(int id) {
-		// TODO Auto-generated method stub
+		/* Build a new request */
+		RequestBuilder rb = new RequestBuilder(RequestBuilder.GET, "loans/"+id);
 		
+		String resp = Message.execRequest(rb.toJSONString());
+		Loan l = new Loan();
+		try {
+			/* Transformation of the response String in JSON */
+			JSONParser parser = new JSONParser();
+			Object obj = parser.parse(resp);
+			
+			System.out.println(resp);
+			
+			/* get loans/ return a JSON array */
+			JSONObject jObject = (JSONObject)obj;
+			
+			l.parseJSON(jObject);
+			
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		/* Render the client card panel */
+		LoanShowPanel lsp = new LoanShowPanel(l);
+		BaseGUI.render(lsp);
 	}
 
 	@Override

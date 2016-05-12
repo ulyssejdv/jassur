@@ -3,11 +3,14 @@
  */
 package com.jassur.model;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 /**
  * @author ulysse
  *
  */
-public class Rate {
+public class Rate implements Model {
 	
 	
 	/*
@@ -56,6 +59,25 @@ public class Rate {
 	}
 	public void setLoanId(int loan_id) {
 		this.loanId = loan_id;
+	}
+	
+	@Override
+	public JSONObject toJSON() {
+		JSONObject jObj = new JSONObject();
+		
+		jObj.put("id_rate", this.getId());
+		jObj.put("interest_rate", this.getInterestRate());
+		jObj.put("duration", this.getDuration());
+		jObj.put("monthly_payment", this.getMonthlyPayment());
+		
+		return jObj;
+	}
+	@Override
+	public void parseJSON(JSONObject jo) {
+		this.id = (int)(long)jo.get("id_rate");
+		this.duration = (int)(long)jo.get("duration");
+		this.interestRate = (double)jo.get("interest_rate");
+		this.monthlyPayment = (double)jo.get("monthly_payment");	
 	}
 	
 }

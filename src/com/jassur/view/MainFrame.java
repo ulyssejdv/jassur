@@ -28,7 +28,11 @@ public class MainFrame extends JFrame {
 		}*/
 		MainFrame tmpMf = INSTANCE;
 		INSTANCE = new MainFrame(p);
-		tmpMf.dispose();
+		if (tmpMf != null) {
+			tmpMf.dispose();
+		}
+		
+		INSTANCE.pack();
 		return INSTANCE;
 	}
 	
@@ -41,7 +45,7 @@ public class MainFrame extends JFrame {
 		setTitle("JASSUR - Client");
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1024, 800);
+		setBounds(100, 100, 1024, 500);
 		
 		
 		JPanel contentPane = new JPanel();
