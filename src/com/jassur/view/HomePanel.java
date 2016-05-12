@@ -10,8 +10,6 @@ import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import com.jgoodies.forms.factories.DefaultComponentFactory;
-
 public class HomePanel extends JPanel {
 
 	/**
@@ -19,7 +17,7 @@ public class HomePanel extends JPanel {
 	 */
 	public HomePanel() {
 		
-		JLabel lblBienvenuSurJassur = DefaultComponentFactory.getInstance().createTitle("Bienvenue sur JASSUR");
+		JLabel lblBienvenuSurJassur = new JLabel("Bienvenue sur JASSUR");
 		lblBienvenuSurJassur.setFont(new Font("Lucida Grande", Font.BOLD, 20));
 		add(lblBienvenuSurJassur);
 		
