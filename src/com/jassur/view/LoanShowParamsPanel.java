@@ -32,7 +32,6 @@ public class LoanShowParamsPanel extends JPanel {
 	public LoanShowParamsPanel(Loan l) {
 		this.loan = l;
 		
-		
 		/* Rate */
 		Rate rate = new Rate();
 		rate.setDuration(0);

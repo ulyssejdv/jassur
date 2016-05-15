@@ -23,7 +23,7 @@ public class LoanShowPanel extends JPanel {
 		
 		tabbedPane.add("Graphiques", new JPanel());
 		
-		tabbedPane.add("Tableau", new JPanel());
+		tabbedPane.add("Tableau", new LoanShowTablePanel(this.loan));
 
 	}
 
