@@ -9,6 +9,15 @@ package com.jassur.model;
  */
 public class Category {
 	
+	public Category(int id, String labelCategory) {
+		this.id = id;
+		this.labelCategory = labelCategory;
+	}
+
+	public Category() {
+		// TODO Auto-generated constructor stub
+	}
+
 	private int id = 0;
 	
 	private String labelCategory;

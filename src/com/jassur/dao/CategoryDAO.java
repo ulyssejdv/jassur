@@ -4,7 +4,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.jassur.model.Address;
 import com.jassur.model.Category;
+import com.jassur.model.Client;
 
 public class CategoryDAO extends DAO<Category> {
 
@@ -47,8 +49,30 @@ public class CategoryDAO extends DAO<Category> {
 
 	@Override
 	public ArrayList<Category> find() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Category> categories = new ArrayList<Category>();
+			
+		try {
+			ResultSet result = this.connect.createStatement(
+					ResultSet.TYPE_SCROLL_INSENSITIVE,
+					ResultSet.CONCUR_READ_ONLY
+			).executeQuery(
+						"SELECT * "+
+					    "FROM categories");
+				
+			if (result.first()) {
+		
+				while (result.next()) {
+					Category category = new Category();
+					category.setId(result.getInt("id_category"));
+					category.setLabelCategory(result.getString("label_category"));
+					categories.add(category);
+				}		
+			}				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+			
+		return categories;	
 	}
 
 }
