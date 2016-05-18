@@ -48,7 +48,7 @@ public class FixedRatePanel extends JFrame {
 	/**
 	* Create the panel.
 	*/
-	//
+	//Faire MVC et en anglais
 	public FixedRatePanel() {
 		//--------------------------------
 		setTitle("Détermination du taux d'intérêts de l'agence");
