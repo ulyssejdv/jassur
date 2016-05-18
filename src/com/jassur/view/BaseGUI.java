@@ -22,7 +22,7 @@ public class BaseGUI extends JFrame {
 	private JPanel contentPane;
 	
 	
-	private static BaseGUI MAIN_FRAME = null;
+	public static BaseGUI MAIN_FRAME = null;
 	
 	public static BaseGUI render(JPanel p) {
 

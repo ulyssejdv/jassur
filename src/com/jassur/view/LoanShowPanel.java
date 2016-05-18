@@ -20,8 +20,7 @@ public class LoanShowPanel extends JPanel {
 		this.loan = l;
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		Dimension d = new Dimension();
-		d.setSize(1024, 600);
+		Dimension d = new Dimension(BaseGUI.MAIN_FRAME.getWidth(), BaseGUI.MAIN_FRAME.getHeight());
 		tabbedPane.setPreferredSize(d);
 		add(tabbedPane);
 		
