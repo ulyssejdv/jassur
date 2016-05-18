@@ -5,6 +5,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 import com.jassur.database.PoolConnection;
 import com.jassur.message.Dispatcher;
@@ -19,7 +24,19 @@ public class ServerJassur {
 		/* Create Connection Pool */
 		poolConnection = new PoolConnection();
 	
-		
+		try {
+			/* Create logger */
+			
+			Logger logger= Logger.getLogger("myPackage.mySubPackage.myClasse");
+			Handler fh = new FileHandler("journal.txt");
+			fh.setFormatter(new SimpleFormatter());
+			Logger.getLogger("journal").addHandler(fh);
+			
+			}
+			 catch (IOException e) {
+					e.printStackTrace();
+					}
+			
 		ServerSocket serverSocket = null;
 		
 		try {
@@ -35,15 +52,19 @@ public class ServerJassur {
 				
 				try {
 					Socket socket = serverSocket.accept();
+					String localAddress = socket.getLocalAddress().getHostAddress().toString();
+
 					inputClient = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 					outputClient = new DataOutputStream(socket.getOutputStream());
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+			
 					
-				try {
+				
 					/* Read input client message */
 					String message = inputClient.readLine();	
+					
+					// Get Info in journal.txt
+					Logger.getLogger("journal").log(Level.INFO,localAddress+""+ message +'\n' );	
+
 					
 					/* Start message analyze 
 					 * and give the phone (outpuClient) to the router 
