@@ -18,7 +18,7 @@ import com.jassur.database.PoolConnection;
 
 public class gestion_id extends JFrame implements ActionListener  {
 	
-	//METTRE EN ANGLAIS code & COMMENTAIRES
+	//METTRE EN ANGLAIS code et COMMENTAIRES
 	
 	//declaration des variables pour l'interface et d'utilisation
 	protected Connection connect = null;
