@@ -200,17 +200,7 @@ public class FixedRatePanel extends JFrame {
 		//-----------------------
 
 
-	}
-	
-	
-
-
-
-
-
-
-
-	
+	}	
 
 	/**
 	 * Calculs Taux.
