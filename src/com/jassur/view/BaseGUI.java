@@ -129,17 +129,5 @@ public class BaseGUI extends JFrame {
 		}
 	}
 	
-	/*
-	 * @author aurelie
-	 * 
-	 *  class GotoSimulateListener implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			SimulateController Sc = new SimulateController();
-		    Sc.showAction(3);
-		}
-	}
-	*/
 
 }

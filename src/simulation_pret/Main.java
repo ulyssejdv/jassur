@@ -10,7 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 //METTRE EN ANGLAIS code/COMMENTAIRES
-//test
+
 
 
 public class Main extends JFrame implements ActionListener {
