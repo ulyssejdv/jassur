@@ -13,11 +13,9 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.TableModel;
 
 import com.jassur.model.Loan;
 import com.jassur.model.Rate;
-import com.jassur.view.ClientListPanel.JTableModel;
 
 public class LoanCardPanel extends JPanel {
 	

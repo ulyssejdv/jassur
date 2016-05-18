@@ -18,7 +18,6 @@ public class LoanController implements Controller{
 	@Override
 	public void indexAction() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
