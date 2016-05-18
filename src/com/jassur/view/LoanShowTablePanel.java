@@ -1,5 +1,7 @@
 package com.jassur.view;
 
+import java.awt.BorderLayout;
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -7,7 +9,6 @@ import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
 import com.jassur.model.Loan;
-import java.awt.BorderLayout;
 
 public class LoanShowTablePanel extends JPanel {
 	
@@ -19,8 +20,6 @@ public class LoanShowTablePanel extends JPanel {
 	 * Create the panel.
 	 */
 	public LoanShowTablePanel(Loan l) {
-		
-		setSize(915, 576);
 		
 		this.loan = l;
 		
