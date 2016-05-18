@@ -7,6 +7,9 @@ import java.awt.SystemColor;
 import java.awt.Font;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class SimulateCardPanel extends JPanel {
 	private JTextField textField;
@@ -83,6 +86,18 @@ public class SimulateCardPanel extends JPanel {
 		textField_3.setColumns(10);
 		textField_3.setBounds(143, 220, 86, 20);
 		add(textField_3);
+		
+		JButton btnValider = new JButton("Calculer");
+		btnValider.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnValider.setBounds(143, 342, 89, 23);
+		add(btnValider);
+		
+		JButton btnEffacer = new JButton("Effacer");
+		btnEffacer.setBounds(280, 342, 89, 23);
+		add(btnEffacer);
 
 	}
 }
