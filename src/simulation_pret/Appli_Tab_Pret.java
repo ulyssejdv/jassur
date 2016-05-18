@@ -11,7 +11,10 @@ import javax.swing.JFrame;
 import javax.swing.JTable;
 
 import com.jassur.database.PoolConnection;
-//METTRE EN ANGLAIS code et COMMENTAIRES
+
+//METTRE EN ANGLAIS code/COMMENTAIRES
+//test
+
 public class Appli_Tab_Pret extends JFrame implements ActionListener {
 	
 	
