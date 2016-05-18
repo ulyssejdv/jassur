@@ -1,5 +1,6 @@
 package com.jassur.view;
 
+import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -25,12 +26,16 @@ public class BaseGUI extends JFrame {
 	
 	public static BaseGUI render(JPanel p) {
 
-		BaseGUI tmpMf = MAIN_FRAME;
-		MAIN_FRAME = new BaseGUI(p);
-		if (tmpMf != null) {
-			tmpMf.dispose();
+		if (MAIN_FRAME == null) {
+			MAIN_FRAME = new BaseGUI(p);
+		} else {
+			JPanel cp = (JPanel) MAIN_FRAME.getContentPane();
+			cp.removeAll();
+			cp.add(p);
+			cp.revalidate(); 
+			cp.repaint();
 		}
-		//MAIN_FRAME.pack();
+		
 		return MAIN_FRAME;
 	}
 
@@ -39,11 +44,8 @@ public class BaseGUI extends JFrame {
 	 */
 	public BaseGUI(JPanel p) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//setBounds(100, 100, 915, 576);
-		
-		setExtendedState(JFrame.MAXIMIZED_BOTH); 
-		//setSize(915, 576);
-		//setResizable(false);
+		setBounds(100, 100, 915, 576);
+		setResizable(false);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -108,8 +110,6 @@ public class BaseGUI extends JFrame {
 		mnAide.add(mntmReporterUnBug);
 		
 		setContentPane(p);
-		
-		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		this.setVisible(true);
 	}
 	
