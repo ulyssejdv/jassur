@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import com.jassur.controller.LoanController;
+//import com.jassur.controller.SimulateController;
 
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -78,13 +79,22 @@ public class BaseGUI extends JFrame {
 		/*
 		 * Loans Menu
 		 */
-		JMenu mnPrts = new JMenu("PrÃªts");
+		JMenu mnPrts = new JMenu("Prêts");
 		menuBar.add(mnPrts);
 		
-		JMenuItem mntmNouvelleSimulation = new JMenuItem("Nouvelle simulation");
-		mnPrts.add(mntmNouvelleSimulation);
+		JMenuItem cr = new JMenu("Nouvelle simulation");
+		mnPrts.add(cr);
 		
-		JMenuItem mntmRetrouverUnPrt = new JMenuItem("Retrouver un prÃªt");
+		// add item "taux fixe"
+		JMenuItem mntmTauxFixe = new JMenuItem ("Choisir taux fixe");
+		cr.add(mntmTauxFixe);
+		
+		// add item "taux fixe"
+		JMenuItem mntmTauxVariable = new JMenuItem ("Choisir taux variable");
+		mntmTauxVariable.addActionListener(new GotoLoanListener());
+		cr.add(mntmTauxVariable);
+		
+		JMenuItem mntmRetrouverUnPrt = new JMenuItem("Retrouver un prêt");
 		mntmRetrouverUnPrt.addActionListener(new GotoLoanListener());
 		mnPrts.add(mntmRetrouverUnPrt);
 		
@@ -116,5 +126,19 @@ public class BaseGUI extends JFrame {
 		    lc.showAction(3);
 		}
 	}
+
+	
+	/*
+	 * @author aurelie
+	 * 
+	 *  class GotoSimulateListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			SimulateController Sc = new SimulateController();
+		    Sc.showAction(3);
+		}
+	}
+	*/
 
 }
