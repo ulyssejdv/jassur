@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-//METTRE EN ANGLAIS COMMENTAIRES
+//METTRE EN ANGLAIS code et COMMENTAIRES
 
 
 public class Main extends JFrame implements ActionListener {
