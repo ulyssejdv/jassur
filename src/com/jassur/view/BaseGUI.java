@@ -1,22 +1,17 @@
 package com.jassur.view;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import com.jassur.controller.LoanController;
-//import com.jassur.controller.SimulateController;
-
+import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JToolBar;
-import javax.swing.JTabbedPane;
-import javax.swing.JMenu;
+import javax.swing.JPanel;
+
+import com.jassur.controller.HomeController;
+import com.jassur.controller.LoanController;
+//import com.jassur.controller.SimulateController;
 
 public class BaseGUI extends JFrame {
 	
@@ -46,8 +41,9 @@ public class BaseGUI extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//setBounds(100, 100, 915, 576);
 		
-		setSize(915, 576);
-		setResizable(false);
+		setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		//setSize(915, 576);
+		//setResizable(false);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -59,6 +55,7 @@ public class BaseGUI extends JFrame {
 		menuBar.add(mnJassur);
 		
 		JMenuItem mntmAccueil = new JMenuItem("Accueil");
+		mntmAccueil.addActionListener(new GotoHomeListener());
 		mnJassur.add(mntmAccueil);
 		
 		JMenuItem mntmQuitter = new JMenuItem("Quitter");
@@ -79,7 +76,7 @@ public class BaseGUI extends JFrame {
 		/*
 		 * Loans Menu
 		 */
-		JMenu mnPrts = new JMenu("Prêts");
+		JMenu mnPrts = new JMenu("Prï¿½ts");
 		menuBar.add(mnPrts);
 		
 		JMenuItem cr = new JMenu("Nouvelle simulation");
@@ -94,7 +91,7 @@ public class BaseGUI extends JFrame {
 		mntmTauxVariable.addActionListener(new GotoLoanListener());
 		cr.add(mntmTauxVariable);
 		
-		JMenuItem mntmRetrouverUnPrt = new JMenuItem("Retrouver un prêt");
+		JMenuItem mntmRetrouverUnPrt = new JMenuItem("Retrouver un prï¿½t");
 		mntmRetrouverUnPrt.addActionListener(new GotoLoanListener());
 		mnPrts.add(mntmRetrouverUnPrt);
 		
@@ -110,11 +107,9 @@ public class BaseGUI extends JFrame {
 		JMenuItem mntmReporterUnBug = new JMenuItem("Reporter un bug");
 		mnAide.add(mntmReporterUnBug);
 		
-		//contentPane = new JPanel();
-		//contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		//contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(p);
 		
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		this.setVisible(true);
 	}
 	
@@ -126,7 +121,13 @@ public class BaseGUI extends JFrame {
 		    lc.showAction(3);
 		}
 	}
-
+	
+	class GotoHomeListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			HomeController hc = new HomeController();
+			hc.indexAction();
+		}
+	}
 	
 	/*
 	 * @author aurelie
