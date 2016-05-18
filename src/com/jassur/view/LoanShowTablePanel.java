@@ -8,6 +8,7 @@ import javax.swing.table.AbstractTableModel;
 
 import com.jassur.model.Loan;
 import java.awt.BorderLayout;
+import java.awt.Color;
 
 public class LoanShowTablePanel extends JPanel {
 	
@@ -21,6 +22,8 @@ public class LoanShowTablePanel extends JPanel {
 	public LoanShowTablePanel(Loan l) {
 		
 		setSize(915, 576);
+		
+		setBackground(Color.WHITE);
 		
 		this.loan = l;
 		

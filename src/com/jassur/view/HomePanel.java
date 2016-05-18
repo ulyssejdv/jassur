@@ -1,5 +1,6 @@
 package com.jassur.view;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -19,11 +20,12 @@ public class HomePanel extends JPanel {
 		
 		JLabel lblBienvenuSurJassur = new JLabel("Bienvenue sur JASSUR");
 		lblBienvenuSurJassur.setFont(new Font("Lucida Grande", Font.BOLD, 20));
+		this.setBackground(Color.WHITE);
 		add(lblBienvenuSurJassur);
 		
 	}
 	
-	public void paintComponent(Graphics g) {
+	/*public void paintComponent(Graphics g) {
 		try {
 			Image img = ImageIO.read(new File("conf/meme-home.jpg"));
 			//g.drawImage(img, 0, 0, this);
@@ -32,6 +34,6 @@ public class HomePanel extends JPanel {
     	} catch (IOException e) {
     		e.printStackTrace();
     	}                
-	} 
+	}*/
 
 }
