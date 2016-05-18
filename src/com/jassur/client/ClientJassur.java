@@ -17,13 +17,7 @@ public class ClientJassur {
 	 */
 	public static void main(String[] args) {
 		
-        //ClientController cc = new ClientController();
-        //cc.indexAction();	
 		try {
-			/*BaseGUI frame = new BaseGUI();
-			frame.setContentPane(new HomePanel());
-			frame.setVisible(true);*/
-			
 			BaseGUI.render(new HomePanel());
 		} catch (Exception e) {
 			e.printStackTrace();
