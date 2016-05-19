@@ -88,7 +88,7 @@ public class BaseGUI extends JFrame {
 		JMenuItem mntmTauxFixe = new JMenuItem ("Choisir taux fixe");
 		cr.add(mntmTauxFixe);
 		
-		// add item "taux fixe"
+		// add item "taux variable"
 		JMenuItem mntmTauxVariable = new JMenuItem ("Choisir taux variable");
 		mntmTauxVariable.addActionListener(new GotoLoanListener());
 		cr.add(mntmTauxVariable);
