@@ -30,7 +30,7 @@ public class LoanVariableController implements Controller{
 		RequestBuilder rb1 = new RequestBuilder(RequestBuilder.GET, "loansVariable/"+id);
 		
 		String resp1 = Message.execRequest(rb1.toJSONString());
-		LoanVariable lv = new LoanVariable();
+		LoanVariable lvc = new LoanVariable();
 		try {
 			/* Transformation of the response String in JSON */
 			JSONParser parser = new JSONParser();
@@ -41,14 +41,14 @@ public class LoanVariableController implements Controller{
 			/* get loans/ return a JSON array */
 			JSONObject jObject = (JSONObject)obj1;
 			
-			lv.parseJSON(jObject);
+			lvc.parseJSON(jObject);
 			
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		
 		/* Render the client card panel */
-		LoanVariableRateCardPanel lvs = new LoanVariableRateCardPanel(lv);
+		LoanVariableRateCardPanel lvs = new LoanVariableRateCardPanel(lvc);
 		BaseGUI.render(lvs);
 	}
 

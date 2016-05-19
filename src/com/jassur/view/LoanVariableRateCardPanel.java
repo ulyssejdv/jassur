@@ -3,13 +3,13 @@ package com.jassur.view;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 
-import java.awt.Color;
 import java.awt.SystemColor;
 import java.awt.Font;
 
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import com.jassur.model.LoanVariable;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -17,6 +17,7 @@ import java.awt.event.ActionEvent;
 
 
 import com.jassur.model.LoanVariable;
+ //@ author : aurelie
 
 public class LoanVariableRateCardPanel extends JPanel {
 	private JTextField textField;
@@ -30,7 +31,9 @@ public class LoanVariableRateCardPanel extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public LoanVariableRateCardPanel(LoanVariable l) {
+	public LoanVariableRateCardPanel(LoanVariable lV) {
+		this.loanVariable = lV;
+
 		
 		setBounds(100, 100, 802, 574);
 

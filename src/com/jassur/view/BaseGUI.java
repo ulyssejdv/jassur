@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import com.jassur.controller.HomeController;
 import com.jassur.controller.LoanController;
 //import com.jassur.controller.SimulateController;
+import com.jassur.controller.LoanVariableController;
 
 public class BaseGUI extends JFrame {
 	
@@ -126,6 +127,14 @@ public class BaseGUI extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			HomeController hc = new HomeController();
 			hc.indexAction();
+		}
+	}
+	class GotoLoanVariableListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			LoanVariableController lvc = new LoanVariableController();
+		    lvc.showAction(3);
 		}
 	}
 	
