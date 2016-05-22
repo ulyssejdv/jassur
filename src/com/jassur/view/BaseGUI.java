@@ -78,7 +78,7 @@ public class BaseGUI extends JFrame {
 		/*
 		 * Loans Menu
 		 */
-		JMenu mnPrts = new JMenu("Pr�ts");
+		JMenu mnPrts = new JMenu("Pr\u00eats");
 		menuBar.add(mnPrts);
 		
 		JMenuItem cr = new JMenu("Nouvelle simulation");
@@ -93,7 +93,7 @@ public class BaseGUI extends JFrame {
 		mntmTauxVariable.addActionListener(new GotoLoanListener());
 		cr.add(mntmTauxVariable);
 		
-		JMenuItem mntmRetrouverUnPrt = new JMenuItem("Retrouver un pr�t");
+		JMenuItem mntmRetrouverUnPrt = new JMenuItem("Retrouver un pr\u00eat");
 		mntmRetrouverUnPrt.addActionListener(new GotoLoanListener());
 		mnPrts.add(mntmRetrouverUnPrt);
 		
