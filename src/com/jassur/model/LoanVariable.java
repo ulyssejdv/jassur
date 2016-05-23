@@ -7,7 +7,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 
-public class Simulate implements Model {
+public class LoanVariable implements Model {
 	
 	/*
 	 * Has one
@@ -40,12 +40,12 @@ public class Simulate implements Model {
 	/*
 	 * Constructors
 	 */
-	public Simulate() {
+	public LoanVariable() {
 		this.rates = new ArrayList<Rate>();
 		this.states = new ArrayList<State>();
 	}
 	
-	public Simulate(int id) {
+	public LoanVariable(int id) {
 
 	}
 	
@@ -58,7 +58,7 @@ public class Simulate implements Model {
 	public JSONObject toJSON() {
 		JSONObject jObj = new JSONObject();
 		
-		jObj.put("id_simulate", this.id);
+		jObj.put("id_loanVariable", this.id);
 		jObj.put("amount", this.getAmount());
 		jObj.put("total_duration", this.getTotalDuration());
 		jObj.put("total_amount", this.getTotalAmount());
@@ -79,15 +79,15 @@ public class Simulate implements Model {
 	}
 
 	@Override
-	public void parseJSON(JSONObject jo) {
-		this.id = (int)(long)jo.get("id_simulate");
-		this.amount = (int)(long)jo.get("amount");
-		this.totalDuration = (int)(long)jo.get("total_duration");
-		this.totalAmount = (double)jo.get("total_amount");
+	public void parseJSON(JSONObject jo1) {
+		this.id = (int)(long)jo1.get("id_loanVariable");
+		this.amount = (int)(long)jo1.get("amount");
+		this.totalDuration = (int)(long)jo1.get("total_duration");
+		this.totalAmount = (double)jo1.get("total_amount");
 		
-		if (jo.containsKey("rates")) {
-			Address ad2 = new Address();
-			JSONArray jarray = (JSONArray) jo.get("rates");
+		if (jo1.containsKey("rates")) {
+			Address ad = new Address();
+			JSONArray jarray = (JSONArray) jo1.get("rates");
 			
 			for (Object ob : jarray) {
 				Rate r = new Rate();
@@ -210,7 +210,7 @@ public class Simulate implements Model {
 
 	@Override
 	public String toString() {
-		return "Simulate [category=" + category + ", \n rates=" + rates + ", \n states=" + states + ", \n amount=" + amount
+		return "LoanVariable [category=" + category + ", \n rates=" + rates + ", \n states=" + states + ", \n amount=" + amount
 				+ ", \n totalDuration=" + totalDuration + ", \n totalAmount=" + totalAmount + ", \n id=" + id + "]";
 	}
 
