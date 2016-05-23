@@ -3,7 +3,7 @@
 	<database>
 		<name>jassur</name>
 		<host>localhost</host>
-		<port>3306</port>
+		<port>8889</port>
 		<login>root</login>
 		<pass>root</pass>
 		<env>DEV</env>
