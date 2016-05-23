@@ -78,7 +78,7 @@ public class BaseGUI extends JFrame {
 		/*
 		 * Loans Menu
 		 */
-		JMenu mnPrts = new JMenu("Pr�ts");
+		JMenu mnPrts = new JMenu("Prêts");
 		menuBar.add(mnPrts);
 		
 		JMenuItem cr = new JMenu("Nouvelle simulation");
@@ -96,6 +96,10 @@ public class BaseGUI extends JFrame {
 		JMenuItem mntmRetrouverUnPrt = new JMenuItem("Retrouver un pr�t");
 		mntmRetrouverUnPrt.addActionListener(new GotoLoanListener());
 		mnPrts.add(mntmRetrouverUnPrt);
+		
+		
+		//JMenu maSimul = new JMenu("Simulation de Prêts");
+		//menuBar.add(maSimul);
 		
 		/*
 		 * Help Menu
