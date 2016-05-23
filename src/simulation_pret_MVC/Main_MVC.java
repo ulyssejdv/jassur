@@ -1,5 +1,5 @@
 package simulation_pret_MVC;
-
+ 
 /**Main du programme 
  * @param 
  * @return 
@@ -9,11 +9,11 @@ package simulation_pret_MVC;
 public class Main_MVC {
 	
 	public static void main(String[] args) {
-	    //Instanciation de notre modèle
+	    //Instanciation de notre modï¿½le
 		Modele_Gestion_id Modele = new Modele_Gestion_id();
-	    //Création du contrôleur
+	    //Crï¿½ation du contrï¿½leur
 		Controleur_Gestion_id controler = new Controleur_Gestion_id(Modele);
-	    //Création de notre fenêtre avec le contrôleur en paramètre
+	    //Crï¿½ation de notre fenï¿½tre avec le contrï¿½leur en paramï¿½tre
 	    Vue_Gestion_id Vue = new Vue_Gestion_id(controler);
 	    
 	  }

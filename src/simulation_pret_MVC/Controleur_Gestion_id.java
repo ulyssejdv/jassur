@@ -10,7 +10,7 @@ public class Controleur_Gestion_id  {
 	
 	Modele_Gestion_id mod;
 	private int id_client_recuperer;
-	
+
 	
 	/**constructeur de la classe qui met les composants en place dans un panel 
 	 * @param m v
