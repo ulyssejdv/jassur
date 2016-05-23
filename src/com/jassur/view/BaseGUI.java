@@ -78,7 +78,7 @@ public class BaseGUI extends JFrame {
 		/*
 		 * Loans Menu
 		 */
-		JMenu mnPrts = new JMenu("Prêts");
+		JMenu mnPrts = new JMenu("Pr�ts");
 		menuBar.add(mnPrts);
 		
 		JMenuItem cr = new JMenu("Nouvelle simulation");
