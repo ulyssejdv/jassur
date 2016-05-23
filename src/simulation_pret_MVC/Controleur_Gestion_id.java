@@ -1,6 +1,7 @@
 package simulation_pret_MVC;
 
 /**Controleur de la gestion des id  
+ * controller of the id management
  * @param 
  * @return
  * @author Sarah
@@ -13,6 +14,7 @@ public class Controleur_Gestion_id  {
 
 	
 	/**constructeur de la classe qui met les composants en place dans un panel 
+	 * constructor of the class that input components in panel
 	 * @param m v
 	 * @return
 	 * @author Sarah
@@ -23,7 +25,8 @@ public class Controleur_Gestion_id  {
 		mod=m;		
 		
 	}	
-	/**Method qui recupere l'id du client  
+	/**Method qui recupere l'id du client 
+	 * function that return the client id 
 	 * @param nom_jtf prenom_jtf
 	 * @return id_client_recuperer
 	 * @author Sarah

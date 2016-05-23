@@ -32,7 +32,8 @@ public class Vue_tableau_pret extends JFrame implements ActionListener {
 	private Object[][] donne_jtable ;
 	
 	
-	/** Constructeur de la vue tableau des prets
+	/** Constructor for the loans table of the view
+	 * constructeur de la vue tableau des prets
 	 * @param type_de_pret,id_client
 	 * @return
 	 * @author Sarah
@@ -76,6 +77,7 @@ public class Vue_tableau_pret extends JFrame implements ActionListener {
 		}
 		
 	/** Methode qui permet l'action du bouton retour
+	 * this method permit the button action "return"
 	 * @param arg0
 	 * @return
 	 * @author Sarah
