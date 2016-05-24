@@ -98,6 +98,10 @@ public class BaseGUI extends JFrame {
 		mntmRetrouverUnPrt.addActionListener(new GotoLoanListener());
 		mnPrts.add(mntmRetrouverUnPrt);
 		
+		
+		//JMenu maSimul = new JMenu("Simulation de Prêts");
+		//menuBar.add(maSimul);
+		
 		/*
 		 * Help Menu
 		 */
