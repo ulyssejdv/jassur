@@ -15,18 +15,25 @@ import com.jassur.model.Client;
 import com.jassur.model.Loan;
 import com.jassur.model.Model;
 
-public class Dispatcher {
+public class Dispatcher extends Thread {
 	
 	private DataOutputStream dataOutputStream = null;
 	private PoolConnection poolConnexion = null;
 	private DAOFactory daoFactory = null;
 	
 	private String responseString = new String();
+	
+	private String request;
 
-	public Dispatcher(DataOutputStream outputClient, PoolConnection pc) {
+	public Dispatcher(DataOutputStream outputClient, PoolConnection pc, String request) {
 		this.dataOutputStream = outputClient;
 		this.poolConnexion = pc;
 		this.daoFactory = DAOFactory.getFactory(DAOFactory.MYSQL_DAO_FACTORY);
+		this.request = request;
+	}
+	
+	public void run() {
+		this.analyze(this.request);
 	}
 
 	public void analyze(String request) {

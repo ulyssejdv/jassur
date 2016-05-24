@@ -32,10 +32,9 @@ public class ServerJassur {
 			fh.setFormatter(new SimpleFormatter());
 			Logger.getLogger("journal").addHandler(fh);
 			
-			}
-			 catch (IOException e) {
-					e.printStackTrace();
-					}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 			
 		ServerSocket serverSocket = null;
 		
@@ -71,8 +70,9 @@ public class ServerJassur {
 					 * for callback
 					 */
 					
-					Dispatcher dispatcher = new Dispatcher(outputClient, poolConnection);
-					dispatcher.analyze(message);	
+					Dispatcher dispatcher = new Dispatcher(outputClient, poolConnection, message);
+					dispatcher.start();
+					//dispatcher.analyze(message);	
 					
 				} catch (IOException e) {
 					e.printStackTrace();
