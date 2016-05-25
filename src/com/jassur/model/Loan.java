@@ -31,6 +31,7 @@ public class Loan implements Model {
 	private int amount;
 	private int totalDuration;
 	private double totalAmount;
+	private double insurance;
 	
 	
 	private int id = 0;
@@ -137,6 +138,33 @@ public class Loan implements Model {
 		this.states.remove(s);
 	}
 	
+	/**
+	 * Get the periodic rate for this loan
+	 * @return 
+	 */
+	public double periodicRate() {
+		return this.getRates().get(0).getInterestRate()/12;
+	}
+	
+	/**
+	 * Get the amount of insurance per month
+	 * @return
+	 */
+	public double insurancePerMonth() {
+		return (this.getAmount()*(this.getInsurance()/100))/this.getTotalDuration();
+	}
+	
+	public double remainingCapital(double rc, double i, double mp) {
+		return rc-(mp-i);
+	}
+	
+	public double interestPerMonth(double rc) {
+		return (rc*this.periodicRate())/100;
+	}
+	
+	public double principal(double m, double i) {
+		return m-i;
+	}
 	
 	
 	/*
@@ -198,6 +226,14 @@ public class Loan implements Model {
 
 	public void setTotalAmount(double totalAmount) {
 		this.totalAmount = totalAmount;
+	}
+	
+	public double getInsurance() {
+		return insurance;
+	}
+	
+	public void setInsurance(double insurance) {
+		this.insurance = insurance;
 	}
 
 	public int getId() {
