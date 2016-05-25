@@ -19,7 +19,7 @@ import java.awt.event.ActionEvent;
 public class FixedRatePanel extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
-	private JLabel lblEcran= new JLabel();
+	private JLabel lblEcran= new JLabel("0.0");
 	private JTextField tfTauxMM= new JTextField();
 	private JTextField tfAge = new JTextField();
 	private int InputAge=0;
@@ -40,7 +40,7 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 
 
 	/**
-	 * 
+	 * @author Jérémy
 	 *Create the panel.
 	 */
 
@@ -49,32 +49,32 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 		//--------------------------------
 		setTitle("D\u00E9termination du taux d'int\u00E9rets de l'agence");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		//setSize(500,300);
 		contentPane = new JPanel();
+		setBounds(100, 100, 915, 576);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		this.setVisible(true);
 		GridBagLayout gbl_contentPane = new GridBagLayout();
-		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_contentPane.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_contentPane.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 
 
 		GridBagConstraints gbc_lblTauxMaisonMre = new GridBagConstraints();
 		gbc_lblTauxMaisonMre.insets = new Insets(0, 0, 5, 5);
 		gbc_lblTauxMaisonMre.anchor = GridBagConstraints.EAST;
-		gbc_lblTauxMaisonMre.gridx = 3;
-		gbc_lblTauxMaisonMre.gridy = 1;
+		gbc_lblTauxMaisonMre.gridx = 11;
+		gbc_lblTauxMaisonMre.gridy = 3;
 		contentPane.add(lblTauxMaisonMre, gbc_lblTauxMaisonMre);
 
 
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.insets = new Insets(0, 0, 5, 5);
 		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.gridx = 4;
-		gbc_textField.gridy = 1;
+		gbc_textField.gridx = 13;
+		gbc_textField.gridy = 3;
 		contentPane.add(tfTauxMM, gbc_textField);
 		tfTauxMM.setColumns(10);
 
@@ -82,16 +82,16 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 		GridBagConstraints gbc_lblAge = new GridBagConstraints();
 		gbc_lblAge.insets = new Insets(0, 0, 5, 5);
 		gbc_lblAge.anchor = GridBagConstraints.EAST;
-		gbc_lblAge.gridx = 3;
-		gbc_lblAge.gridy = 2;
+		gbc_lblAge.gridx = 11;
+		gbc_lblAge.gridy = 5;
 		contentPane.add(lblAge, gbc_lblAge);
 
 
 		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
 		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
 		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_1.gridx = 4;
-		gbc_textField_1.gridy = 2;
+		gbc_textField_1.gridx = 13;
+		gbc_textField_1.gridy = 5;
 		contentPane.add(tfAge, gbc_textField_1);
 		tfAge.setColumns(10);
 
@@ -99,37 +99,37 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 		GridBagConstraints gbc_lblDurDuPrt = new GridBagConstraints();
 		gbc_lblDurDuPrt.insets = new Insets(0, 0, 5, 5);
 		gbc_lblDurDuPrt.anchor = GridBagConstraints.EAST;
-		gbc_lblDurDuPrt.gridx = 3;
-		gbc_lblDurDuPrt.gridy = 3;
+		gbc_lblDurDuPrt.gridx = 11;
+		gbc_lblDurDuPrt.gridy = 7;
 		contentPane.add(lblDurDuPrt, gbc_lblDurDuPrt);
 
 		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
 		gbc_textField_2.insets = new Insets(0, 0, 5, 5);
 		gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_2.gridx = 4;
-		gbc_textField_2.gridy = 3;
+		gbc_textField_2.gridx = 13;
+		gbc_textField_2.gridy = 7;
 		contentPane.add(tfDuration, gbc_textField_2);
 		tfDuration.setColumns(10);
 
 		JLabel lblEtatDeSant = new JLabel("Etat de sant\u00E9 :");
 		GridBagConstraints gbc_lblEtatDeSant = new GridBagConstraints();
 		gbc_lblEtatDeSant.insets = new Insets(0, 0, 5, 5);
-		gbc_lblEtatDeSant.gridx = 3;
-		gbc_lblEtatDeSant.gridy = 4;
+		gbc_lblEtatDeSant.gridx = 11;
+		gbc_lblEtatDeSant.gridy = 9;
 		contentPane.add(lblEtatDeSant, gbc_lblEtatDeSant);
 
 		//RadioButton
 
 		GridBagConstraints gbc_rdbtnBon = new GridBagConstraints();
 		gbc_rdbtnBon.insets = new Insets(0, 0, 5, 5);
-		gbc_rdbtnBon.gridx = 4;
-		gbc_rdbtnBon.gridy = 4;
+		gbc_rdbtnBon.gridx = 13;
+		gbc_rdbtnBon.gridy = 9;
 		contentPane.add(rdbtnBon, gbc_rdbtnBon);
 
 		GridBagConstraints gbc_rdbtnMauvais = new GridBagConstraints();
 		gbc_rdbtnMauvais.insets = new Insets(0, 0, 5, 5);
-		gbc_rdbtnMauvais.gridx = 5;
-		gbc_rdbtnMauvais.gridy = 4;
+		gbc_rdbtnMauvais.gridx = 14;
+		gbc_rdbtnMauvais.gridy = 9;
 		contentPane.add(rdbtnMauvais, gbc_rdbtnMauvais);
 
 		ButtonGroup bg = new ButtonGroup();
@@ -139,19 +139,25 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 		JLabel lblRsultat = new JLabel("R\u00E9sultat :");
 		GridBagConstraints gbc_lblRsultat = new GridBagConstraints();
 		gbc_lblRsultat.insets = new Insets(0, 0, 5, 5);
-		gbc_lblRsultat.gridx = 3;
-		gbc_lblRsultat.gridy = 6;
-		contentPane.add(lblRsultat, gbc_lblRsultat);
-
+		gbc_lblRsultat.gridx = 11;
+		gbc_lblRsultat.gridy = 11;
+		contentPane.add(lblRsultat,gbc_lblRsultat);
 
 		GridBagConstraints gbc_lblEcran = new GridBagConstraints();
 		gbc_lblEcran.insets = new Insets(10, 0, 20, 5);
-		gbc_lblEcran.gridx = 4;
-		gbc_lblEcran.gridy = 6;
+		gbc_lblEcran.gridx = 13;
+		gbc_lblEcran.gridy = 11;
 		contentPane.add(lblEcran, gbc_lblEcran);
 		btnCalculer.addActionListener(this);
 		contentPane.add(btnCalculer);
-		btnCalculer.setBounds(100, 150, 200, 30);
+		GridBagConstraints gbc_btnCalculer = new GridBagConstraints();
+		gbc_btnCalculer.insets = new Insets(0, 0, 5, 5);
+		gbc_btnCalculer.gridx = 13;
+		gbc_btnCalculer.gridy = 14;
+		contentPane.add(btnCalculer, gbc_btnCalculer);
+		//btnCalculer.setBounds(100, 150, 200, 30);
+		this.setVisible(true);
+
 	}	
 
 	public void actionPerformed(ActionEvent e) {
@@ -175,7 +181,7 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 				}
 				rate=controler.get_rate(InputTauxMM, InputAge, InputDuration, valeurRadio);
 				lblEcran.setText(String.valueOf(rate));
-
+				
 			}else
 			{
 				JOptionPane.showMessageDialog(contentPane, "Attention champs manquants !");
