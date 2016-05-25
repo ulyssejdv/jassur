@@ -7,7 +7,7 @@ import com.jassur.model.CalculateRate;
 
 
 /**
- * @author jérémy
+ * 
  *
  */
 public class RateController {
