@@ -146,14 +146,7 @@ public class BaseGUI extends JFrame {
 			hc.indexAction();
 		}
 	}
-	class GotoLoanVariableListener implements ActionListener {
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			LoanVariableController lvc = new LoanVariableController();
-		    lvc.showAction(3);
-		}
-	}
+	
 	class GotoSimulationpret implements ActionListener {
 
 		@Override

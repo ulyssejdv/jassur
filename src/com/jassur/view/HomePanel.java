@@ -2,12 +2,7 @@ package com.jassur.view;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -18,10 +13,15 @@ public class HomePanel extends JPanel {
 	 */
 	public HomePanel() {
 		
-		JLabel lblBienvenuSurJassur = new JLabel("Bienvenue sur JASSUR");
-		lblBienvenuSurJassur.setFont(new Font("Lucida Grande", Font.BOLD, 20));
 		this.setBackground(Color.WHITE);
+		
+		JLabel lblBienvenuSurJassur = new JLabel("Bienvenue sur JASSUR");
+		lblBienvenuSurJassur.setFont(new Font("Lucida Grande", Font.BOLD, 22));
 		add(lblBienvenuSurJassur);
+		
+		JLabel lblSim = new JLabel("simulateur de pret");
+		lblSim.setFont(new Font("Lucida Grande", Font.BOLD, 14));
+		add(lblSim);
 		
 	}
 	
