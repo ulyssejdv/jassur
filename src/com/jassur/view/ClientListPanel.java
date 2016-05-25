@@ -1,7 +1,9 @@
 package com.jassur.view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -30,7 +32,11 @@ public class ClientListPanel extends JPanel {
 	 */
 	public ClientListPanel(ArrayList<Client> cList) {
 		
-		setBorder(new TitledBorder(null, "Clients Liste", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		Dimension d = new Dimension(BaseGUI.MAIN_FRAME.getWidth(), BaseGUI.MAIN_FRAME.getHeight());
+		setPreferredSize(d);
+		setBackground(Color.WHITE);
+		
+		//setBorder(new TitledBorder(null, "Clients Liste", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 
 		/* prepare the model table */
 		Object[][] data = {};

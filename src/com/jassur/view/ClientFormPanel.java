@@ -1,16 +1,17 @@
 package com.jassur.view;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.BoxLayout;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.border.TitledBorder;
 
 import com.jassur.controller.ClientController;
 import com.jassur.model.Address;
@@ -26,7 +27,7 @@ public class ClientFormPanel extends JPanel {
 	private JTextField tfCity;
 	private JTextField tfRegion;
 	private JTextField tfZip;
-	
+
 	private Client c;
 
 	/**
@@ -34,126 +35,140 @@ public class ClientFormPanel extends JPanel {
 	 * @param c 
 	 */
 	public ClientFormPanel(Client c) {
-		
+
 		this.c = c;
-		setBorder(new TitledBorder(null, "Client Form", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		setLayout(new BorderLayout(0, 0));
+
+		setBackground(Color.WHITE);
+		setLayout(new BorderLayout());
+
+		JPanel infoPanel = new JPanel();
 		
-		JPanel panel_1 = new JPanel();
-		add(panel_1, BorderLayout.NORTH);
-		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		JPanel panelPersonnal = new JPanel();
-		panelPersonnal.setBorder(new TitledBorder(null, "Personnal information", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_1.add(panelPersonnal);
-		panelPersonnal.setLayout(new BoxLayout(panelPersonnal, BoxLayout.Y_AXIS));
-		
-		/*JPanel panelFirstName = new JPanel();
-		FlowLayout flowLayout = (FlowLayout) panelFirstName.getLayout();
-		flowLayout.setAlignment(FlowLayout.RIGHT);
-		panelPersonnal.add(panelFirstName);*/
-		
-		JLabel lblFirstName = new JLabel("First Name :");
-		panelPersonnal.add(lblFirstName);
-		
+		GroupLayout layout = new GroupLayout(infoPanel);
+		infoPanel.setLayout(layout);
+		infoPanel.setBackground(Color.WHITE);
+
+		// Turn on automatically adding gaps between components
+		layout.setAutoCreateGaps(true);
+
+		// Turn on automatically creating gaps between components that touch
+		// the edge of the container and the container.
+		layout.setAutoCreateContainerGaps(true);
+
+		// Create a sequential group for the vertical axis.
+		GroupLayout.SequentialGroup vGroup = layout.createSequentialGroup();
+
+		JLabel lblFirstName = new JLabel("Prenom :");
 		tfFirstName = new JTextField(c.getFirstName());
-		panelPersonnal.add(tfFirstName);
 		tfFirstName.setColumns(10);
-		
-		JLabel lblLastName = new JLabel("Last Name :");
-		panelPersonnal.add(lblLastName);
-		
+		vGroup.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+				.addComponent(lblFirstName).addComponent(tfFirstName));
+
+		JLabel lblLastName = new JLabel("Nom :");
 		tfLastName = new JTextField(c.getLastName());
-		panelPersonnal.add(tfLastName);
 		tfLastName.setColumns(10);
-		
-		JLabel lblPhone = new JLabel("Phone : ");
-		panelPersonnal.add(lblPhone);
-		
+		vGroup.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+				.addComponent(lblLastName).addComponent(tfLastName));
+
+		JLabel lblPhone = new JLabel("Telephone : ");
 		tfPhone = new JTextField(c.getPhone());
-		panelPersonnal.add(tfPhone);
 		tfPhone.setColumns(10);
-		
+		vGroup.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+				.addComponent(lblPhone).addComponent(tfPhone));
+
 		JLabel lblEmail = new JLabel("E-mail :");
-		panelPersonnal.add(lblEmail);
-		
 		tfEmail = new JTextField(c.getEmail());
-		panelPersonnal.add(tfEmail);
 		tfEmail.setColumns(10);
-		
-		JPanel panelAddress = new JPanel();
-		panelAddress.setBorder(new TitledBorder(null, "Address", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_1.add(panelAddress);
-		panelAddress.setLayout(new BoxLayout(panelAddress, BoxLayout.Y_AXIS));
-		
-		JLabel lblStreet = new JLabel("Street :");
-		panelAddress.add(lblStreet);
-		
+		vGroup.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+				.addComponent(lblEmail).addComponent(tfEmail));
+
+		JLabel lblStreet = new JLabel("Rue :");
 		tfStreet = new JTextField(c.getAddress().getStreet());
-		panelAddress.add(tfStreet);
 		tfStreet.setColumns(10);
-		
-		JLabel lblCity = new JLabel("City :");
-		panelAddress.add(lblCity);
-		
+		vGroup.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+				.addComponent(lblStreet).addComponent(tfStreet));
+
+		JLabel lblCity = new JLabel("Ville :");
 		tfCity = new JTextField(c.getAddress().getCity());
-		panelAddress.add(tfCity);
 		tfCity.setColumns(10);
-		
+		vGroup.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+				.addComponent(lblCity).addComponent(tfCity));
+
 		JLabel lblRegion = new JLabel("Region :");
-		panelAddress.add(lblRegion);
-		
 		tfRegion = new JTextField(c.getAddress().getRegion());
-		panelAddress.add(tfRegion);
 		tfRegion.setColumns(10);
-		
-		JLabel lblZip = new JLabel("Zip :");
-		panelAddress.add(lblZip);
-		
+		vGroup.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+				.addComponent(lblRegion).addComponent(tfRegion));
+
+		JLabel lblZip = new JLabel("Code postal :");
 		tfZip = new JTextField(String.valueOf(c.getAddress().getZip()));
-		panelAddress.add(tfZip);
 		tfZip.setColumns(10);
-		
-		JLabel lblCountry = new JLabel("Country :");
-		panelAddress.add(lblCountry);
-		
+		vGroup.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+				.addComponent(lblZip).addComponent(tfZip));
+
+		JLabel lblCountry = new JLabel("Pays :");
 		tfCountry = new JTextField(c.getAddress().getCountry());
-		panelAddress.add(tfCountry);
 		tfCountry.setColumns(10);
+		vGroup.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+				.addComponent(lblCountry).addComponent(tfCountry));
 		
+		GroupLayout.SequentialGroup hGroup = layout.createSequentialGroup();
 		
-		JPanel panel_2 = new JPanel();
-		FlowLayout flowLayout_4 = (FlowLayout) panel_2.getLayout();
-		flowLayout_4.setAlignment(FlowLayout.RIGHT);
-		add(panel_2, BorderLayout.SOUTH);
-		
-		JButton btnAdd = new JButton("Save");
+		hGroup.addGroup(layout.createParallelGroup()
+				.addComponent(lblFirstName)
+				.addComponent(lblLastName)
+				.addComponent(lblPhone)
+				.addComponent(lblEmail)
+				.addComponent(lblStreet)
+				.addComponent(lblCity)
+				.addComponent(lblZip)
+				.addComponent(lblRegion)
+				.addComponent(lblCountry)
+		);
+		hGroup.addGroup(layout.createParallelGroup()
+				 .addComponent(tfFirstName)
+				 .addComponent(tfLastName)
+				 .addComponent(tfPhone)
+				 .addComponent(tfEmail)
+				 .addComponent(tfStreet)
+				 .addComponent(tfCity)
+				 .addComponent(tfZip)
+				 .addComponent(tfRegion)
+				 .addComponent(tfCountry)
+		);
+	   	layout.setHorizontalGroup(hGroup);
+		layout.setVerticalGroup(vGroup);
+
+		JButton btnAdd = new JButton("Enregistrer");
 		btnAdd.addActionListener(new AddListener());
-		panel_2.add(btnAdd);
+		//infoPanel.add(btnAdd, BorderLayout.SOUTH);
+
+		//JScrollPane jsp = new JScrollPane(infoPanel);
+		add(infoPanel, BorderLayout.CENTER);
+		add(btnAdd, BorderLayout.SOUTH);
 
 	}
-	
+
 	class AddListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			ClientController cc = new ClientController();
-			
+
 			Client c2 = new Client();
 			c2.setFirstName(tfFirstName.getText());
 			c2.setLastName(tfLastName.getText());
 			c2.setEmail(tfEmail.getText());
 			c2.setPhone(tfPhone.getText());
-			
+
 			Address a = new Address();
 			a.setCity(tfCity.getText());
 			a.setCountry(tfCountry.getText());
 			a.setRegion(tfRegion.getText());
 			a.setStreet(tfStreet.getText());
 			a.setZip(Integer.parseInt(tfZip.getText()));
-			
+
 			c2.setAddress(a);
-			
+
 			c2.setId(c.getId());
 			if (c.getId() != 0) {
 				c2.setId(c.getId());
@@ -162,6 +177,6 @@ public class ClientFormPanel extends JPanel {
 				cc.createAction(c2);
 			}
 		}
-		
+
 	}
 }

@@ -34,7 +34,7 @@ public class LoanShowTablePanel extends JPanel {
 	    int size = this.loan.getTotalDuration();
 	    
 	    jTable = new JTable(tblModel);
-	    jTable.setSize(915, 576);
+	    //jTable.setSize(915, 576);
 	    
 	    double ca = this.loan.getAmount();
 	    

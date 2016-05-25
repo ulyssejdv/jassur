@@ -1,6 +1,5 @@
 package com.jassur.view;
 
-import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -10,6 +9,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
+import com.jassur.controller.ClientController;
 import com.jassur.controller.HomeController;
 import com.jassur.controller.LoanController;
 //import com.jassur.controller.SimulateController;
@@ -25,6 +25,11 @@ public class BaseGUI extends JFrame {
 	
 	public static BaseGUI MAIN_FRAME = null;
 	
+	/**
+	 * Display the given panel
+	 * @param p
+	 * @return
+	 */
 	public static BaseGUI render(JPanel p) {
 
 		if (MAIN_FRAME == null) {
@@ -71,7 +76,12 @@ public class BaseGUI extends JFrame {
 		menuBar.add(mnClients);
 		
 		JMenuItem mntmNouveauClient = new JMenuItem("Nouveau client");
+		mntmNouveauClient.addActionListener(new GotoNewClientListener());
 		mnClients.add(mntmNouveauClient);
+		
+		JMenuItem mntmlistClient = new JMenuItem("Liste de clients");
+		mntmlistClient.addActionListener(new GotoListClientListener());
+		mnClients.add(mntmlistClient);
 		
 		JMenuItem mntmChercherClient = new JMenuItem("Chercher client");
 		mnClients.add(mntmChercherClient);
@@ -140,6 +150,27 @@ public class BaseGUI extends JFrame {
 			LoanVariableController lvc = new LoanVariableController();
 		    lvc.showAction(3);
 		}
+	}
+	
+	class GotoNewClientListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			ClientController cc = new ClientController();
+			cc.newAction();
+		}
+		
+	}
+	
+	
+	class GotoListClientListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			ClientController cc = new ClientController();
+			cc.indexAction();
+		}
+		
 	}
 	
 
