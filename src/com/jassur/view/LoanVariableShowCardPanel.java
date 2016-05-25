@@ -15,8 +15,8 @@ public class LoanVariableShowCardPanel extends JFrame {
 	private JTextField unTaux = new JTextField(10);
 	private JButton calculateButton = new JButton("Calculer");
 	//Button for best scenarios
-	private JButton calculateBestButton = new JButton ("Afficher les meilleurs scénarios");
-	private JButton calculateBadButton = new JButton ("Afficer les scénarios défavorables");
+	private JButton calculateBestButton = new JButton ("Afficher les meilleurs scï¿½narios");
+	private JButton calculateBadButton = new JButton ("Afficer les scï¿½narios dï¿½favorables");
 	private JTextField calcSolution = new JTextField(10);
 	private final JLabel JLab_Montant = new JLabel("Le Montant");
 	private final JLabel JLab_Duree = new JLabel("La Dur\u00E9e");
@@ -27,7 +27,7 @@ public class LoanVariableShowCardPanel extends JFrame {
 		JPanel calcPanel = new JPanel();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//title
-		this.setTitle("Simulation de prêts - JASSUR");
+		this.setTitle("Simulation de pr\u00EAts - JASSUR");
 		//size of the windows
 		setBounds(100, 100, 802, 574);		
 		calcPanel.setLayout(null);
