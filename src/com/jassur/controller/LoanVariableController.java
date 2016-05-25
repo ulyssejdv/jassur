@@ -6,7 +6,7 @@ import javax.swing.JButton;
 
 import com.jassur.model.LoanVariable;
 import com.jassur.view.LoanVariableShowCardPanel;
-import com.jassur.view.ShowBestScenarios;
+
 
 // Class controller coordinates interactions between the view and model
 
@@ -25,6 +25,7 @@ public class LoanVariableController{
 		this.theView.addCalculationListener(new CalculateListener());
 		
 	}
+	// Listener for calculate constant button
 	class CalculateListener implements ActionListener {
 
 		@Override
@@ -44,7 +45,7 @@ public class LoanVariableController{
 			catch(NumberFormatException ex){
 				
 				System.out.println(ex);
-				
+				// if no values = alert
 				theView.displayErrorMessage("Vous devez rentrer des valeurs");
 			}
 			
