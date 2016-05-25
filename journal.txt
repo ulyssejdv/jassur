@@ -1,0 +1,9 @@
+mai 25, 2016 5:37:25 PM com.jassur.server.ServerJassur main
+INFOS: 127.0.0.1{"route":"categories\/","method":"GET"}
+
+mai 25, 2016 5:38:22 PM com.jassur.server.ServerJassur main
+INFOS: 127.0.0.1{"route":"loans\/","method":"POST","resource":{"amount":123413,"id_loan":0,"total_duration":12,"total_amount":124893.956,"rates":[{"duration":12,"id_rate":0,"interest_rate":1.2,"monthly_payment":10407.829666666667}],"category":{"id_category":1,"label_category":"Immobilier"},"client_id":{"address":{"zip":0,"country":"","id_address":0,"city":"","street":"","region":""},"business":false,"phone":"0667939393","id_client":11,"last_name":"b","first_name":"a","email":"r@a.fr"},"states":[{"user_id":1,"label_state":"Simulation","id_state":0,"loan_id":0}]}}
+
+mai 25, 2016 5:38:22 PM com.jassur.server.ServerJassur main
+INFOS: 127.0.0.1{"route":"loans\/28","method":"GET"}
+

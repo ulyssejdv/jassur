@@ -4,7 +4,9 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 
+
 import javax.swing.JButton;
+
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -39,6 +41,7 @@ public class LoanShowPanel extends JPanel {
 		tabbedPane.setPreferredSize(d);
 		
 		add(tabbedPane, BorderLayout.CENTER);
+
 		
 		setBackground(Color.WHITE);
 		

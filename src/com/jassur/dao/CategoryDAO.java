@@ -59,15 +59,15 @@ public class CategoryDAO extends DAO<Category> {
 						"SELECT * "+
 					    "FROM categories");
 				
-			if (result.first()) {
 		
 				while (result.next()) {
 					Category category = new Category();
 					category.setId(result.getInt("id_category"));
 					category.setLabelCategory(result.getString("label_category"));
 					categories.add(category);
+					System.out.println(category.toString());
 				}		
-			}				
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

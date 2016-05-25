@@ -1,11 +1,9 @@
 package com.jassur.model;
 
-
 import java.util.ArrayList;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-
 
 public class Loan implements Model {
 	
@@ -13,6 +11,7 @@ public class Loan implements Model {
 	 * Has one
 	 */
 	private Client client;
+	private int client_id;
 	private Category category;
 	
 	
@@ -31,6 +30,8 @@ public class Loan implements Model {
 	private int amount;
 	private int totalDuration;
 	private double totalAmount;
+
+	private int category_id;
 	private double insurance;
 	
 	
@@ -63,11 +64,15 @@ public class Loan implements Model {
 		jObj.put("amount", this.getAmount());
 		jObj.put("total_duration", this.getTotalDuration());
 		jObj.put("total_amount", this.getTotalAmount());
-		
-		/*if (this.getCategory() != null) {
+		//ClientController cc=new ClientController();
+		//this.client_id=(int)jo.get("client_id");
+		jObj.put("client_id", this.getClient().toJSON());
+		System.out.println("Loan 1");
+		if (this.getCategory() != null) {
 			jObj.put("category", this.getCategory().toJSON());
-		}*/
-		
+		}
+		System.out.println("Loan 2");
+
 		if (this.getRates() != null) {
 			JSONArray ratesJson = new JSONArray();
 			for (Rate rate : this.getRates()) {
@@ -75,7 +80,18 @@ public class Loan implements Model {
 			}
 			jObj.put("rates", ratesJson);
 		}
-		
+
+		if (this.getStates() != null) {
+			JSONArray statesJson = new JSONArray();
+			for (State state : this.getStates()) {
+				statesJson.add(state.toJSON());
+			}
+			jObj.put("states", statesJson);
+		}
+		System.out.println("Loan 3");
+		System.out.println(jObj.toString());
+		System.out.println("Loan 4");
+
 		return jObj;
 	}
 
@@ -85,9 +101,30 @@ public class Loan implements Model {
 		this.amount = (int)(long)jo.get("amount");
 		this.totalDuration = (int)(long)jo.get("total_duration");
 		this.totalAmount = (double)jo.get("total_amount");
-		
+		if (jo.containsKey("states")) {
+			JSONArray jarray = (JSONArray) jo.get("states");
+			
+			for (Object ob : jarray) {
+				State s = new State();
+				s.parseJSON((JSONObject) ob);
+				System.out.println("Loan 1"+s.toString());
+				addState(s);
+			}
+		}	
+		if (jo.containsKey("category")) {
+			Category c=new Category();
+			JSONObject jobject = (JSONObject) jo.get("category");
+			c.parseJSON(jobject);
+			setCategory(c);
+
+		}
+		if (jo.containsKey("client_id")) {
+			Client c=new Client();
+			JSONObject jobject = (JSONObject) jo.get("client_id");
+			c.parseJSON(jobject);
+			setClient(c);
+		}
 		if (jo.containsKey("rates")) {
-			Address ad = new Address();
 			JSONArray jarray = (JSONArray) jo.get("rates");
 			
 			for (Object ob : jarray) {
@@ -96,6 +133,7 @@ public class Loan implements Model {
 				addRate(r);
 			}
 		}	
+
 	}
 	
 	
@@ -246,8 +284,9 @@ public class Loan implements Model {
 
 	@Override
 	public String toString() {
-		return "Loan [category=" + category + ", \n rates=" + rates + ", \n states=" + states + ", \n amount=" + amount
-				+ ", \n totalDuration=" + totalDuration + ", \n totalAmount=" + totalAmount + ", \n id=" + id + "]";
+		return "Loan [client=" + client + ", client_id=" + client_id + ", category=" + category + ", rates=" + rates
+				+ ", states=" + states + ", amount=" + amount + ", totalDuration=" + totalDuration + ", totalAmount="
+				+ totalAmount + ", category_id=" + category_id + ", id=" + id + "]";
 	}
 
 }

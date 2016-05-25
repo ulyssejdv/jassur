@@ -1,29 +1,29 @@
 package com.jassur.view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
-import com.jassur.dao.CategoryDAO;
+import com.jassur.controller.LoanController;
 import com.jassur.model.Category;
+import com.jassur.model.Client;
 import com.jassur.model.Loan;
 import com.jassur.model.Rate;
-import javax.swing.SwingConstants;
-import javax.swing.BoxLayout;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import com.jassur.model.State;
+import com.jassur.model.User;
 
 public class LoanFixedRateSimulationPanel extends JPanel {
 	
@@ -35,7 +35,8 @@ public class LoanFixedRateSimulationPanel extends JPanel {
 	/**
 	* Create the panel.
 	*/
-	public LoanFixedRateSimulationPanel(ArrayList<Category> categories,int id_client/*,ArrayList<Rate> rates*/) {
+	public LoanFixedRateSimulationPanel(ArrayList<Category> categories,Client client/*,ArrayList<Rate> rates*/) {
+
 		
 		setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		setLayout(new BorderLayout(0, 0));
@@ -106,6 +107,12 @@ public class LoanFixedRateSimulationPanel extends JPanel {
 		lblTauxDintrtDu.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		JComboBox comboBoxTauxDintrtDu = new JComboBox();
+
+		String[] taux={"1.2","1.5","2"};
+		comboBoxTauxDintrtDu.addItem(taux[0]);
+		comboBoxTauxDintrtDu.addItem(taux[1]);
+		comboBoxTauxDintrtDu.addItem(taux[2]);
+
 		/*for (Rate object: rates){
 			comboBoxTauxDintrtDu.addItem(object.getInterestRate());*/
 		panel.add(comboBoxTauxDintrtDu);
@@ -162,19 +169,19 @@ public class LoanFixedRateSimulationPanel extends JPanel {
 		btnCalculer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				double resCoutTotal=0;
-				resCoutTotal+=Double.parseDouble(textFieldMontantTotal.getText())/* *Double.parseDouble(comboBoxTauxDintrtDu.getName())*/
+				resCoutTotal+=Double.parseDouble(textFieldMontantTotal.getText()) *(1+(Double.parseDouble(taux[comboBoxTauxDintrtDu.getSelectedIndex()])/100))
 						+(Integer.parseInt(textDureDuPrt.getText())*Double.parseDouble(textFieldEcheanceAssur.getText()))
 						+Double.parseDouble(textFieldFraisDeDossier.getText());
 				lblResultatCoutTotal.setText(Double.toString(resCoutTotal));
 				
 				double resEcheanceAssuranceComprise=0;
-				resEcheanceAssuranceComprise+=(Double.parseDouble(textFieldMontantTotal.getText())/* *Double.parseDouble(comboBoxTauxDintrtDu.getName())*/
+				resEcheanceAssuranceComprise+=(Double.parseDouble(textFieldMontantTotal.getText()) *(1+(Double.parseDouble(taux[comboBoxTauxDintrtDu.getSelectedIndex()])/100))
 						+(Integer.parseInt(textDureDuPrt.getText())*Double.parseDouble(textFieldEcheanceAssur.getText()))
 						+Double.parseDouble(textFieldFraisDeDossier.getText()))/Integer.parseInt(textDureDuPrt.getText());
 				lblResEcheanceAssuranceComprise.setText(Double.toString(resEcheanceAssuranceComprise));
 
 				double resultatEcheanceHorsAss =0;
-				resultatEcheanceHorsAss+=(Double.parseDouble(textFieldMontantTotal.getText())/* *Double.parseDouble(comboBoxTauxDintrtDu.getName())*/
+				resultatEcheanceHorsAss+=(Double.parseDouble(textFieldMontantTotal.getText()) *(1+(Double.parseDouble(taux[comboBoxTauxDintrtDu.getSelectedIndex()])/100))
 						+Double.parseDouble(textFieldFraisDeDossier.getText()))/Integer.parseInt(textDureDuPrt.getText());
 				lblResultatEcheanceHorsAss.setText(Double.toString(resultatEcheanceHorsAss));
 				
@@ -189,6 +196,45 @@ public class LoanFixedRateSimulationPanel extends JPanel {
 		add(panelSouth, BorderLayout.SOUTH);
 		
 		JButton btnEnregistrerLaSimulation = new JButton("Enregistrer la simulation");
+		btnEnregistrerLaSimulation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Loan l=new Loan();
+				l.setCategory(categories.get(comboBoxCategories.getSelectedIndex()));
+				l.setAmount(Integer.parseInt(textFieldMontantTotal.getText()));
+				l.setTotalDuration(Integer.parseInt(textDureDuPrt.getText()));
+				double resCoutTotal=0;
+				/*resCoutTotal+=Double.parseDouble(textFieldMontantTotal.getText())*(1+(2*Double.parseDouble(taux[comboBoxTauxDintrtDu.getSelectedIndex()])/100))
+						+(Integer.parseInt(textDureDuPrt.getText())*Double.parseDouble(textFieldEcheanceAssur.getText()))
+						+Double.parseDouble(textFieldFraisDeDossier.getText());
+				lblResultatCoutTotal.setText(Double.toString(resCoutTotal));
+				l.setTotalAmount(resCoutTotal);*/
+				resCoutTotal=Double.parseDouble(lblResultatCoutTotal.getText());
+				l.setTotalAmount(resCoutTotal);
+				Rate r=new Rate();
+				r.setDuration(Integer.parseInt(textDureDuPrt.getText()));
+				r.setInterestRate(Double.parseDouble(taux[comboBoxTauxDintrtDu.getSelectedIndex()]));
+				r.setMonthlyPayment(resCoutTotal/r.getDuration());
+				l.addRate(r);
+				
+				User u=new User();
+				
+				State s=new State();
+				s.setLabelState("Simulation");
+				s.setUserId(1);
+				
+				
+				l.addState(s);
+
+				
+				l.setClient(client);
+			
+				LoanController lc=new LoanController();
+				lc.createSimulation(l);
+				
+				
+			}
+		});
+
 		panelSouth.add(btnEnregistrerLaSimulation);
 		
 	}
@@ -207,14 +253,16 @@ public class LoanFixedRateSimulationPanel extends JPanel {
 		JFrame fenetre = new JFrame();
         
 	    //Définit un titre pour notre fenêtre
-	    fenetre.setTitle("Ma première fenêtre Java");
+	    fenetre.setTitle("Test LoanFixedRateSimulation");
 	    //Définit sa taille : 400 pixels de large et 100 pixels de haut
 	    fenetre.setSize(1000, 1000);
 	    //Nous demandons maintenant à notre objet de se positionner au centre
 	    fenetre.setLocationRelativeTo(null);
+	    Client client=new Client();
+	    client.setId(11);
 	    //Termine le processus lorsqu'on clique sur la croix rouge
 	    fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    LoanFixedRateSimulationPanel test =new LoanFixedRateSimulationPanel(categories,id_client);
+	    LoanFixedRateSimulationPanel test =new LoanFixedRateSimulationPanel(categories,client);
 		test.setVisible(true);
 		fenetre.setContentPane(test);
 	    //Et enfin, la rendre visible        

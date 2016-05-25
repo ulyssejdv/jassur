@@ -28,9 +28,7 @@ public class LoanDAO extends DAO<Loan> {
 			statement.setInt(2, obj.getCategory().getId());
 			statement.setInt(3, obj.getAmount());
 			statement.setInt(4, obj.getTotalDuration());
-			
 			statement.setDouble(5, obj.getTotalAmount());
-			
 			int rowInserted = statement.executeUpdate();
 			
 			if (rowInserted > 0) {
@@ -41,7 +39,6 @@ public class LoanDAO extends DAO<Loan> {
 	                
 	                RateDAO rateDAO = new RateDAO();
 	                rateDAO.setConnect(connect);
-	                
 	                StateDAO stateDAO = new StateDAO();
 	                stateDAO.setConnect(connect);
 	                
@@ -89,6 +86,7 @@ public class LoanDAO extends DAO<Loan> {
 					"SELECT * "+
 				    "FROM loans LEFT JOIN rates ON loans.id_loan = rates.loan_id "+
 					"LEFT JOIN states ON loans.id_loan = states.loan_id "+
+				    "JOIN clients ON clients.id_client=loans.client_id "+
 					"WHERE loans.id_loan = "+id+";");
 			
 			if (result.first()) {
@@ -101,10 +99,16 @@ public class LoanDAO extends DAO<Loan> {
 				loan.setTotalDuration(result.getInt("total_duration"));
 				
 				/* Get the category */
-				// CategoryDAO categoryDAO = new CategoryDAO();
-				// categoryDAO.setConnect(connect);
-				// loan.setCategory(categoryDAO.find(result.getInt("category_id")));
+				 CategoryDAO categoryDAO = new CategoryDAO();
+				 categoryDAO.setConnect(connect);
+				 loan.setCategory(categoryDAO.find(result.getInt("category_id")));
+
 				
+				/* Get the client */
+				 ClientDAO clientDAO = new ClientDAO();
+				 clientDAO.setConnect(connect);
+				 loan.setClient(clientDAO.find(result.getInt("client_id")));
+				 
 				/* Get all the rates */
 				result.beforeFirst();
 				RateDAO rateDAO = new RateDAO();
@@ -112,6 +116,7 @@ public class LoanDAO extends DAO<Loan> {
 				
 				while (result.next()) {
 					loan.addRate(rateDAO.find(result.getInt("id_rate")));
+					System.out.println("1er "+result);
 				}
 				
 				/* Get all the states */
@@ -119,7 +124,8 @@ public class LoanDAO extends DAO<Loan> {
 				StateDAO stateDAO = new StateDAO();
 				stateDAO.setConnect(connect);
 				while (result.next()) {
-					loan.addState(stateDAO.find(result.getInt("id_rate")));
+				loan.addState(stateDAO.find(result.getInt("id_state")));
+				System.out.println("2eme "+result.getInt("id_state"));
 				}
 				
 			}

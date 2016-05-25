@@ -19,7 +19,6 @@ import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.renderer.category.GroupedStackedBarRenderer;
-import org.jfree.data.KeyToGroupMap;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
@@ -36,6 +35,7 @@ public class LoanShowChartPanel extends JPanel {
 		CategoryDataset dataset = createDataset();
         JFreeChart chart = createChart(dataset);
         ChartPanel chartPanel = new ChartPanel(chart, false);
+
         setBackground(Color.WHITE);
         //chartPanel.setPreferredSize(new Dimension(900, 500));
         this.add(chartPanel);
@@ -57,6 +57,7 @@ public class LoanShowChartPanel extends JPanel {
 
         // create the dataset...
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+
         
         SimpleDateFormat formater = null;
         formater = new SimpleDateFormat("MM/yy");
@@ -97,6 +98,7 @@ public class LoanShowChartPanel extends JPanel {
         return dataset;
 	}
 	
+
 	public static Date addMonth(Date date, int nbMonth) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
@@ -136,6 +138,7 @@ public class LoanShowChartPanel extends JPanel {
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
 
         // disable bar outlines...
+
         GroupedStackedBarRenderer renderer = new GroupedStackedBarRenderer();
         //GroupedStackedBarRenderer renderer = (GroupedStackedBarRenderer) plot.getRenderer();
         renderer.setDrawBarOutline(false);

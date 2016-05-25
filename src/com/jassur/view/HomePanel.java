@@ -13,6 +13,7 @@ public class HomePanel extends JPanel {
 	 */
 	public HomePanel() {
 		
+
 		this.setBackground(Color.WHITE);
 		
 		JLabel lblBienvenuSurJassur = new JLabel("Bienvenue sur JASSUR");

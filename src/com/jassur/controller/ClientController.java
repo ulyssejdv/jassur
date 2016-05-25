@@ -133,5 +133,4 @@ public class ClientController implements Controller{
 		String resp = Message.execRequest(rb.toJSONString());
 		indexAction();
 	}
-	
 }

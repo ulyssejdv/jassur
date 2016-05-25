@@ -33,6 +33,7 @@ public class LoanShowTablePanel extends JPanel {
 	    Object[][] data = {};
 	    
 	    /* Columns name */
+
 	    String  header[] = {"Rang","Date échéance","Intérêts","Capital amorti","Assurance","Mensualité","Capital restant dû"};
 	    
 	    TblModel tblModel = new TblModel(data, header);
