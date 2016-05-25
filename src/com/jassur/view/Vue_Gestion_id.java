@@ -1,4 +1,4 @@
-package simulation_pret_MVC;
+package com.jassur.view;
  
 import java.awt.Color;
 import java.awt.Dimension;
@@ -11,6 +11,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
+import com.jassur.controller.Controleur_Gestion_id;
 
 /** la vue pour la gestion du client et sont id
  * @param 
@@ -28,7 +30,7 @@ public class Vue_Gestion_id extends JFrame implements ActionListener{
 	private JButton id =new JButton("rechercher");
 	private Controleur_Gestion_id controler;
 	private int id_client;
-	private Vue_recherche_prêt vue_pret ;
+	private Vue_recherche_pret vue_pret ;
 	
 	/** Constructeur de la vue pour la gestion du client et son id
 	 * @param controler
@@ -111,7 +113,7 @@ public class Vue_Gestion_id extends JFrame implements ActionListener{
 			}
 			else
 			{
-				vue_pret = new Vue_recherche_prêt(id_client);
+				vue_pret = new Vue_recherche_pret(id_client);
 				this.dispose();
 			}			
 			

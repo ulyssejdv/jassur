@@ -1,5 +1,6 @@
-package simulation_pret_MVC;
- 
+package com.jassur.controller;
+import com.jassur.model.Modele_tableau_pret;
+
 /**Controleur de la tableau pret
  * @param 
  * @return
@@ -30,7 +31,7 @@ public class Controleur_tableau_pret {
 	 * @author Sarah
 	 * @see Modele_tableau_pret
 	 */
-	public void get_recherche_id_prêt(String type_pret)
+	public void get_recherche_id_pret(String type_pret)
 	{
 		id_type_pret=mod.recherche_id_pret(type_pret);
 		

@@ -1,4 +1,4 @@
-package simulation_pret_MVC;
+package com.jassur.model;
  
 import java.sql.Connection;
 import java.sql.ResultSet;

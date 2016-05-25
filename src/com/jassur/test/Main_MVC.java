@@ -1,5 +1,9 @@
-package simulation_pret_MVC;
+package com.jassur.test;
  
+ import com.jassur.model.Modele_Gestion_id;
+ import com.jassur.controller.Controleur_Gestion_id;
+ import com.jassur.view.Vue_Gestion_id;
+
 /**Main du programme 
  * @param 
  * @return 
@@ -9,11 +13,11 @@ package simulation_pret_MVC;
 public class Main_MVC {
 	
 	public static void main(String[] args) {
-	    //Instanciation de notre mod�le
+	    //Instanciation de notre modele
 		Modele_Gestion_id Modele = new Modele_Gestion_id();
-	    //Cr�ation du contr�leur
+	    //Creation du controleur
 		Controleur_Gestion_id controler = new Controleur_Gestion_id(Modele);
-	    //Cr�ation de notre fen�tre avec le contr�leur en param�tre
+	    //Creation de notre fenetre avec le controleur en parametre
 	    Vue_Gestion_id Vue = new Vue_Gestion_id(controler);
 	    
 	  }

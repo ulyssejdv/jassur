@@ -14,6 +14,8 @@ import com.jassur.controller.HomeController;
 import com.jassur.controller.LoanController;
 //import com.jassur.controller.SimulateController;
 import com.jassur.controller.LoanVariableController;
+import com.jassur.test.Main_MVC;
+import com.jassur.view.BaseGUI.GotoSimulationpret;
 
 public class BaseGUI extends JFrame {
 	
@@ -109,8 +111,9 @@ public class BaseGUI extends JFrame {
 		mnPrts.add(mntmRetrouverUnPrt);
 		
 		
-		//JMenu maSimul = new JMenu("Simulation de Prêts");
-		//menuBar.add(maSimul);
+		JMenu maSimul = new JMenu("Comparaison des simulation de Prêts");
+		maSimul.addActionListener(new GotoSimulationpret());
+		menuBar.add(maSimul);
 		
 		/*
 		 * Help Menu
@@ -149,6 +152,14 @@ public class BaseGUI extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			LoanVariableController lvc = new LoanVariableController();
 		    lvc.showAction(3);
+		}
+	}
+	class GotoSimulationpret implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			Main_MVC main_simulation = new Main_MVC();
+		    
 		}
 	}
 	

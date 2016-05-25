@@ -1,4 +1,4 @@
-package simulation_pret_MVC;
+package com.jassur.view;
  
 import java.awt.BorderLayout;
 
@@ -12,7 +12,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-
+import com.jassur.controller.Controleur_tableau_pret;
+import com.jassur.model.Modele_tableau_pret;
 /** la vue pour le tableau des pret
  * @param 
  * @return
@@ -43,7 +44,7 @@ public class Vue_tableau_pret extends JFrame implements ActionListener {
 		{
 			
 		    
-		    controler.get_recherche_id_prêt(type_de_pret);
+		    controler.get_recherche_id_pret(type_de_pret);
 		    nb_pret=controler.get_nombre_pret_client(id_client,type_de_pret);
 		    tableau_vide=controler.verif_tableau_vide();
 		    

@@ -1,4 +1,5 @@
-package simulation_pret_MVC;
+package com.jassur.controller;
+import com.jassur.model.Modele_Gestion_id;
 
 /**Controleur de la gestion des id  
  * controller of the id management

@@ -1,14 +1,14 @@
-package simulation_pret_MVC;
- 
+package com.jassur.controller;
+import com.jassur.model.Modele_recherche_pret;
 /**Controleur de la recherche de pret
  * @param 
  * @return
  * @author Sarah
  * @see Modele_recherche_pret
  */	
-public class Controleur_recherche_prêt {
+public class Controleur_recherche_pret {
 
-	Modele_recherche_prêt mod;
+	Modele_recherche_pret mod;
 	private int nb_type_pret;
 	private String []tab_type_pret  ;
 	private int id_du_client;
@@ -19,7 +19,7 @@ public class Controleur_recherche_prêt {
 	 * @author Sarah
 	 * @see Modele_recherche_pret
 	 */	
-	public Controleur_recherche_prêt(Modele_recherche_prêt m )
+	public Controleur_recherche_pret(Modele_recherche_pret m )
 	{
 		mod=m;		
 		
@@ -43,7 +43,7 @@ public class Controleur_recherche_prêt {
 	 * @param 
 	 * @return
 	 * @author Sarah
-	 * @see Modele_recherche_pr�t
+	 * @see Modele_recherche_pret
 	 */	
 	public void set_tab_pret_client()
 	{

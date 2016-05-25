@@ -1,4 +1,4 @@
-package simulation_pret_MVC;
+package com.jassur.model;
  
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -11,7 +11,7 @@ import com.jassur.database.PoolConnection;
  * @author Sarah
  * @see 
  */	
-public class Modele_recherche_prêt {
+public class Modele_recherche_pret {
 	protected Connection connect = null;
 	
 	/**Constructeur du modele recherche pret
@@ -20,7 +20,7 @@ public class Modele_recherche_prêt {
 	 * @author Sarah
 	 * @see 
 	 */		
-	public Modele_recherche_prêt()
+	public Modele_recherche_pret()
 	{
 		
 				PoolConnection poolConnexion = new PoolConnection();
