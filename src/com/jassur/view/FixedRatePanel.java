@@ -51,7 +51,7 @@ public class FixedRatePanel extends JFrame {
 	//Faire MVC et en anglais
 	public FixedRatePanel() {
 		//--------------------------------
-		setTitle("Détermination du taux d'intérêts de l'agence");
+		setTitle("D\u00E9termination du taux d'int\u00E9rets de l'agence");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -168,7 +168,7 @@ public class FixedRatePanel extends JFrame {
 						InputTauxMM = Double.parseDouble(tfTauxMM.getText());
 						System.out.println(" //////////////TauxMM :"+InputTauxMM+"////////////////");
 						InputDuration = Integer.parseInt(tfDuration.getText()) ;
-						System.out.println(" //////////////Duré du pret : :"+InputDuration+"////////////////");
+						System.out.println(" //////////////Durï¿½ du pret : :"+InputDuration+"////////////////");
 						if(rdbtnBon.isSelected())
 						{
 							valeurRadio=-0.50;
@@ -208,7 +208,7 @@ public class FixedRatePanel extends JFrame {
 	public void Calculs(double inputTauxMM2, int InputAge, int InputDuration, double valeurRadio){
 		System.out.println("Valeur bouton radio :"+ valeurRadio + "////");
 
-		//Inférieur ou égale à 45 ans et supérieur à 18 ans
+		//Inferieur ou egale a 45 ans et superieur e 18 ans
 
 		if(InputAge <= 45 && InputAge >=18)
 		{
