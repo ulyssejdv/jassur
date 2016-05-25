@@ -29,15 +29,16 @@ public class LoanVariableController{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			int unMontant, uneDuree = 0;
-			int unTaux = 2;
+			double unMontant, uneDuree  ;
+			double unTaux ;
+			
 			
 			try {
 				unMontant = theView.getUnMontant();
 				uneDuree = theView.getUneDuree();
 				unTaux = theView.getUnTaux();
 				
-				theModel.addValues(unMontant, uneDuree, unTaux);
+				theModel.addValues(unMontant, uneDuree, unTaux );
 				theView.setCalcSolution(theModel.getCalculationValue());
 			}
 			catch(NumberFormatException ex){

@@ -84,23 +84,23 @@ public class LoanVariableShowCardPanel extends JFrame {
 		
 		
 	}
-	public int getUnMontant(){
-		return Integer.parseInt(unMontant.getText());
+	public double getUnMontant(){
+		return Double.parseDouble(unMontant.getText());
 	}
 	
-	public int getUneDuree(){
-		return Integer.parseInt(uneDuree.getText());
+	public double getUneDuree(){
+		return Double.parseDouble(uneDuree.getText());
 	}
-	public int getUnTaux(){
-		return Integer.parseInt(unTaux.getText());
+	public double getUnTaux(){
+		return Double.parseDouble(unTaux.getText());
 	}
 
-	public int getCalcSolution(){
-		return Integer.parseInt(calcSolution.getText());
+	public double getCalcSolution(){
+		return Double.parseDouble(calcSolution.getText());
 	}
 	
-	public void setCalcSolution(int solution){
-		calcSolution.setText(Integer.toString(solution));
+	public void setCalcSolution(double solution){
+		calcSolution.setText(Double.toString(solution));
 		
 	}
 	public void addCalculationListener(ActionListener listenerForCalcButton){
