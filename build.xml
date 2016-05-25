@@ -1,70 +1,120 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project name="jassur" default="init" basedir=".">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="JASSUR">
+    <property environment="env"/>
+    <property name="ECLIPSE_HOME" value="../../../eclipse/java-mars/Eclipse.app/Contents/MacOS/"/>
+    <!--<property name="junit.output.dir" value="junit"/>-->
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.8"/>
+    <property name="source" value="1.8"/>
 
-
-
-    <property name="project.name" value="jassur" />
-    <property name="project.version" value="3.0.10" />
-    <property name="project.src.dir" value="src"/>
-    <property name="project.bin.dir" value="bin" />
-    <property name="project.lib.dir" value="lib" />
-    <property name="project.dist.dir" value="dist" />
-    
-
-
-    <!-- Define the classpath -->
-    <path id="project.classpath">
-        <fileset dir="${project.lib.dir}">
-            <include name="*.jar" />
-        </fileset>
-        <pathelement location="${project.bin.dir}" />
+    <path id="JASSUR.classpath">
+        <pathelement location="bin"/>
+        <pathelement location="lib/mysql-connector-java-5.1.38-bin.jar"/>
+        <pathelement location="lib/json-simple-1.1.1.jar"/>
+        <pathelement location="lib/jcommon-1.0.0.jar"/>
+        <pathelement location="lib/jfreechart-1.0.1.jar"/>
     </path>
-    
-
-
-    <!-- dir bin/ init -->
     <target name="init">
-        <mkdir dir="${basedir}/bin" />
-    </target> 
-    
-
-
-    <!-- Compile all project -->
-    <target name="compile" depends="init">
-        <javac srcdir="${project.src.dir}" 
-            destdir="${project.bin.dir}" 
-            debug="on" 
-            optimize="off" 
-            deprecation="on">
-            <classpath refid="project.classpath"/>
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="conf">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    	<delete dir="dist"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+            <src path="conf"/>
+            <classpath refid="JASSUR.classpath"/>
         </javac>
     </target>
-
-
-
-    <target name="startServer" depends="compile">
-        <java classname="com.jassur.server.ServerJassur">
-            <classpath refid="project.classpath" />
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
+        <copy todir="${ant.library.dir}">
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </copy>
+        <unzip dest="${ant.library.dir}">
+            <patternset includes="jdtCompilerAdapter.jar"/>
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </unzip>
+    </target>
+    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
+        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+        <antcall target="build"/>
+    </target>
+    <target name="BaseGUI">
+        <java classname="com.jassur.view.BaseGUI" failonerror="true" fork="yes">
+            <classpath refid="JASSUR.classpath"/>
         </java>
     </target>
+    <target name="ClientJassur">
+        <java classname="com.jassur.client.ClientJassur" failonerror="true" fork="yes">
+            <classpath refid="JASSUR.classpath"/>
+        </java>
+    </target>
+    <target name="LoanCardPanel">
+        <java classname="com.jassur.view.LoanCardPanel" failonerror="true" fork="yes">
+            <classpath refid="JASSUR.classpath"/>
+        </java>
+    </target>
+    <target name="LoanFixedRateSimulationPanel">
+        <java classname="com.jassur.view.LoanFixedRateSimulationPanel" failonerror="true" fork="yes">
+            <classpath refid="JASSUR.classpath"/>
+        </java>
+    </target>
+    <target name="ServerJassur">
+        <java classname="com.jassur.server.ServerJassur" failonerror="true" fork="yes">
+            <classpath refid="JASSUR.classpath"/>
+        </java>
+    </target>
+    <target name="TestClientLoan">
+        <java classname="com.jassur.client.TestClientLoan" failonerror="true" fork="yes">
+            <classpath refid="JASSUR.classpath"/>
+        </java>
+    </target>
+    <target name="TestREST">
+        <java classname="com.jassur.test.TestREST" failonerror="true" fork="yes">
+            <classpath refid="JASSUR.classpath"/>
+        </java>
+    </target>
+              	
+	<target name="distclient" depends="init">
+		
+		<delete dir="dist"/>
+		
+		<mkdir dir="dist"/>
+		<mkdir dir="dist/lib"/>
+		
+		<copy todir="dist/lib">
+	        <fileset dir="lib"/>
+	    </copy>
 
-
-    <target name="distclient" depends="compile">
-        <jar destfile="dist/client/ClientJassur.jar">
-            <fileset dir="${project.bin.dir}" /> 
+		<jar destfile="dist/ClientJassur.jar">
+			<fileset dir="bin" />
             <manifest>
-              <attribute name="Main-Class" value="com.jassur.client.ClientJassur"/>
+  				<attribute name="Main-Class" value="com.jassur.client.ClientJassur"/>
+            	<attribute name="Class-Path" value="lib/jcommon-1.0.0.jar lib/jfreechart-1.0.1.jar lib/json-simple-1.1.1.jar lib/mysql-connector-java-5.1.38-bin.jar"/>
             </manifest>
         </jar>
     </target>
-
-
-
-    <target name="clean" description="clean up">
-        <delete dir="${project.dist.dir}"/>
-        <delete dir="${project.bin.dir}"/>
-    </target>
-
-
-
 </project>
