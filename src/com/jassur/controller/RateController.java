@@ -6,7 +6,7 @@ package com.jassur.controller;
 import com.jassur.model.CalculateRate;
 
 /**
- * @author jérémy
+ * @author chieur avec accent
  */
 public class RateController {
 

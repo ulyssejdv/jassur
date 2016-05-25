@@ -40,7 +40,7 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 
 
 	/**
-	 * @author Jérémy
+	 * @author chieur avec accent
 	 *Create the panel.
 	 */
 

@@ -24,7 +24,7 @@ public class LoanVariableShowCardPanel extends JFrame {
 	private JButton calculateButton = new JButton("Calculer");
 	//Button for best scenarios
 	private JButton calculateBestButton = new JButton ("Afficher les meilleurs sc\u00E9narios");
-	private JButton calculateBadButton = new JButton ("Afficer les scénarios d\u00E9favorables");
+	private JButton calculateBadButton = new JButton ("Afficer les s\u00E9cnarios d\u00E9favorables");
 	private JTextField calcSolution = new JTextField(10);
 	private final JLabel JLab_Montant = new JLabel("Le Montant");
 	private final JLabel JLab_Duree = new JLabel("La Dur\u00E9e");

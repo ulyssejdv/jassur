@@ -5,7 +5,7 @@ public class CalculateRate {
 	private double taux;
 
 	/**
-	 * @author Jérémy
+	 * @author chieur avec accent
 	 * Calculs rates.
 	 * @return 
 	 */
