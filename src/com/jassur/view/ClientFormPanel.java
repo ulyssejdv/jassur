@@ -157,9 +157,9 @@ public class ClientFormPanel extends JPanel {
 			c2.setId(c.getId());
 			if (c.getId() != 0) {
 				c2.setId(c.getId());
-				cc.update(c2);
+				cc.updateAction(c2);
 			} else {
-				cc.create(c2);
+				cc.createAction(c2);
 			}
 		}
 		

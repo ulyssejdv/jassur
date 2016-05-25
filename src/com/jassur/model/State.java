@@ -3,6 +3,8 @@
  */
 package com.jassur.model;
 
+import org.json.simple.JSONObject;
+
 /**
  * @author ulysse
  *
@@ -44,5 +46,22 @@ public class State {
 	}
 	public void setLabelState(String labelState) {
 		this.labelState = labelState;
+	}
+	public JSONObject toJSON() {
+		JSONObject jObj = new JSONObject();
+		
+		jObj.put("id_state",this.getId());
+		jObj.put("loan_id",this.getLoanId());
+		jObj.put("user_id",this.getUserId());
+		jObj.put("label_state", this.getLabelState());
+		
+		return jObj;
+	}
+	
+	public void parseJSON(JSONObject jo) {
+		//this.id=(int)(long)jo.get("id_state");
+		//this.loanId = (int)(long)jo.get("loan_id");
+		this.userId = (int)(long)jo.get("user_id");
+		this.labelState = (String)jo.get("label_state");	
 	}
 }

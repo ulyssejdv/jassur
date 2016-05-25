@@ -11,21 +11,30 @@ import org.json.simple.parser.ParseException;
 import com.jassur.dao.DAO;
 import com.jassur.dao.DAOFactory;
 import com.jassur.database.PoolConnection;
+import com.jassur.model.Category;
 import com.jassur.model.Client;
+import com.jassur.model.Loan;
 import com.jassur.model.Model;
 
-public class Dispatcher {
+public class Dispatcher extends Thread {
 	
 	private DataOutputStream dataOutputStream = null;
 	private PoolConnection poolConnexion = null;
 	private DAOFactory daoFactory = null;
 	
 	private String responseString = new String();
+	
+	private String request;
 
-	public Dispatcher(DataOutputStream outputClient, PoolConnection pc) {
+	public Dispatcher(DataOutputStream outputClient, PoolConnection pc, String request) {
 		this.dataOutputStream = outputClient;
 		this.poolConnexion = pc;
 		this.daoFactory = DAOFactory.getFactory(DAOFactory.MYSQL_DAO_FACTORY);
+		this.request = request;
+	}
+	
+	public void run() {
+		this.analyze(this.request);
 	}
 
 	public void analyze(String request) {
@@ -82,7 +91,7 @@ public class Dispatcher {
 		String[] items = pattern.split(route);
 		
 		if (items.length == 1) {
-			
+			JSONArray array = new JSONArray();
 			/*
 			 * Client
 			 */
@@ -90,24 +99,49 @@ public class Dispatcher {
 				/* Get all clients and push them to a JSON array */
 				DAO<Client> clientDAO = daoFactory.getClientDAO();
 				clientDAO.setConnect(poolConnexion.pop().getConnection());
-				JSONArray array = new JSONArray();
 				for (Model m : clientDAO.find()) {
 					array.add(m.toJSON());
 				}
-				responseString = array.toJSONString();
+			}else if (items[0].equals("categories")) {
+				/* Get all categories and push them to a JSON array */
+				DAO<Category> categoryDAO = daoFactory.getCategoryDAO();
+				categoryDAO.setConnect(poolConnexion.pop().getConnection());
+				for (Model m : categoryDAO.find()) {
+					array.add(m.toJSON());
+				}
 			}
+				responseString = array.toJSONString();
+			
 			
 		} else if (items.length == 2) {
 			
-			/*
-			 * Client
-			 */
-			if (items[0].equals("clients")) {
+			Model model = null;
+		
+			switch (items[0]) {
+			case "clients":
 				DAO<Client> clientDAO = daoFactory.getClientDAO();
 				clientDAO.setConnect(poolConnexion.pop().getConnection());
-				Model model = clientDAO.find(Integer.parseInt(items[1]));
+				model = clientDAO.find(Integer.parseInt(items[1]));
 				responseString = model.toJSON().toJSONString();
+				break;
+			case "loans":
+				DAO<Loan> loanDAO = daoFactory.getLoanDAO();
+				loanDAO.setConnect(poolConnexion.pop().getConnection());
+				model = loanDAO.find(Integer.parseInt(items[1]));
+				System.out.println(model.toString());
+				responseString = model.toJSON().toJSONString();
+				break;
+			case "categories":
+				DAO<Category> categoryDAO = daoFactory.getCategoryDAO();
+				categoryDAO.setConnect(poolConnexion.pop().getConnection());
+				model = categoryDAO.find(Integer.parseInt(items[1]));
+				responseString = model.toJSON().toJSONString();
+				break;
+			default:
+				responseString = "resource does not exists";
+				break;
 			}
+			
 		}
 		
 		/* Write the response in the socket */
@@ -143,6 +177,23 @@ public class Dispatcher {
 				
 				if(c != null) {
 					Model model = c;
+					responseString = model.toJSON().toJSONString();
+				} else {
+					responseString = "[]"; // server error
+				}
+			}	
+			else if (items[0].equals("loans")) {
+				DAO<Loan> loanDAO = daoFactory.getLoanDAO();
+				loanDAO.setConnect(poolConnexion.pop().getConnection());
+				Loan l = new Loan();
+				System.out.println("Dispatcher 1"+resource);
+				l.parseJSON(resource);
+				System.out.println("Dispatcher: "+l.toString());
+				System.out.println("Insert : "+l);
+				l = loanDAO.create(l);
+				
+				if(l != null) {
+					Model model = l;
 					responseString = model.toJSON().toJSONString();
 				} else {
 					responseString = "[]"; // server error

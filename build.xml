@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="jassur" default="makebin" basedir=".">
+<project name="jassur" default="init" basedir=".">
 
 
 
@@ -8,6 +8,7 @@
     <property name="project.src.dir" value="src"/>
     <property name="project.bin.dir" value="bin" />
     <property name="project.lib.dir" value="lib" />
+    <property name="project.dist.dir" value="dist" />
     
 
 
@@ -52,7 +53,7 @@
         <jar destfile="dist/client/ClientJassur.jar">
             <fileset dir="${project.bin.dir}" /> 
             <manifest>
-              <attribute name="Main-Class" value="com.jassur.server.ServerJassur"/>
+              <attribute name="Main-Class" value="com.jassur.client.ClientJassur"/>
             </manifest>
         </jar>
     </target>
@@ -60,6 +61,7 @@
 
 
     <target name="clean" description="clean up">
+        <delete dir="${project.dist.dir}"/>
         <delete dir="${project.bin.dir}"/>
     </target>
 

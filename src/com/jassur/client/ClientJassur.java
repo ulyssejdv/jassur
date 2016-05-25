@@ -1,5 +1,6 @@
 package com.jassur.client;
-import com.jassur.controller.ClientController;
+import com.jassur.view.BaseGUI;
+import com.jassur.view.HomePanel;
 
 /**
  * 
@@ -15,7 +16,11 @@ public class ClientJassur {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-            ClientController cc = new ClientController();
-            cc.indexAction();	
+		
+		try {
+			BaseGUI.render(new HomePanel());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
