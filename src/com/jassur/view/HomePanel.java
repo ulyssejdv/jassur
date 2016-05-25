@@ -19,7 +19,7 @@ public class HomePanel extends JPanel {
 		lblBienvenuSurJassur.setFont(new Font("Lucida Grande", Font.BOLD, 22));
 		add(lblBienvenuSurJassur);
 		
-		JLabel lblSim = new JLabel("simulateur de pret");
+		JLabel lblSim = new JLabel("simulateur de pr\u00eat");
 		lblSim.setFont(new Font("Lucida Grande", Font.BOLD, 14));
 		add(lblSim);
 		

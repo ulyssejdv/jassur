@@ -26,11 +26,15 @@ public class ClientListPanel extends JPanel {
 
 	private JTable table;
 	
+	public ArrayList<Client> clients;
+	
 
 	/**
 	 * Create the panel.
 	 */
 	public ClientListPanel(ArrayList<Client> cList) {
+			
+		this.clients = cList;
 		
 		Dimension d = new Dimension(BaseGUI.MAIN_FRAME.getWidth(), BaseGUI.MAIN_FRAME.getHeight());
 		setPreferredSize(d);
@@ -223,15 +227,19 @@ public class ClientListPanel extends JPanel {
 				
 				String action = ((JButton)event.getSource()).getText();
 				ClientController cc = new ClientController();
+				
+				Client c = ClientListPanel.this.clients.get(this.row);
+				
+				
 				switch (action) {
 				case "Voir":
-					cc.showAction((int)table.getValueAt(this.row, 0));
+					cc.showAction(c.getId());
 					break;
 				case "Supprimer":
-					cc.destroyAction((int)table.getValueAt(this.row, 0));
+					cc.destroyAction(c.getId());
 					break;
 				case "Modifier":
-					cc.editAction((int)table.getValueAt(this.row, 0));
+					cc.editAction(c.getId());
 				default:
 					break;
 				}

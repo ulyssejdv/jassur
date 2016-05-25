@@ -58,10 +58,8 @@ public class LoanShowChartPanel extends JPanel {
         // create the dataset...
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         
-        double ca = this.loan.getAmount();
-        int size = this.loan.getTotalDuration();
         SimpleDateFormat formater = null;
-        formater = new SimpleDateFormat("dd/MM/yy");
+        formater = new SimpleDateFormat("MM/yy");
         DateFormat df = DateFormat.getDateInstance();
         
         Date date = null;
@@ -72,20 +70,28 @@ public class LoanShowChartPanel extends JPanel {
 			e.printStackTrace();
 		}
         
-	    for (int i = 0; i < size; i++) {
+		int totalDuration = this.loan.getTotalDuration();
+	    double interest = 0;
+	    double insurance = this.loan.insurancePerMonth();
+	    double remainingCapital = this.loan.getAmount();
+	    double monthlyPayment = this.loan.getRates().get(0).getMonthlyPayment();
+		
+	    for (int i = 1; i <= totalDuration; i++) {
+	    	
+	    	remainingCapital = this.loan.remainingCapital(remainingCapital,interest,monthlyPayment);
+	    	interest = this.loan.interestPerMonth(remainingCapital);
 	    	
 	    	// capital restant
-	    	dataset.addValue(ca, series1, formater.format(date));
+	    	dataset.addValue(remainingCapital, series1, formater.format(date));
 	    	
 	    	// assurance
-	    	dataset.addValue(45, series2, formater.format(date));
+	    	dataset.addValue(insurance, series2, formater.format(date));
 	    	
-	    	// interets
-	    	dataset.addValue(12, series3, formater.format(date));
+	    	// interest
+	    	dataset.addValue(interest, series3, formater.format(date));
 	    	
 	    	
 	    	date = addMonth(date, 1);
-	    	ca = ca - this.loan.getRates().get(0).getMonthlyPayment();
 	    }
         
         return dataset;

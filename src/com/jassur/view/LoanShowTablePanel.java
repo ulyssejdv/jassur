@@ -1,7 +1,12 @@
 package com.jassur.view;
 
 import java.awt.BorderLayout;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -35,6 +40,17 @@ public class LoanShowTablePanel extends JPanel {
 	    String pattern = "0.00";
 	    DecimalFormat decimalFormat = new DecimalFormat(pattern);
 	    
+	    SimpleDateFormat formater = null;
+        formater = new SimpleDateFormat("MM/yy");
+        DateFormat df = DateFormat.getDateInstance();
+        
+        Date date = null;
+		try {
+			date = formater.parse("01/01/2016");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	    
 	    
 	    int totalDuration = this.loan.getTotalDuration();
 	    double interest = 0;
@@ -45,7 +61,7 @@ public class LoanShowTablePanel extends JPanel {
 	    
 	    jTable = new JTable(tblModel);
 	    
-	    Object[] o = new Object[] {0,"-","-","-","-","-",decimalFormat.format((double)remainingCapital)};
+	    Object[] o = new Object[] {0,formater.format(date),"-","-","-","-",decimalFormat.format((double)remainingCapital)};
 	    ((TblModel)jTable.getModel()).addRow(o);
 	   
 	    
@@ -55,10 +71,11 @@ public class LoanShowTablePanel extends JPanel {
 	    	remainingCapital = this.loan.remainingCapital(remainingCapital,interest,monthlyPayment);
 	    	interest = this.loan.interestPerMonth(remainingCapital);
 	    	double principal = this.loan.principal(monthlyPayment, interest);
+	    	date = addMonth(date, 1);
 	    	
 	    	o = new Object[] {
 	    			i,
-	    			"date",
+	    			formater.format(date),
 	    			decimalFormat.format((double)interest),
 	    			decimalFormat.format((double)principal),
 	    			insurance,
@@ -73,6 +90,13 @@ public class LoanShowTablePanel extends JPanel {
 	    JScrollPane jsp = new JScrollPane(jTable);
 	    jsp.setSize(915, 576);
 	    add(jsp);
+	}
+	
+	public static Date addMonth(Date date, int nbMonth) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		cal.add(Calendar.MONTH, nbMonth);
+		return cal.getTime(); 
 	}
 	
 	class TblModel extends AbstractTableModel {

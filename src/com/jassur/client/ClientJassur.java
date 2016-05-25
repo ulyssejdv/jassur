@@ -2,9 +2,6 @@ package com.jassur.client;
 import com.jassur.view.BaseGUI;
 import com.jassur.view.HomePanel;
 
-/**
- * 
- */
 
 /**
  * @author ulysse
