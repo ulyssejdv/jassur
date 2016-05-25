@@ -59,7 +59,6 @@ public class CategoryDAO extends DAO<Category> {
 						"SELECT * "+
 					    "FROM categories");
 				
-			//if (result.first()) {
 		
 				while (result.next()) {
 					Category category = new Category();
@@ -68,7 +67,7 @@ public class CategoryDAO extends DAO<Category> {
 					categories.add(category);
 					System.out.println(category.toString());
 				}		
-			//}				
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

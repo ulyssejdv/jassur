@@ -158,32 +158,30 @@ public class ClientDAO extends DAO<Client> {
 			).executeQuery(
 					"SELECT * "+
 				    "FROM clients INNER JOIN addresses ON clients.id_client = addresses.client_id ");
-			
-			if (result.first()) {
+		
 				
-				while (result.next()) {
-					Client client = new Client();
-					
-					client.setId(result.getInt("id_client"));
-					client.setBusiness(result.getBoolean("business"));
-					client.setEmail(result.getString("email"));
-					client.setFirstName(result.getString("first_name"));
-					client.setLastName(result.getString("last_name"));
-					client.setPhone(result.getString("phone"));
-					
-					
-					Address address = new Address();
-					address.setCity(result.getString("city"));
-					address.setStreet(result.getString("street"));
-					address.setCountry(result.getString("country"));
-					address.setRegion(result.getString("region"));
-					address.setZip(result.getInt("zip"));
-					
-					client.setAddress(address);
-					
-					clients.add(client);
-				}		
-			}
+			while (result.next()) {
+				Client client = new Client();
+				
+				client.setId(result.getInt("id_client"));
+				client.setBusiness(result.getBoolean("business"));
+				client.setEmail(result.getString("email"));
+				client.setFirstName(result.getString("first_name"));
+				client.setLastName(result.getString("last_name"));
+				client.setPhone(result.getString("phone"));
+				
+				
+				Address address = new Address();
+				address.setCity(result.getString("city"));
+				address.setStreet(result.getString("street"));
+				address.setCountry(result.getString("country"));
+				address.setRegion(result.getString("region"));
+				address.setZip(result.getInt("zip"));
+				
+				client.setAddress(address);
+				
+				clients.add(client);
+			}	
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

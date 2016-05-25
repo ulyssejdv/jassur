@@ -1,19 +1,17 @@
 package com.jassur.view;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
 import com.jassur.model.Loan;
 import com.jassur.model.Rate;
-import javax.swing.SwingConstants;
-import javax.swing.BoxLayout;
 
 public class LoanShowParamsPanel extends JPanel {
 
@@ -52,6 +50,8 @@ public class LoanShowParamsPanel extends JPanel {
 		panelLeft.setLayout(new BoxLayout(panelLeft, BoxLayout.Y_AXIS));
 
 		JPanel panel_4 = new JPanel();
+
+		panel_4.setBackground(Color.WHITE);
 		panelLeft.add(panel_4);
 		JLabel lblMontantTotalDu = new JLabel("Montant total du prêt : ");
 		panel_4.add(lblMontantTotalDu);
@@ -61,6 +61,8 @@ public class LoanShowParamsPanel extends JPanel {
 		panel_4.add(textFieldAmount);
 
 		JPanel panel_5 = new JPanel();
+
+		panel_5.setBackground(UIManager.getColor("FormattedTextField.selectionBackground"));
 		panelLeft.add(panel_5);
 
 		JLabel lblDureDuPrt = new JLabel("Durée du prêt : ");
@@ -71,6 +73,8 @@ public class LoanShowParamsPanel extends JPanel {
 		panel_5.add(textFieldDuration);
 
 		JPanel panel_6 = new JPanel();
+
+		panel_6.setBackground(Color.WHITE);
 		panelLeft.add(panel_6);
 
 		JLabel lblEchanceAssuranceComprise = new JLabel("Echéance assurance comprise : ");
@@ -81,6 +85,8 @@ public class LoanShowParamsPanel extends JPanel {
 		panel_6.add(textFieldMonthWithA);
 
 		JPanel panel_7 = new JPanel();
+
+		panel_7.setBackground(UIManager.getColor("FormattedTextField.selectionBackground"));
 		panelLeft.add(panel_7);
 
 		JLabel lblEchanceDeLassurance = new JLabel("Echéance de l'assurance : ");
@@ -95,6 +101,8 @@ public class LoanShowParamsPanel extends JPanel {
 		panelRight.setLayout(new BoxLayout(panelRight, BoxLayout.Y_AXIS));
 
 		JPanel panel = new JPanel();
+
+		panel.setBackground(Color.WHITE);
 		panelRight.add(panel);
 
 		JLabel lblTauxDintrtDu = new JLabel("Taux d'intérêt du prêt : ");
@@ -106,6 +114,8 @@ public class LoanShowParamsPanel extends JPanel {
 		panel.add(textFieldRate);
 
 		JPanel panel_1 = new JPanel();
+
+		panel_1.setBackground(UIManager.getColor("PasswordField.selectionBackground"));
 		panelRight.add(panel_1);
 
 		JLabel lblFraisDeDossier = new JLabel("Frais de dossier : ");
@@ -116,6 +126,8 @@ public class LoanShowParamsPanel extends JPanel {
 		panel_1.add(textFieldFolderCost);
 
 		JPanel panel_2 = new JPanel();
+
+		panel_2.setBackground(Color.WHITE);
 		panelRight.add(panel_2);
 
 		JLabel lblNewLabel_1 = new JLabel("Coût total du prêt : ");
@@ -126,6 +138,8 @@ public class LoanShowParamsPanel extends JPanel {
 		panel_2.add(textFieldTotalAmount);
 
 		JPanel panel_3 = new JPanel();
+
+		panel_3.setBackground(UIManager.getColor("PasswordField.selectionBackground"));
 		panelRight.add(panel_3);
 
 		JLabel lblNewLabel = new JLabel("Echéance hors assurance : ");

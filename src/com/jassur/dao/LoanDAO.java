@@ -102,6 +102,7 @@ public class LoanDAO extends DAO<Loan> {
 				 CategoryDAO categoryDAO = new CategoryDAO();
 				 categoryDAO.setConnect(connect);
 				 loan.setCategory(categoryDAO.find(result.getInt("category_id")));
+
 				
 				/* Get the client */
 				 ClientDAO clientDAO = new ClientDAO();

@@ -15,11 +15,8 @@ import com.jassur.model.Client;
 import com.jassur.model.Loan;
 import com.jassur.model.Model;
 import com.jassur.view.BaseGUI;
-import com.jassur.view.ClientListPanel;
-import com.jassur.view.LoanCardPanel;
 import com.jassur.view.LoanFixedRateSimulationPanel;
 import com.jassur.view.LoanShowPanel;
-import com.jassur.view.MainFrame;
 
 public class LoanController implements Controller{
 
@@ -53,17 +50,19 @@ public class LoanController implements Controller{
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		Client client=new Client();
-	    client.setId(11);
-	    client.setFirstName("a");
-	    client.setLastName("b");
-	    client.setPhone("0667939393");
-	    client.setEmail("r@a.fr");
-	    client.setBusiness(false);
-	    client.setAddress(new Address());
-		/* Render the client list panel */
-		LoanFixedRateSimulationPanel lfrsp = new LoanFixedRateSimulationPanel(categoryList,client);
-		BaseGUI.render(lfrsp);	}
+			Client client=new Client();
+		    client.setId(11);
+		    client.setFirstName("a");
+		    client.setLastName("b");
+		    client.setPhone("0667939393");
+		    client.setEmail("r@a.fr");
+		    client.setBusiness(false);
+		    client.setAddress(new Address());
+			/* Render the client list panel */
+			LoanFixedRateSimulationPanel lfrsp = new LoanFixedRateSimulationPanel(categoryList,client);
+			BaseGUI.render(lfrsp);	
+		}
+
 
 	@Override
 	public void showAction(int id) {
@@ -127,6 +126,7 @@ public class LoanController implements Controller{
 		
 	}
 
+
 	@Override
 	public void editAction(int id) {
 		// TODO Auto-generated method stub
@@ -135,13 +135,13 @@ public class LoanController implements Controller{
 
 
 	@Override
-	public void destroyAction(int id) {
+	public void updateAction(Client input) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void updateAction(Client input) {
+	public void destroyAction(int id) {
 		// TODO Auto-generated method stub
 		
 	}

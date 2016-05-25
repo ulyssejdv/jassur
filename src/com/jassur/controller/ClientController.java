@@ -13,7 +13,7 @@ import com.jassur.message.RequestBuilder;
 import com.jassur.model.Address;
 import com.jassur.model.Client;
 import com.jassur.model.Model;
-
+import com.jassur.view.BaseGUI;
 import com.jassur.view.ClientCardPanel;
 import com.jassur.view.ClientFormPanel;
 import com.jassur.view.ClientListPanel;
@@ -54,8 +54,7 @@ public class ClientController implements Controller{
 		
 		/* Render the client list panel */
 		ClientListPanel cl = new ClientListPanel(clientList);
-		//MainFrame.getInstance().render(cl);
-		MainFrame.getInstance(cl);
+		BaseGUI.render(cl);
 	}
 	
 	public void showAction(int id) {
@@ -81,16 +80,14 @@ public class ClientController implements Controller{
 		
 		/* Render the client card panel */
 		ClientCardPanel ccp = new ClientCardPanel(c);
-		//MainFrame.getInstance().render(ccp);
-		MainFrame.getInstance(ccp);
+		BaseGUI.render(ccp);
 	}
 	
 	public void newAction() {
 		Client c = new Client();
 		c.setAddress(new Address());
 		ClientFormPanel cfp = new ClientFormPanel(c);
-		// MainFrame.getInstance().render(cfp);
-		MainFrame.getInstance(cfp);
+		BaseGUI.render(cfp);
 	}
 	
 	public void createAction(Model m) {
@@ -122,8 +119,7 @@ public class ClientController implements Controller{
 		
 		/* Render the client card panel */
 		ClientFormPanel ccp = new ClientFormPanel(c);
-		//MainFrame.getInstance().render(ccp);
-		MainFrame.getInstance(ccp);
+		BaseGUI.render(ccp);
 	}
 	
 	public void updateAction(Client input) {
@@ -137,29 +133,4 @@ public class ClientController implements Controller{
 		String resp = Message.execRequest(rb.toJSONString());
 		indexAction();
 	}
-	
-	public Client getClient(int id) {
-		
-		/* Build a new request */
-		RequestBuilder rb = new RequestBuilder(RequestBuilder.GET, "clients/"+id);
-		
-		String resp = Message.execRequest(rb.toJSONString());
-		Client c = new Client();
-		try {
-			/* Transformation of the response String in JSON */
-			JSONParser parser = new JSONParser();
-			Object obj = parser.parse(resp);
-			
-			/* get clients/ return a JSON array */
-			JSONObject jObject = (JSONObject)obj;
-			
-			c.parseJSON(jObject);
-			
-		} catch (ParseException e) {
-			
-		}
-		
-		return c;
-	}
-	
 }

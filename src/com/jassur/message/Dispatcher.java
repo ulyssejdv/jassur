@@ -128,13 +128,13 @@ public class Dispatcher extends Thread {
 				DAO<Loan> loanDAO = daoFactory.getLoanDAO();
 				loanDAO.setConnect(poolConnexion.pop().getConnection());
 				model = loanDAO.find(Integer.parseInt(items[1]));
-				System.out.println(model.toString());
 				responseString = model.toJSON().toJSONString();
 				break;
 			case "categories":
 				DAO<Category> categoryDAO = daoFactory.getCategoryDAO();
 				categoryDAO.setConnect(poolConnexion.pop().getConnection());
 				model = categoryDAO.find(Integer.parseInt(items[1]));
+
 				responseString = model.toJSON().toJSONString();
 				break;
 			default:

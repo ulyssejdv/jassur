@@ -1,34 +1,29 @@
 package com.jassur.view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
 import com.jassur.controller.LoanController;
-import com.jassur.dao.CategoryDAO;
 import com.jassur.model.Category;
 import com.jassur.model.Client;
 import com.jassur.model.Loan;
 import com.jassur.model.Rate;
 import com.jassur.model.State;
 import com.jassur.model.User;
-
-import javax.swing.SwingConstants;
-import javax.swing.BoxLayout;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class LoanFixedRateSimulationPanel extends JPanel {
 	
@@ -41,6 +36,7 @@ public class LoanFixedRateSimulationPanel extends JPanel {
 	* Create the panel.
 	*/
 	public LoanFixedRateSimulationPanel(ArrayList<Category> categories,Client client/*,ArrayList<Rate> rates*/) {
+
 		
 		setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		setLayout(new BorderLayout(0, 0));
@@ -111,6 +107,7 @@ public class LoanFixedRateSimulationPanel extends JPanel {
 		lblTauxDintrtDu.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		JComboBox comboBoxTauxDintrtDu = new JComboBox();
+
 		String[] taux={"1.2","1.5","2"};
 		comboBoxTauxDintrtDu.addItem(taux[0]);
 		comboBoxTauxDintrtDu.addItem(taux[1]);
@@ -237,6 +234,7 @@ public class LoanFixedRateSimulationPanel extends JPanel {
 				
 			}
 		});
+
 		panelSouth.add(btnEnregistrerLaSimulation);
 		
 	}

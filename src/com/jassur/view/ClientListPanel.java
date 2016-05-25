@@ -1,7 +1,9 @@
 package com.jassur.view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -24,17 +26,25 @@ public class ClientListPanel extends JPanel {
 
 	private JTable table;
 	
+	public ArrayList<Client> clients;
+	
 
 	/**
 	 * Create the panel.
 	 */
 	public ClientListPanel(ArrayList<Client> cList) {
+			
+		this.clients = cList;
 		
-		setBorder(new TitledBorder(null, "Clients Liste", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		Dimension d = new Dimension(BaseGUI.MAIN_FRAME.getWidth(), BaseGUI.MAIN_FRAME.getHeight());
+		setPreferredSize(d);
+		setBackground(Color.WHITE);
+		
+		//setBorder(new TitledBorder(null, "Clients Liste", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 
 		/* prepare the model table */
 		Object[][] data = {};
-		String  header[] = {"Id", "Last Name", "First Name", "Phone", "Email" , "Show", "Update", "Delete" };
+		String  header[] = {"Last Name", "First Name", "Phone", "Email" , "Voir", "Modifier", "Supprimer" };
 		JTableModel model = new JTableModel(data, header);
 
 		/* initialization of the table */
@@ -44,14 +54,13 @@ public class ClientListPanel extends JPanel {
 		/* feed the table */
 		for (Client c: cList) {
 			Object[]  obj = new Object[]{ 
-					c.getId(), 
 					c.getLastName(), 
 					c.getFirstName(), 
 					c.getPhone(), 
 					c.getEmail(), 
-					"Show", 
-					"Update",
-					"Delete"
+					"Voir", 
+					"Modifier",
+					"Supprimer"
 					
 			};
 			((JTableModel)table.getModel()).addRow(obj);
@@ -59,14 +68,14 @@ public class ClientListPanel extends JPanel {
 		
 		table.setDefaultRenderer(JButton.class, new TableComponent());
 		
-		table.getColumn("Show").setCellRenderer(new ButtonRenderer());
-		table.getColumn("Show").setCellEditor(new ButtonEditor(new JCheckBox()));
+		table.getColumn("Voir").setCellRenderer(new ButtonRenderer());
+		table.getColumn("Voir").setCellEditor(new ButtonEditor(new JCheckBox()));
 		
-		table.getColumn("Delete").setCellRenderer(new ButtonRenderer());
-		table.getColumn("Delete").setCellEditor(new ButtonEditor(new JCheckBox()));
+		table.getColumn("Supprimer").setCellRenderer(new ButtonRenderer());
+		table.getColumn("Supprimer").setCellEditor(new ButtonEditor(new JCheckBox()));
 		
-		table.getColumn("Update").setCellRenderer(new ButtonRenderer());
-		table.getColumn("Update").setCellEditor(new ButtonEditor(new JCheckBox()));
+		table.getColumn("Modifier").setCellRenderer(new ButtonRenderer());
+		table.getColumn("Modifier").setCellEditor(new ButtonEditor(new JCheckBox()));
 		
 		setLayout(new BorderLayout(0, 0));
 
@@ -218,15 +227,19 @@ public class ClientListPanel extends JPanel {
 				
 				String action = ((JButton)event.getSource()).getText();
 				ClientController cc = new ClientController();
+				
+				Client c = ClientListPanel.this.clients.get(this.row);
+				
+				
 				switch (action) {
-				case "Show":
-					cc.showAction((int)table.getValueAt(this.row, 0));
+				case "Voir":
+					cc.showAction(c.getId());
 					break;
-				case "Delete":
-					cc.destroyAction((int)table.getValueAt(this.row, 0));
+				case "Supprimer":
+					cc.destroyAction(c.getId());
 					break;
-				case "Update":
-					cc.editAction((int)table.getValueAt(this.row, 0));
+				case "Modifier":
+					cc.editAction(c.getId());
 				default:
 					break;
 				}

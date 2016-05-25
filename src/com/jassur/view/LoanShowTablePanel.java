@@ -1,6 +1,7 @@
 package com.jassur.view;
 
 import java.awt.BorderLayout;
+import java.text.DecimalFormat;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -27,29 +28,45 @@ public class LoanShowTablePanel extends JPanel {
 	    Object[][] data = {};
 	    
 	    /* Columns name */
-	    String  header[] = {"Rang", "Date échéance", "Mensualité", "Capital amorti", "Intérêts", "Assurance", "Capital restant dû"};
+
+	    String  header[] = {"Rang","Date échéance","Intérêts","Capital amorti","Assurance","Mensualité","Capital restant dû"};
 	    
 	    TblModel tblModel = new TblModel(data, header);
 	    
-	    int size = this.loan.getTotalDuration();
+	    String pattern = "0.00";
+	    DecimalFormat decimalFormat = new DecimalFormat(pattern);
+	    
+	    
+	    int totalDuration = this.loan.getTotalDuration();
+	    double interest = 0;
+	    double insurance = this.loan.insurancePerMonth();
+	    double remainingCapital = this.loan.getAmount();
+	    double monthlyPayment = this.loan.getRates().get(0).getMonthlyPayment();
+	   
 	    
 	    jTable = new JTable(tblModel);
-	    jTable.setSize(915, 576);
 	    
-	    double ca = this.loan.getAmount();
+	    Object[] o = new Object[] {0,"-","-","-","-","-",decimalFormat.format((double)remainingCapital)};
+	    ((TblModel)jTable.getModel()).addRow(o);
+	   
 	    
-	    for (int i = 0; i < size; i++) {
-	    	Object[] o = new Object[] {
-	    		i,
-	    		"date",
-	    		this.loan.getRates().get(0).getMonthlyPayment(),
-	    		"capital amorti",
-	    		"Intérêt",
-	    		"Assurance",
-	    		ca
+	    for (int i = 1; i <= totalDuration; i++) {
+	    	
+	    	// calculation for next round
+	    	remainingCapital = this.loan.remainingCapital(remainingCapital,interest,monthlyPayment);
+	    	interest = this.loan.interestPerMonth(remainingCapital);
+	    	double principal = this.loan.principal(monthlyPayment, interest);
+	    	
+	    	o = new Object[] {
+	    			i,
+	    			"date",
+	    			decimalFormat.format((double)interest),
+	    			decimalFormat.format((double)principal),
+	    			insurance,
+	    			monthlyPayment,
+	    			decimalFormat.format((double)remainingCapital)
 	    	};
 	    	((TblModel)jTable.getModel()).addRow(o);
-	    	ca = ca - this.loan.getRates().get(0).getMonthlyPayment();
 	    }
 	    setLayout(new BorderLayout(0, 0));
 	    

@@ -1,8 +1,12 @@
 package com.jassur.view;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GradientPaint;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.JPanel;
 
@@ -14,7 +18,7 @@ import org.jfree.chart.axis.CategoryLabelPositions;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.renderer.category.GroupedStackedBarRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
@@ -31,16 +35,18 @@ public class LoanShowChartPanel extends JPanel {
 		CategoryDataset dataset = createDataset();
         JFreeChart chart = createChart(dataset);
         ChartPanel chartPanel = new ChartPanel(chart, false);
-        chartPanel.setPreferredSize(new Dimension(900, 500));
+
+        setBackground(Color.WHITE);
+        //chartPanel.setPreferredSize(new Dimension(900, 500));
         this.add(chartPanel);
 	}
 	
-	private static CategoryDataset createDataset() {
+	private CategoryDataset createDataset() {
 		
 		// row keys...
-        String series1 = "First";
-        String series2 = "Second";
-        String series3 = "Third";
+        String series1 = "Capital Restant";
+        String series2 = "Assurance";
+        String series3 = "interet";
 
         // column keys...
         String category1 = "Category 1";
@@ -52,39 +58,61 @@ public class LoanShowChartPanel extends JPanel {
         // create the dataset...
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
-        dataset.addValue(1.0, series1, category1);
-        dataset.addValue(4.0, series1, category2);
-        dataset.addValue(3.0, series1, category3);
-        dataset.addValue(5.0, series1, category4);
-        dataset.addValue(5.0, series1, category5);
-
-        dataset.addValue(5.0, series2, category1);
-        dataset.addValue(7.0, series2, category2);
-        dataset.addValue(6.0, series2, category3);
-        dataset.addValue(8.0, series2, category4);
-        dataset.addValue(4.0, series2, category5);
-
-        dataset.addValue(4.0, series3, category1);
-        dataset.addValue(3.0, series3, category2);
-        dataset.addValue(2.0, series3, category3);
-        dataset.addValue(3.0, series3, category4);
-        dataset.addValue(6.0, series3, category5);
+        
+        double ca = this.loan.getAmount();
+        int size = this.loan.getTotalDuration();
+        SimpleDateFormat formater = null;
+        formater = new SimpleDateFormat("dd/MM/yy");
+        DateFormat df = DateFormat.getDateInstance();
+        
+        Date date = null;
+		try {
+			date = formater.parse("01/01/2016");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+	    for (int i = 0; i < size; i++) {
+	    	
+	    	// capital restant
+	    	dataset.addValue(ca, series1, formater.format(date));
+	    	
+	    	// assurance
+	    	dataset.addValue(45, series2, formater.format(date));
+	    	
+	    	// interets
+	    	dataset.addValue(12, series3, formater.format(date));
+	    	
+	    	
+	    	date = addMonth(date, 1);
+	    	ca = ca - this.loan.getRates().get(0).getMonthlyPayment();
+	    }
         
         return dataset;
 	}
 	
+
+	public static Date addMonth(Date date, int nbMonth) {
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		cal.add(Calendar.MONTH, nbMonth);
+		return cal.getTime(); 
+	}
+
+	
 	private static JFreeChart createChart(CategoryDataset dataset) {
         
         // create the chart...
-        JFreeChart chart = ChartFactory.createBarChart(
-            "Bar Chart Demo",         // chart title
-            "Category",               // domain axis label
-            "Value",                  // range axis label
+        JFreeChart chart = ChartFactory.createStackedBarChart(
+            "Tableau de rembourssement",         // chart title
+            "Duree",               // domain axis label
+            "Capital restant a rembourser",                  // range axis label
             dataset,                  // data
             PlotOrientation.VERTICAL, // orientation
             true,                     // include legend
             true,                     // tooltips?
-            false                     // URLs?
+            true                     // URLs?
         );
 
         // NOW DO SOME OPTIONAL CUSTOMISATION OF THE CHART...
@@ -104,8 +132,27 @@ public class LoanShowChartPanel extends JPanel {
         rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
 
         // disable bar outlines...
-        BarRenderer renderer = (BarRenderer) plot.getRenderer();
+
+        GroupedStackedBarRenderer renderer = new GroupedStackedBarRenderer();
+        //GroupedStackedBarRenderer renderer = (GroupedStackedBarRenderer) plot.getRenderer();
         renderer.setDrawBarOutline(false);
+        
+        /*KeyToGroupMap map = new KeyToGroupMap("G1");
+        map.mapKeyToGroup("Product 1 (US)", "G1");
+        map.mapKeyToGroup("Product 1 (Europe)", "G1");
+        map.mapKeyToGroup("Product 1 (Asia)", "G1");
+        map.mapKeyToGroup("Product 1 (Middle East)", "G1");
+        
+        map.mapKeyToGroup("Product 2 (US)", "G2");
+        map.mapKeyToGroup("Product 2 (Europe)", "G2");
+        map.mapKeyToGroup("Product 2 (Asia)", "G2");
+        map.mapKeyToGroup("Product 2 (Middle East)", "G2");
+        
+        map.mapKeyToGroup("Product 3 (US)", "G3");
+        map.mapKeyToGroup("Product 3 (Europe)", "G3");
+        map.mapKeyToGroup("Product 3 (Asia)", "G3");
+        map.mapKeyToGroup("Product 3 (Middle East)", "G3");
+        renderer.setSeriesToGroupMap(map); */
         
         // set up gradient paints for series...
         GradientPaint gp0 = new GradientPaint(

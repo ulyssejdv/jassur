@@ -1,13 +1,9 @@
 package com.jassur.model;
 
-
 import java.util.ArrayList;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-
-import com.jassur.controller.ClientController;
-
 
 public class Loan implements Model {
 	
@@ -34,7 +30,9 @@ public class Loan implements Model {
 	private int amount;
 	private int totalDuration;
 	private double totalAmount;
+
 	private int category_id;
+	private double insurance;
 	
 	
 	private int id = 0;
@@ -74,6 +72,7 @@ public class Loan implements Model {
 			jObj.put("category", this.getCategory().toJSON());
 		}
 		System.out.println("Loan 2");
+
 		if (this.getRates() != null) {
 			JSONArray ratesJson = new JSONArray();
 			for (Rate rate : this.getRates()) {
@@ -81,6 +80,7 @@ public class Loan implements Model {
 			}
 			jObj.put("rates", ratesJson);
 		}
+
 		if (this.getStates() != null) {
 			JSONArray statesJson = new JSONArray();
 			for (State state : this.getStates()) {
@@ -91,6 +91,7 @@ public class Loan implements Model {
 		System.out.println("Loan 3");
 		System.out.println(jObj.toString());
 		System.out.println("Loan 4");
+
 		return jObj;
 	}
 
@@ -132,6 +133,7 @@ public class Loan implements Model {
 				addRate(r);
 			}
 		}	
+
 	}
 	
 	
@@ -174,6 +176,33 @@ public class Loan implements Model {
 		this.states.remove(s);
 	}
 	
+	/**
+	 * Get the periodic rate for this loan
+	 * @return 
+	 */
+	public double periodicRate() {
+		return this.getRates().get(0).getInterestRate()/12;
+	}
+	
+	/**
+	 * Get the amount of insurance per month
+	 * @return
+	 */
+	public double insurancePerMonth() {
+		return (this.getAmount()*(this.getInsurance()/100))/this.getTotalDuration();
+	}
+	
+	public double remainingCapital(double rc, double i, double mp) {
+		return rc-(mp-i);
+	}
+	
+	public double interestPerMonth(double rc) {
+		return (rc*this.periodicRate())/100;
+	}
+	
+	public double principal(double m, double i) {
+		return m-i;
+	}
 	
 	
 	/*
@@ -236,6 +265,14 @@ public class Loan implements Model {
 	public void setTotalAmount(double totalAmount) {
 		this.totalAmount = totalAmount;
 	}
+	
+	public double getInsurance() {
+		return insurance;
+	}
+	
+	public void setInsurance(double insurance) {
+		this.insurance = insurance;
+	}
 
 	public int getId() {
 		return id;
@@ -251,7 +288,5 @@ public class Loan implements Model {
 				+ ", states=" + states + ", amount=" + amount + ", totalDuration=" + totalDuration + ", totalAmount="
 				+ totalAmount + ", category_id=" + category_id + ", id=" + id + "]";
 	}
-
-	
 
 }
