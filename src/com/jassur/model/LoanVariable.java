@@ -5,13 +5,14 @@ public class LoanVariable {
 	
 	// calcule le montant constant
 
-	private int calculationValue;
+	private double calculationValue;
 	
-	public void addValues (int unMontant, int uneDuree, int unTaux){
-		calculationValue = (unMontant * unTaux) / uneDuree ;
+	public void addValues (double unMontant, double uneDuree, double unTaux ){
+		calculationValue = ((unMontant * unTaux)/ 12 ) / (1 - (1/(Math.pow( (1 + (unTaux/12)),(uneDuree*12)))));
+
 	}
 	
-	public int getCalculationValue(){
+	public double getCalculationValue(){
 		
 		return calculationValue;
 	}
