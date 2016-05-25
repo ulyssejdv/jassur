@@ -12,11 +12,8 @@ import com.jassur.model.CalculateRate;
  */
 public class RateController {
 
-	
 	CalculateRate mod;
 	private double GetRate;
-	
-	
 	
 	public RateController(CalculateRate mr )
 	{

@@ -17,7 +17,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class FixedRatePanel extends JFrame implements ActionListener {
-	
+
 	private JPanel contentPane;
 	private JLabel lblEcran= new JLabel();
 	private JTextField tfTauxMM= new JTextField();
@@ -37,13 +37,13 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 	private JRadioButton rdbtnMauvais = new JRadioButton("Mauvais");
 
 
-	
-	
+
+
 	/**
 	 * @author jérémy
 	 *Create the panel.
 	 */
-	
+
 	public FixedRatePanel(RateController controler) {
 		this.controler=controler;
 		//--------------------------------
@@ -61,7 +61,7 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 		gbl_contentPane.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 
-		
+
 		GridBagConstraints gbc_lblTauxMaisonMre = new GridBagConstraints();
 		gbc_lblTauxMaisonMre.insets = new Insets(0, 0, 5, 5);
 		gbc_lblTauxMaisonMre.anchor = GridBagConstraints.EAST;
@@ -69,7 +69,7 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 		gbc_lblTauxMaisonMre.gridy = 1;
 		contentPane.add(lblTauxMaisonMre, gbc_lblTauxMaisonMre);
 
-		
+
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.insets = new Insets(0, 0, 5, 5);
 		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
@@ -78,7 +78,7 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 		contentPane.add(tfTauxMM, gbc_textField);
 		tfTauxMM.setColumns(10);
 
-		
+
 		GridBagConstraints gbc_lblAge = new GridBagConstraints();
 		gbc_lblAge.insets = new Insets(0, 0, 5, 5);
 		gbc_lblAge.anchor = GridBagConstraints.EAST;
@@ -86,7 +86,7 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 		gbc_lblAge.gridy = 2;
 		contentPane.add(lblAge, gbc_lblAge);
 
-		
+
 		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
 		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
 		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
@@ -119,7 +119,7 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 		contentPane.add(lblEtatDeSant, gbc_lblEtatDeSant);
 
 		//RadioButton
-		
+
 		GridBagConstraints gbc_rdbtnBon = new GridBagConstraints();
 		gbc_rdbtnBon.insets = new Insets(0, 0, 5, 5);
 		gbc_rdbtnBon.gridx = 4;
@@ -143,7 +143,7 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 		gbc_lblRsultat.gridy = 6;
 		contentPane.add(lblRsultat, gbc_lblRsultat);
 
-		
+
 		GridBagConstraints gbc_lblEcran = new GridBagConstraints();
 		gbc_lblEcran.insets = new Insets(10, 0, 20, 5);
 		gbc_lblEcran.gridx = 4;
@@ -152,10 +152,6 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 		btnCalculer.addActionListener(this);
 		contentPane.add(btnCalculer);
 		btnCalculer.setBounds(100, 150, 200, 30);
-
-		//-----------------------
-
-
 	}	
 
 	public void actionPerformed(ActionEvent e) {
@@ -179,8 +175,7 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 				}
 				rate=controler.get_rate(InputTauxMM, InputAge, InputDuration, valeurRadio);
 				lblEcran.setText(String.valueOf(rate));
-						
-				
+
 			}else
 			{
 				JOptionPane.showMessageDialog(contentPane, "Attention champs manquants !");
@@ -192,6 +187,6 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 	}
 }
 
-	
+
 
 
