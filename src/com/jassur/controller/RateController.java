@@ -17,6 +17,7 @@ public class RateController {
 	private double GetRate;
 	
 	
+	
 	public RateController(CalculateRate mr )
 	{
 		mod=mr;		

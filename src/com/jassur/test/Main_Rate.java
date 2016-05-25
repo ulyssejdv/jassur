@@ -7,6 +7,7 @@ import com.jassur.view.FixedRatePanel;
 
 public class Main_Rate {
 
+	
 	public static void main(String[] args) {
 
 		//Instanciation de notre modele

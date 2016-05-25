@@ -149,11 +149,7 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 		gbc_lblEcran.gridx = 4;
 		gbc_lblEcran.gridy = 6;
 		contentPane.add(lblEcran, gbc_lblEcran);
-
 		btnCalculer.addActionListener(this);
-			
-
-		
 		contentPane.add(btnCalculer);
 		btnCalculer.setBounds(100, 150, 200, 30);
 

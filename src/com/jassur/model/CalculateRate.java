@@ -8,6 +8,7 @@ public class CalculateRate {
 	 * Calculs rates.
 	 * @return 
 	 */
+	
 	public double Calculs(double inputTauxMM2, int InputAge, int InputDuration, double valeurRadio){
 
 		//Inferieur ou egale a 45 ans et superieur e 18 ans
