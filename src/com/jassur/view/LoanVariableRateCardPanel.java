@@ -18,7 +18,7 @@ import java.awt.event.ActionEvent;
 
 import com.jassur.model.LoanVariable;
 import javax.swing.JLabel;
-import com.jgoodies.forms.factories.DefaultComponentFactory;
+// import com.jgoodies.forms.factories.DefaultComponentFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -39,7 +39,7 @@ public class LoanVariableRateCardPanel extends JPanel {
 	 * Create the panel.
 	 */
 	public LoanVariableRateCardPanel(LoanVariable lV) {
-		this.loanVariable = lV;
+		/*this.loanVariable = lV;
 		
 		
 		setBounds(100, 100, 802, 574);
@@ -182,7 +182,7 @@ public class LoanVariableRateCardPanel extends JPanel {
 		JLab_Ajouter.setIcon(new ImageIcon("C:\\Users\\Aur\u00E9lie\\workspace\\jassur\\src\\images\\gestion\\ajouter.png"));
 		JLab_Ajouter.setBounds(93, 509, 92, 39);
 		add(JLab_Ajouter);
-		
+		*/
 	
 	
 

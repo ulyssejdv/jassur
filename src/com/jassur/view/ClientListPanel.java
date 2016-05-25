@@ -40,7 +40,7 @@ public class ClientListPanel extends JPanel {
 
 		/* prepare the model table */
 		Object[][] data = {};
-		String  header[] = {"Id", "Last Name", "First Name", "Phone", "Email" , "Show", "Update", "Delete" };
+		String  header[] = {"Last Name", "First Name", "Phone", "Email" , "Voir", "Modifier", "Supprimer" };
 		JTableModel model = new JTableModel(data, header);
 
 		/* initialization of the table */
@@ -50,14 +50,13 @@ public class ClientListPanel extends JPanel {
 		/* feed the table */
 		for (Client c: cList) {
 			Object[]  obj = new Object[]{ 
-					c.getId(), 
 					c.getLastName(), 
 					c.getFirstName(), 
 					c.getPhone(), 
 					c.getEmail(), 
-					"Show", 
-					"Update",
-					"Delete"
+					"Voir", 
+					"Modifier",
+					"Supprimer"
 					
 			};
 			((JTableModel)table.getModel()).addRow(obj);
@@ -65,14 +64,14 @@ public class ClientListPanel extends JPanel {
 		
 		table.setDefaultRenderer(JButton.class, new TableComponent());
 		
-		table.getColumn("Show").setCellRenderer(new ButtonRenderer());
-		table.getColumn("Show").setCellEditor(new ButtonEditor(new JCheckBox()));
+		table.getColumn("Voir").setCellRenderer(new ButtonRenderer());
+		table.getColumn("Voir").setCellEditor(new ButtonEditor(new JCheckBox()));
 		
-		table.getColumn("Delete").setCellRenderer(new ButtonRenderer());
-		table.getColumn("Delete").setCellEditor(new ButtonEditor(new JCheckBox()));
+		table.getColumn("Supprimer").setCellRenderer(new ButtonRenderer());
+		table.getColumn("Supprimer").setCellEditor(new ButtonEditor(new JCheckBox()));
 		
-		table.getColumn("Update").setCellRenderer(new ButtonRenderer());
-		table.getColumn("Update").setCellEditor(new ButtonEditor(new JCheckBox()));
+		table.getColumn("Modifier").setCellRenderer(new ButtonRenderer());
+		table.getColumn("Modifier").setCellEditor(new ButtonEditor(new JCheckBox()));
 		
 		setLayout(new BorderLayout(0, 0));
 
@@ -225,13 +224,13 @@ public class ClientListPanel extends JPanel {
 				String action = ((JButton)event.getSource()).getText();
 				ClientController cc = new ClientController();
 				switch (action) {
-				case "Show":
+				case "Voir":
 					cc.showAction((int)table.getValueAt(this.row, 0));
 					break;
-				case "Delete":
+				case "Supprimer":
 					cc.destroyAction((int)table.getValueAt(this.row, 0));
 					break;
-				case "Update":
+				case "Modifier":
 					cc.editAction((int)table.getValueAt(this.row, 0));
 				default:
 					break;
