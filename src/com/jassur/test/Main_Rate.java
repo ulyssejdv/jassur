@@ -19,8 +19,7 @@ public class Main_Rate {
 		//Create view with controller in parameter
 		@SuppressWarnings("unused")
 		FixedRatePanel view = new FixedRatePanel(controller);
-	}
-	
+	}	
 	public static void main(String[] args) {
 	   
 		Main_Rate main = new Main_Rate();

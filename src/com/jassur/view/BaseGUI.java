@@ -153,7 +153,7 @@ public class BaseGUI extends JFrame {
 	
 	class GotoRatesListener implements ActionListener {
 
-		@Override
+		
 		public void actionPerformed(ActionEvent e) {
 			Main_Rate main_tauxFixe = new Main_Rate();
 		}
