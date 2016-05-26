@@ -21,6 +21,7 @@ public class Controleur_recherche_pret {
 	
 	
 	/**methode qui recupere le nom de type de pret d'un client
+	 * Function that retrieve the name of loan type of the client with his id 
 	 * @param id_client
 	 * @return nb_type_pret
 	 * @author Sarah
@@ -44,6 +45,7 @@ public class Controleur_recherche_pret {
 		
 	}
 	/**Methode qui rempli le tableau des types de pret (tableau combobox)
+	 * Method that insert types of loans in a table for the combobox
 	 * @param 
 	 * @return
 	 * @author Sarah
@@ -70,8 +72,9 @@ public class Controleur_recherche_pret {
 		
 	}
 	/**Methode qui retourne le tableau des types de pret pour un client
+	 * Method that get the tab "types of loans" for a client
 	 * @param 
-	 * @return tab_type_pret
+	 * @return tab_type_loan
 	 * @author Sarah
 	 * @see 
 	 */	
