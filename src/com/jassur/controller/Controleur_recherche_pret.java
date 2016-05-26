@@ -51,11 +51,16 @@ public class Controleur_recherche_pret {
 		
 		String[] firstSplit =rep.split("\\d+");
 		String secondSplit[] = new String[firstSplit.length];
+		int count=0;
 		for(int i=2;i<firstSplit.length;i=i+3)
 		{
-			//test3[i]=test[i];
-			System.out.print("apres split ,,,"+firstSplit[i]+"\n");
+			tab_type_pret[count]=firstSplit[i];
+			count++;
 			
+		}
+		for(int j=0;j<tab_type_pret.length;j++)
+		{
+			System.out.print("apres split ,,,"+tab_type_pret[j]+"\n");
 		}
 		
 		
