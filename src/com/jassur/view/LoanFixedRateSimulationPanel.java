@@ -32,12 +32,16 @@ public class LoanFixedRateSimulationPanel extends JPanel {
 	private JTextField textFieldFraisDeDossier;
 	private JTextField textFieldEcheanceAssur;
 	
+	
+	
+	private Client client;
+	
 	/**
 	* Create the panel.
 	*/
 	public LoanFixedRateSimulationPanel(ArrayList<Category> categories,Client client/*,ArrayList<Rate> rates*/) {
 
-		
+		this.client = client;
 		setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		setLayout(new BorderLayout(0, 0));
 		
@@ -226,7 +230,7 @@ public class LoanFixedRateSimulationPanel extends JPanel {
 				l.addState(s);
 
 				
-				l.setClient(client);
+				l.setClient(LoanFixedRateSimulationPanel.this.client);
 			
 				LoanController lc=new LoanController();
 				lc.createSimulation(l);

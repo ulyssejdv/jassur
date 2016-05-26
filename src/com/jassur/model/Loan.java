@@ -64,9 +64,13 @@ public class Loan implements Model {
 		jObj.put("amount", this.getAmount());
 		jObj.put("total_duration", this.getTotalDuration());
 		jObj.put("total_amount", this.getTotalAmount());
-		//ClientController cc=new ClientController();
-		//this.client_id=(int)jo.get("client_id");
-		jObj.put("client_id", this.getClient().toJSON());
+
+		if (this.getClient() != null) {
+			jObj.put("client_id", this.getClient().toJSON());
+		}
+		
+		
+		
 		if (this.getCategory() != null) {
 			jObj.put("category", this.getCategory().toJSON());
 		}

@@ -135,7 +135,12 @@ public class Dispatcher extends Thread {
 				DAO<Loan> loanDAO = daoFactory.getLoanDAO();
 				loanDAO.setConnect(poolConnexion.pop().getConnection());
 				model = loanDAO.find(Integer.parseInt(items[1]));
-				responseString = model.toJSON().toJSONString();
+				if (model != null) {
+					responseString = model.toJSON().toJSONString();
+				} else {
+					responseString = "{code:404}";
+				}
+				
 				break;
 			case "categories":
 				DAO<Category> categoryDAO = daoFactory.getCategoryDAO();
