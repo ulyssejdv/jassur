@@ -135,6 +135,25 @@ public class Loan implements Model {
 	}
 	
 	
+	public String toHTML() {
+		String htmlString = "";
+
+		htmlString += "<h2>Parametres</h2>";
+		htmlString += "<table>";
+		htmlString += "<tr><td>Montant total du pret</td><td>"+this.getAmount()+
+				"</td><td>Taux d'interet du pret</td><td>"+this.getRates().get(0).getInterestRate()+"</td></tr>";
+		htmlString += "<tr><td>Durée du pret</td><td>"+this.getTotalDuration()+"</td><td>Frais de dossier</td><td>0</td></tr>";
+		htmlString += "<tr><td>Echéance assurance comprise</td><td>-</td><td>Cout total du pret</td><td>"+this.getTotalAmount()+
+				"</td></tr>";
+		htmlString += "<tr><td>Echeance de l'assurance</td><td>-</td><td>Echeance hors assurance</td><td>"+this.getRates().get(0).getMonthlyPayment()+"</td>";
+		htmlString += "</tr>";
+		htmlString += "</table>";
+
+		htmlString += "<h2>Table de remboursement</h2>";
+		
+		return htmlString;
+	}
+	
 	
 	/*
 	 * List manipulation
@@ -207,6 +226,14 @@ public class Loan implements Model {
 	 * Getters & Setters
 	 * -------------------------------------------------
 	 */
+	
+	public int getClientId() {
+		return this.client_id;
+	}
+	
+	public void setClientId(int client_id) {
+		this.client_id = client_id;
+	}
 	
 	public Client getClient() {
 		return client;

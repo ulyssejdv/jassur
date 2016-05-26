@@ -108,7 +108,8 @@ public class LoanDAO extends DAO<Loan> {
 				 ClientDAO clientDAO = new ClientDAO();
 				 clientDAO.setConnect(connect);
 				 loan.setClient(clientDAO.find(result.getInt("client_id")));
-				 
+				 loan.setClientId(result.getInt("client_id"));
+			
 				/* Get all the rates */
 				result.beforeFirst();
 				RateDAO rateDAO = new RateDAO();

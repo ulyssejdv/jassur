@@ -71,6 +71,7 @@ public class LoanController implements Controller{
 		
 		String resp = Message.execRequest(rb.toJSONString());
 		Loan l = new Loan();
+		Client c = new Client();
 		try {
 			/* Transformation of the response String in JSON */
 			JSONParser parser = new JSONParser();
@@ -80,13 +81,17 @@ public class LoanController implements Controller{
 			JSONObject jObject = (JSONObject)obj;
 			
 			l.parseJSON(jObject);
+			c.parseJSON((JSONObject) jObject.get("client_id"));
 			
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		
+		
+		
+		
 		/* Render the client card panel */
-		LoanShowPanel lsp = new LoanShowPanel(l);
+		LoanShowPanel lsp = new LoanShowPanel(l, c);
 		BaseGUI.render(lsp);
 	}
 

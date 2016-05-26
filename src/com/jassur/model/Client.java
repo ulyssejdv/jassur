@@ -42,6 +42,21 @@ public class Client implements Model {
 	}
 	
 	
+	public String toHTML() {
+		
+		String htmlString = "";
+		
+		htmlString += "<h1>Restitution de Pret</h1>";
+
+		htmlString += "<h2>Informations client</h2>";
+		htmlString += this.getLastName()+", "+this.getFirstName()+" <br>";
+		htmlString += this.getAddress().getStreet()+"<br>"; 
+		htmlString += this.getAddress().getZip()+" "+this.getAddress().getCity()+" "+this.getAddress().getCountry()+"<br>";
+		
+		return htmlString;
+	}
+	
+	
 
 	public int getId() {
 		return id;
