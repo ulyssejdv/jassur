@@ -86,8 +86,7 @@ public class Vue_recherche_pret extends JFrame implements ActionListener {
 			combo.setBounds(360, 150, 150, 30);
 		}
 	
-	}
-	
+	}	
 	/** Methode qui permet l'action du bouton selection
 	 * @param arg0
 	 * @return

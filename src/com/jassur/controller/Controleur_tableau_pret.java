@@ -13,7 +13,7 @@ public class Controleur_tableau_pret {
 
 	private int id_type_pret;
 	private int nb_pret;
-	private Object[][] donne_jtable ;
+	private Object[][] donne_jtable ; 
 	
 	
 	/**Methode qui recupere l'id du type pret passe en parametre
