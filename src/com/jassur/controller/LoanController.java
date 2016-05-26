@@ -58,7 +58,6 @@ public class LoanController implements Controller{
 		    client.setBusiness(false);
 		    client.setAddress(new Address());
 		    
-		    System.out.println(this.showClientLoans(client).size());
 			/* Render the client list panel */
 			LoanFixedRateSimulationPanel lfrsp = new LoanFixedRateSimulationPanel(categoryList,client);
 			BaseGUI.render(lfrsp);	
