@@ -109,6 +109,13 @@ public class Dispatcher extends Thread {
 				for (Model m : categoryDAO.find()) {
 					array.add(m.toJSON());
 				}
+			}else if (items[0].equals("loans")) {
+				/* Get all loans and push them to a JSON array */
+				DAO<Loan> loanDAO = daoFactory.getLoanDAO();
+				loanDAO.setConnect(poolConnexion.pop().getConnection());
+				for (Model m : loanDAO.find()) {
+					array.add(m.toJSON());
+				}
 			}
 				responseString = array.toJSONString();
 			
@@ -186,9 +193,7 @@ public class Dispatcher extends Thread {
 				DAO<Loan> loanDAO = daoFactory.getLoanDAO();
 				loanDAO.setConnect(poolConnexion.pop().getConnection());
 				Loan l = new Loan();
-				System.out.println("Dispatcher 1"+resource);
 				l.parseJSON(resource);
-				System.out.println("Dispatcher: "+l.toString());
 				System.out.println("Insert : "+l);
 				l = loanDAO.create(l);
 				

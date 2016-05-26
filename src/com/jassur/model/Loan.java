@@ -67,11 +67,9 @@ public class Loan implements Model {
 		//ClientController cc=new ClientController();
 		//this.client_id=(int)jo.get("client_id");
 		jObj.put("client_id", this.getClient().toJSON());
-		System.out.println("Loan 1");
 		if (this.getCategory() != null) {
 			jObj.put("category", this.getCategory().toJSON());
 		}
-		System.out.println("Loan 2");
 
 		if (this.getRates() != null) {
 			JSONArray ratesJson = new JSONArray();
@@ -88,9 +86,6 @@ public class Loan implements Model {
 			}
 			jObj.put("states", statesJson);
 		}
-		System.out.println("Loan 3");
-		System.out.println(jObj.toString());
-		System.out.println("Loan 4");
 
 		return jObj;
 	}

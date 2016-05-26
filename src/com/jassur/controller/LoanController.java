@@ -29,7 +29,6 @@ public class LoanController implements Controller{
 		 * and get his response string 
 		 */
 		String resp = Message.execRequest(rb.toJSONString());
-		System.out.println(resp);
 		ArrayList<Category> categoryList = new ArrayList<Category>();
 		
 		try {
@@ -51,13 +50,15 @@ public class LoanController implements Controller{
 			e.printStackTrace();
 		}
 			Client client=new Client();
-		    client.setId(11);
+		    client.setId(13);
 		    client.setFirstName("a");
 		    client.setLastName("b");
 		    client.setPhone("0667939393");
 		    client.setEmail("r@a.fr");
 		    client.setBusiness(false);
 		    client.setAddress(new Address());
+		    
+		    System.out.println(this.showClientLoans(client).size());
 			/* Render the client list panel */
 			LoanFixedRateSimulationPanel lfrsp = new LoanFixedRateSimulationPanel(categoryList,client);
 			BaseGUI.render(lfrsp);	
@@ -75,9 +76,7 @@ public class LoanController implements Controller{
 			/* Transformation of the response String in JSON */
 			JSONParser parser = new JSONParser();
 			Object obj = parser.parse(resp);
-			
-			System.out.println(resp);
-			
+						
 			/* get loans/ return a JSON array */
 			JSONObject jObject = (JSONObject)obj;
 			
@@ -108,7 +107,6 @@ public class LoanController implements Controller{
 		/* Build a new request */
 		RequestBuilder rb = new RequestBuilder(RequestBuilder.POST, "loans/", m);
 		String resp = Message.execRequest(rb.toJSONString());
-		System.out.println("resp:"+resp);
 		JSONParser parser = new JSONParser();
 		Object obj;
 		try {
@@ -143,6 +141,38 @@ public class LoanController implements Controller{
 	@Override
 	public void destroyAction(int id) {
 		// TODO Auto-generated method stub
+		
+	}
+	
+	public ArrayList<Loan> showClientLoans(Client client){
+RequestBuilder rb = new RequestBuilder(RequestBuilder.GET, "loans/");
+		
+		/* Send message with the builded request
+		 * and get his response string 
+		 */
+		String resp = Message.execRequest(rb.toJSONString());
+		ArrayList<Loan> loanList = new ArrayList<Loan>();
+		
+		try {
+			/* Transformation of the response String in JSON */
+			JSONParser parser = new JSONParser();
+			Object obj = parser.parse(resp);
+			
+			/* get categories/ return a JSON array */
+			JSONArray jArray = (JSONArray)obj;
+			
+			/* Analyze and instantiate all categories in the JSON response */
+			for(int i = 0; i < jArray.size(); i++) {
+				JSONObject job = (JSONObject)jArray.get(i);				
+				Loan l = new Loan();
+				l.parseJSON(job);
+				if(l.getClient().getId()==client.getId())
+				loanList.add(l);
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return loanList;
 		
 	}
 

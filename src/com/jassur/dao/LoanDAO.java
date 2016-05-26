@@ -116,7 +116,6 @@ public class LoanDAO extends DAO<Loan> {
 				
 				while (result.next()) {
 					loan.addRate(rateDAO.find(result.getInt("id_rate")));
-					System.out.println("1er "+result);
 				}
 				
 				/* Get all the states */
@@ -125,7 +124,6 @@ public class LoanDAO extends DAO<Loan> {
 				stateDAO.setConnect(connect);
 				while (result.next()) {
 				loan.addState(stateDAO.find(result.getInt("id_state")));
-				System.out.println("2eme "+result.getInt("id_state"));
 				}
 				
 			}
@@ -138,8 +136,30 @@ public class LoanDAO extends DAO<Loan> {
 
 	@Override
 	public ArrayList<Loan> find() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Loan> loans = new ArrayList<Loan>();
+		
+		try {
+			ResultSet result = this.connect.createStatement(
+					ResultSet.TYPE_SCROLL_INSENSITIVE,
+					ResultSet.CONCUR_READ_ONLY
+			).executeQuery(
+					"SELECT distinct id_loan "+
+				    "FROM loans;");
+			
+			if(result.first()){
+				LoanDAO ld =new LoanDAO();
+				ld.setConnect(connect);
+				while (result.next()) {
+					int loan_id=result.getInt("id_loan");
+					loans.add(ld.find(loan_id));
+				}
+			}
+
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return loans;
 	}
 
 }
