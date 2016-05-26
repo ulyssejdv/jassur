@@ -77,14 +77,14 @@ public class Vue_Gestion_id extends JFrame implements ActionListener{
 		this.add(jtfnom);
 		this.add(jtfprenom);
 		label_titre.setBounds(290, 30, 125, 60);
-		label_nom.setBounds(120, 150, 82, 30);
-		jtfnom.setBounds(205, 150, 150, 30);
-		label_prenom.setBounds(360, 150, 52, 30);
+		label_nom.setBounds(120, 150, 90, 30);
+		jtfnom.setBounds(215, 150, 130, 30);
+		label_prenom.setBounds(350, 150, 60, 30);
 		jtfprenom.setBounds(415, 150, 150, 30);
 		id.setBounds(280, 220, 200, 30);
 		
 		
-		this.setSize(800,500);	
+		this.setSize(700,370);	
 		this.setLocationRelativeTo(null);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);

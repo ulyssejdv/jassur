@@ -319,17 +319,17 @@ public class Dispatcher extends Thread {
 		
 		
 		if (items.length == 3) {
-			System.out.print("l'id c'est recherche id "+items[2]+"\n");
+			
 			Modele_Gestion_id mod =new Modele_Gestion_id(); ;
 			int id=mod.recherche_id(items[1],items[2]);
-			System.out.print("l'id c'est "+id);
+			
 			responseString=Integer.toString(id);
 			
 		}if (items.length == 2) {
-			System.out.print("l'id c'est tab pret "+items[1]+"\n");
+			
 			Modele_tableau_pret mod =new Modele_tableau_pret(); ;
 			int id=mod.recherche_id_pret(items[1]);
-			System.out.print("l'id c'est du type pret "+id);
+			
 			responseString=Integer.toString(id);
 			
 		}
@@ -349,21 +349,21 @@ public class Dispatcher extends Thread {
 		String[] items = pattern.split(route);
 		
 		if (items.length == 3) {
-			System.out.print("l'id client dans nombre pret clien "+items[2]+"\n");
+			
 			Modele_tableau_pret mod =new Modele_tableau_pret(); 
 			int id_pret=Integer.parseInt(items[1]);
 			int id_client=Integer.parseInt(items[2]);
 			int id=mod.nombre_pret_client(id_pret,id_client);
-			System.out.print("l'id c'est "+id);
+			
 			responseString=Integer.toString(id);
 			
 		}
 		if (items.length == 2) {
-			System.out.print("l'id calcul pret clien "+items[1]+"\n");
+			
 			Modele_recherche_pret mod =new Modele_recherche_pret(); 
 			int id_client=Integer.parseInt(items[1]);
 			int nb=mod.Calcul_nb_type_pret(id_client);
-			System.out.print("nombre de pret gros"+nb);
+			
 			responseString=Integer.toString(nb);
 			
 		}
@@ -384,25 +384,24 @@ public class Dispatcher extends Thread {
 		
 		if (items.length == 3) {
 			
-			System.out.print("l'id clien dans type prettttt"+items[1]+"\n");
+			
 			Modele_recherche_pret mod =new Modele_recherche_pret(); 
 			int id_du_client=Integer.parseInt(items[1]);
 			int nb_type_pret=Integer.parseInt(items[2]);			
 			array=(JSONArray) mod.typepret(id_du_client, nb_type_pret) ;
 			responseString=array.toJSONString();
-			System.out.print("contenu typepret "+responseString+"\n");
+			
 			
 		}
-		if (items.length == 5) {
+		if (items.length == 4) {
 			
-			System.out.print("l'id c'est ggggggg"+items[1]+"\n");
+			
 			Modele_tableau_pret mod =new Modele_tableau_pret(); 
-			int id_type_pret=Integer.parseInt(items[1]);
-			int id_client=Integer.parseInt(items[2]);
-			Object[][] donne_jtable= new Object[6][5];
-			//donne_jtable=mod.recuperation_donne_pret(donne_jtable,id_type_pret, id_client,items[3]);
-			System.out.print("nombre de pret gros");
-			//responseString=Integer.toString();
+			int id_type_loan=Integer.parseInt(items[1]);
+			int id_client=Integer.parseInt(items[2]);			
+			array=(JSONArray) mod.recuperation_donne_pret(id_type_loan, id_client,items[3]);
+			responseString=array.toJSONString();
+			
 			
 		}
 		/* Write the response in the socket */

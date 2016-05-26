@@ -15,9 +15,9 @@ import com.jassur.model.Modele_recherche_pret;
 public class Controleur_recherche_pret {
 
 	
-	private int nb_type_pret;
-	private String []tab_type_pret  ;
-	private int id_du_client;
+	private int nb_type_loan;
+	private String []tab_type_loan  ;
+	private int id_of_client;
 	
 	
 	/**methode qui recupere le nom de type de pret d'un client
@@ -28,14 +28,20 @@ public class Controleur_recherche_pret {
 	 */	
 	public int get_nb_pret_client(int id_client )
 	{
-		System.out.print("Dans nb pret client"+id_client+"\n");
+		
 		/* Build a new request */
 		RequestBuilder rb = new RequestBuilder(RequestBuilder.NB_simulation_pret, "clients/"+id_client);
 		String rep = Message.execRequest(rb.toJSONString());		
-		nb_type_pret=Integer.parseInt(rep);
-		System.out.print("reponse serv nb type pret "+nb_type_pret+"\n");
-		tab_type_pret = new String[nb_type_pret]; 
-		return nb_type_pret;
+		nb_type_loan=Integer.parseInt(rep);
+		if(nb_type_loan==0){
+			return 0;
+		}
+		else
+		{
+			tab_type_loan = new String[nb_type_loan]; 
+			return nb_type_loan;
+		}
+		
 	}
 	/**Methode qui rempli le tableau des types de pret (tableau combobox)
 	 * @param 
@@ -46,22 +52,19 @@ public class Controleur_recherche_pret {
 	public void set_tab_pret_client(int id_client ) 
 	{
 		/* Build a new request */
-		RequestBuilder rb = new RequestBuilder(RequestBuilder.Table, "clients/"+id_client+"/"+nb_type_pret);
+		RequestBuilder rb = new RequestBuilder(RequestBuilder.Table, "clients/"+id_client+"/"+nb_type_loan);
 		String rep = Message.execRequest(rb.toJSONString());
 		
 		String[] firstSplit =rep.split("\\d+");
-		String secondSplit[] = new String[firstSplit.length];
+		
 		int count=0;
 		for(int i=2;i<firstSplit.length;i=i+3)
 		{
-			tab_type_pret[count]=firstSplit[i];
+			tab_type_loan[count]=firstSplit[i];
 			count++;
 			
 		}
-		for(int j=0;j<tab_type_pret.length;j++)
-		{
-			System.out.print("apres split ,,,"+tab_type_pret[j]+"\n");
-		}
+		
 		
 		
 		
@@ -75,7 +78,7 @@ public class Controleur_recherche_pret {
 	public String [] get_tab_pret_client()
 	{
 		
-		return tab_type_pret;
+		return tab_type_loan;
 	}
 	
 }

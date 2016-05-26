@@ -117,9 +117,9 @@ public class BaseGUI extends JFrame {
 		mnPrts.add(mntmRetrouverUnPrt);
 		
 		
-		JMenu maSimul = new JMenu("Comparaison des simulation de Prêts");
+		JMenuItem maSimul = new JMenuItem("Comparaison des simulations");
 		maSimul.addActionListener(new GotoSimulationpret());
-		menuBar.add(maSimul);
+		mnPrts.add(maSimul);
 		
 		/*
 		 * Help Menu

@@ -11,7 +11,6 @@ import com.jassur.model.Modele_tableau_pret;
  */	
 public class Controleur_tableau_pret {
 
-	private Modele_tableau_pret mod;
 	private int id_type_pret;
 	private int nb_pret;
 	private Object[][] donne_jtable ;
@@ -40,12 +39,12 @@ public class Controleur_tableau_pret {
 	 */
 	public int get_nombre_pret_client(int id_client,String type_pret )
 	{
-		System.out.print("Dans nb pret client \n");
+		
 		/* Build a new request */
 		RequestBuilder rb = new RequestBuilder(RequestBuilder.NB_simulation_pret, "clients/"+id_type_pret+"/"+id_client);
 		String rep = Message.execRequest(rb.toJSONString());		
 		nb_pret=Integer.parseInt(rep);
-		System.out.print("reponse serv nb pret du client "+nb_pret+"\n");
+		
 		
 		
 		donne_jtable= new Object[nb_pret][5];
@@ -76,13 +75,33 @@ public class Controleur_tableau_pret {
 	 */
 	public void set_tableau_donnee(String type_pret, int id_client)
 	{
-		System.out.print("Dans set tableau donnee \n");
+		
 		/* Build a new request */
 		RequestBuilder rb = new RequestBuilder(RequestBuilder.Table, "clients/"+id_type_pret+"/"+id_client+"/"+type_pret);
 		String rep = Message.execRequest(rb.toJSONString());		
-		nb_pret=Integer.parseInt(rep);
-		System.out.print("reponse serv set table \n");
 		
+		
+		String[] firstSplit =rep.split("[a-z]");
+		String []second = new String[firstSplit.length];
+		int count=0;
+		for(int i=1;i<firstSplit.length;i=i+2)
+		{
+			second[count]=firstSplit[i];
+			count++;
+			
+			
+		}
+		count=0;
+		for(int line=0 ; line<nb_pret;line++)
+		{
+			donne_jtable[line][0]=type_pret;
+			
+			for(int column =1 ; column<5 ;column++)
+			{
+				donne_jtable[line][column]=second[count];
+				count++;
+			}
+		}
 	}
 	/**Method qui retourne a la vue le tableau des prets
 	 * @param 
