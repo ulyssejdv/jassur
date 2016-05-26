@@ -42,6 +42,7 @@ public class Message {
 				
 				/* receive the JSON response */
 				rep = inFromServer.readLine();
+				System.out.println("response : "+rep);
 				
 			} catch (IOException e) {
 				e.printStackTrace();

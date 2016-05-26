@@ -95,6 +95,45 @@ public class LoanController implements Controller{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	/**
+	 * Controller method for display loan form
+	 * @param idClient
+	 */
+	public void newAction(Client client) {
+		/* Build a new request */
+		RequestBuilder rb = new RequestBuilder(RequestBuilder.GET, "categories/");
+		
+		/* Send message with the builded request
+		 * and get his response string 
+		 */
+		String resp = Message.execRequest(rb.toJSONString());
+		ArrayList<Category> categoryList = new ArrayList<Category>();
+		
+		try {
+			/* Transformation of the response String in JSON */
+			JSONParser parser = new JSONParser();
+			Object obj = parser.parse(resp);
+			
+			/* get categories/ return a JSON array */
+			JSONArray jArray = (JSONArray)obj;
+			
+			/* Analyze and instantiate all categories in the JSON response */
+			for(int i = 0; i < jArray.size(); i++) {
+				JSONObject job = (JSONObject)jArray.get(i);				
+				Category c = new Category();
+				c.parseJSON(job);
+				categoryList.add(c);
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		LoanFixedRateSimulationPanel lfrsp = new LoanFixedRateSimulationPanel(categoryList,client);
+		BaseGUI.render(lfrsp);
+	}
 
 	@Override
 	public void createAction(Model m) {
@@ -144,7 +183,7 @@ public class LoanController implements Controller{
 	}
 	
 	public ArrayList<Loan> showClientLoans(Client client){
-RequestBuilder rb = new RequestBuilder(RequestBuilder.GET, "loans/");
+		RequestBuilder rb = new RequestBuilder(RequestBuilder.GET, "loans/");
 		
 		/* Send message with the builded request
 		 * and get his response string 

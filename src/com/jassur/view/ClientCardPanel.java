@@ -2,18 +2,20 @@ package com.jassur.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.util.ArrayList;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.jassur.controller.LoanController;
 import com.jassur.model.Client;
-import com.jassur.model.Loan;
 
 public class ClientCardPanel extends JPanel {
-
+	
 	/**
 	 * Create the panel.
 	 * @param mainFrame 
@@ -121,7 +123,29 @@ public class ClientCardPanel extends JPanel {
 		layout.setVerticalGroup(vGroup);
 		
 		add(panelInfo, BorderLayout.CENTER);
+		
+		JPanel header = new JPanel();
+		header.setBackground(Color.WHITE);
+		
+		JButton btnCreateLoan = new JButton("Nouvelle simulation");
+		btnCreateLoan.addActionListener(new GotoNewLoanListener(c));
+		header.add(btnCreateLoan);
+		
+		add(header, BorderLayout.NORTH);
 
+	}
+	
+	class GotoNewLoanListener implements ActionListener {
+		private Client client;
+		public GotoNewLoanListener(Client c) {
+			this.client = c;
+		}
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			LoanController lc = new LoanController();
+			lc.newAction(this.client);
+		}
+		
 	}
 
 }
