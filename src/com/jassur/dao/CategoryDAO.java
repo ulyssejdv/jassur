@@ -65,7 +65,6 @@ public class CategoryDAO extends DAO<Category> {
 					category.setId(result.getInt("id_category"));
 					category.setLabelCategory(result.getString("label_category"));
 					categories.add(category);
-					System.out.println(category.toString());
 				}		
 
 		} catch (SQLException e) {

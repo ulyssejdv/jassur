@@ -102,7 +102,6 @@ public class Loan implements Model {
 			for (Object ob : jarray) {
 				State s = new State();
 				s.parseJSON((JSONObject) ob);
-				System.out.println("Loan 1"+s.toString());
 				addState(s);
 			}
 		}	

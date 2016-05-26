@@ -2,6 +2,7 @@ package com.jassur.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.util.ArrayList;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -9,6 +10,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import com.jassur.model.Client;
+import com.jassur.model.Loan;
 
 public class ClientCardPanel extends JPanel {
 
@@ -16,7 +18,7 @@ public class ClientCardPanel extends JPanel {
 	 * Create the panel.
 	 * @param mainFrame 
 	 */
-	public ClientCardPanel(Client c) {
+	public ClientCardPanel(Client c/*,ArrayList<Loan> loans*/) {
 
 		setBackground(Color.WHITE);
 		setLayout(new BorderLayout());
