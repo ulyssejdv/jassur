@@ -20,8 +20,8 @@ import com.jassur.model.Modele_recherche_pret;
  */	
 public class Vue_recherche_pret extends JFrame implements ActionListener {
 	
-	private Modele_recherche_pret modele= new Modele_recherche_pret();
-	private Controleur_recherche_pret controler = new Controleur_recherche_pret(modele);
+	
+	private Controleur_recherche_pret controler = new Controleur_recherche_pret();
 	private Vue_tableau_pret Vue_tableau_pret;	
 	private JButton selection =new JButton("Lancer");
 	private Label label_titre = new Label( );
@@ -70,7 +70,7 @@ public class Vue_recherche_pret extends JFrame implements ActionListener {
 		int nb_type_pret=controler.get_nb_pret_client(id_client);
 
 		tab_type_pret_vue = new String[nb_type_pret]; 
-		controler.set_tab_pret_client();
+		controler.set_tab_pret_client(id_client);
 		tab_type_pret_vue=controler.get_tab_pret_client();
 		
 		combo = new JComboBox(tab_type_pret_vue);

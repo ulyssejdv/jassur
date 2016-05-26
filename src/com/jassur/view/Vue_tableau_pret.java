@@ -22,8 +22,8 @@ import com.jassur.model.Modele_tableau_pret;
  */	
 public class Vue_tableau_pret extends JFrame implements ActionListener {
 
-	private Modele_tableau_pret modele= new Modele_tableau_pret();
-	private Controleur_tableau_pret controler = new Controleur_tableau_pret(modele);
+	
+	private Controleur_tableau_pret controler = new Controleur_tableau_pret();
 	private int nb_pret;
 	private JTable jtableau_pret ;
 	private JButton retour =new JButton("Retour");

@@ -16,7 +16,7 @@ public class Main_MVC {
 	    //Instanciation de notre modele
 		Modele_Gestion_id Modele = new Modele_Gestion_id();
 	    //Creation du controleur
-		Controleur_Gestion_id controler = new Controleur_Gestion_id(Modele);
+		Controleur_Gestion_id controler = new Controleur_Gestion_id();
 	    //Creation de notre fenetre avec le controleur en parametre
 	    Vue_Gestion_id Vue = new Vue_Gestion_id(controler);
 	    
