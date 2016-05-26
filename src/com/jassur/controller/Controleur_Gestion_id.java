@@ -12,7 +12,7 @@ import com.jassur.model.Modele_Gestion_id;
  */	
 public class Controleur_Gestion_id  {
 	
-	private int id_client_recuperer;
+	private int id_client_retrieve;
 
 	/**Method qui recupere l'id du client 
 	 * function that return the client id 
@@ -26,7 +26,7 @@ public class Controleur_Gestion_id  {
 		/* Build a new request */
 		RequestBuilder rb = new RequestBuilder(RequestBuilder.ID, "clients/"+nom_jtf+"/"+prenom_jtf);
 		String rep = Message.execRequest(rb.toJSONString());		
-		id_client_recuperer=Integer.parseInt(rep);
-		return id_client_recuperer;
+		id_client_retrieve=Integer.parseInt(rep);
+		return id_client_retrieve;
 	}
 }
