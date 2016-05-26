@@ -10,6 +10,9 @@ public class RequestBuilder {
 	public static final int PUT = 2;
 	public static final int POST = 3;
 	public static final int DELETE = 4;
+	public static final int ID = 5;
+	public static final int NB_simulation_pret = 6;
+	public static final int Table = 7;
 	
 	private int method;
 	private String route;
@@ -45,6 +48,15 @@ public class RequestBuilder {
 			break;
 		case DELETE:
 			obj.put("method", "DELETE");
+			break;
+		case ID:
+			obj.put("method", "ID");
+			break;
+		case NB_simulation_pret:
+			obj.put("method", "NB_simulation_pret");
+			break;
+		case Table:
+			obj.put("method", "Table");
 			break;
 		default:
 			break;

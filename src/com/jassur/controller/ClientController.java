@@ -79,7 +79,9 @@ public class ClientController implements Controller{
 		}
 		
 		/* Render the client card panel */
-		ClientCardPanel ccp = new ClientCardPanel(c);
+		LoanController lc=new LoanController();
+		
+		ClientCardPanel ccp = new ClientCardPanel(c/*,lc.showClientLoans(c)*/);
 		BaseGUI.render(ccp);
 	}
 	

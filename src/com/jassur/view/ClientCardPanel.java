@@ -20,7 +20,7 @@ public class ClientCardPanel extends JPanel {
 	 * Create the panel.
 	 * @param mainFrame 
 	 */
-	public ClientCardPanel(Client c) {
+	public ClientCardPanel(Client c/*,ArrayList<Loan> loans*/) {
 
 		setBackground(Color.WHITE);
 		setLayout(new BorderLayout());

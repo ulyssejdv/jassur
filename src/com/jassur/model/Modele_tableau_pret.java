@@ -76,10 +76,11 @@ public class Modele_tableau_pret {
 			  ResultSet result = this.connect.createStatement(
 			  ResultSet.TYPE_FORWARD_ONLY,
 			  ResultSet.CONCUR_READ_ONLY
-				).executeQuery("SELECT COUNT(*) "
-						+ "FROM loans"
-						+ " WHERE client_id='"+id_client+"' AND category_id='"+id_type_pret+"'"
-						+ "AND (created_at >='"+date_systeme+"'OR updated_at >='"+date_systeme+"');");		
+				).executeQuery("SELECT COUNT(id_loan) "
+						+ "FROM loans l,states "
+						+ "WHERE client_id='"+id_client+"' AND category_id='"+id_type_pret+"'"
+						+ "AND (l.created_at >='"+date_systeme+"'OR l.updated_at >='"+date_systeme+"')"
+						+"AND id_loan=loan_id AND label_state='Simulation';");			
 				if(result.first())
 				{ 
 					nb_pret=result.getInt(1);
@@ -128,10 +129,11 @@ public class Modele_tableau_pret {
 			ResultSet result = this.connect.createStatement(
 					ResultSet.TYPE_FORWARD_ONLY,
 					ResultSet.CONCUR_READ_ONLY
-			).executeQuery("SELECT created_at,total_duration,amount,total_amount"
-					+ " FROM loans "
-					+ "WHERE client_id='"+id_client+"' AND category_id='"+id_type_pret+"' "
-					+ "AND (created_at >='"+date_systeme+"'OR updated_at >='"+date_systeme+"');");		
+			).executeQuery("SELECT l.created_at,total_duration,amount,total_amount "
+					+ "FROM loans l,states "
+					+ "WHERE l.client_id='"+id_client+"'AND category_id='"+id_type_pret+"'"
+					+ "AND (l.created_at >='"+date_systeme+"'OR l.updated_at >='"+date_systeme+"')"
+					+"AND id_loan=loan_id AND client_id=user_id AND label_state='Simulation';");		
 			while(result.next())
 			{	
 				donne_jtable[ligne][col]=type_pret;

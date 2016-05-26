@@ -3,6 +3,10 @@ package com.jassur.model;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import com.jassur.database.PoolConnection;
 /** le modele de la recherche pret
@@ -63,8 +67,10 @@ public class Modele_recherche_pret {
 	 * @author Sarah
 	 * @see 
 	 */	
-	public String [] typepret(int id_client,String []tab_type_pret ){
-		 
+	public  JSONArray typepret(int id_client,int nb_type_pret ){
+		
+		JSONArray array_table_type_loans = new JSONArray();
+		JSONObject o = new JSONObject();
 		int cpt=0;
 		
 		try {
@@ -75,12 +81,14 @@ public class Modele_recherche_pret {
 							"SELECT DISTINCT label_category "
 							+ "FROM categories,loans"
 							+ " WHERE category_id = id_category and client_id = '"+id_client+"';");
-		while(res.next()){
-			
-			tab_type_pret[cpt]= res.getString(1);
-			cpt++;
+		while(res.next()){	
+			String temp ="1"+res.getString(1)+"1";
+			o.put(cpt,temp);		
+			cpt++;		
 			}
-		return tab_type_pret;
+		array_table_type_loans.add(o);
+		
+		return array_table_type_loans;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

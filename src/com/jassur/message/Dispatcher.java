@@ -15,6 +15,9 @@ import com.jassur.model.Category;
 import com.jassur.model.Client;
 import com.jassur.model.Loan;
 import com.jassur.model.Model;
+import com.jassur.model.Modele_Gestion_id;
+import com.jassur.model.Modele_recherche_pret;
+import com.jassur.model.Modele_tableau_pret;
 
 public class Dispatcher extends Thread {
 	
@@ -74,6 +77,15 @@ public class Dispatcher extends Thread {
 			break;
 		case "DELETE":
 			this.dealingDelete(route);
+			break;
+		case "ID":
+			this.dealingID(route);
+			break;
+		case "Table":
+			this.dealingTable(route);
+			break;
+		case "NB_simulation_pret":
+			this.dealingNB(route);
 			break;
 		default:
 			System.out.println("Unknown method");
@@ -296,6 +308,108 @@ public class Dispatcher extends Thread {
 			}	
 		}
 		
+		/* Write the response in the socket */
+		try {
+			dataOutputStream.writeBytes(responseString+'\n');
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	private void dealingID(String route) {
+		/* explode route 
+		 * and put fragments in items[]
+		 */
+		Pattern pattern = Pattern.compile("/");
+		String[] items = pattern.split(route);
+		
+		
+		if (items.length == 3) {
+			System.out.print("l'id c'est recherche id "+items[2]+"\n");
+			Modele_Gestion_id mod =new Modele_Gestion_id(); ;
+			int id=mod.recherche_id(items[1],items[2]);
+			System.out.print("l'id c'est "+id);
+			responseString=Integer.toString(id);
+			
+		}if (items.length == 2) {
+			System.out.print("l'id c'est tab pret "+items[1]+"\n");
+			Modele_tableau_pret mod =new Modele_tableau_pret(); ;
+			int id=mod.recherche_id_pret(items[1]);
+			System.out.print("l'id c'est du type pret "+id);
+			responseString=Integer.toString(id);
+			
+		}
+		
+		/* Write the response in the socket */
+		try {
+			dataOutputStream.writeBytes(responseString+'\n');
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	private void dealingNB(String route) {
+		/* explode route 
+		 * and put fragments in items[]
+		 */
+		Pattern pattern = Pattern.compile("/");
+		String[] items = pattern.split(route);
+		
+		if (items.length == 3) {
+			System.out.print("l'id client dans nombre pret clien "+items[2]+"\n");
+			Modele_tableau_pret mod =new Modele_tableau_pret(); 
+			int id_pret=Integer.parseInt(items[1]);
+			int id_client=Integer.parseInt(items[2]);
+			int id=mod.nombre_pret_client(id_pret,id_client);
+			System.out.print("l'id c'est "+id);
+			responseString=Integer.toString(id);
+			
+		}
+		if (items.length == 2) {
+			System.out.print("l'id calcul pret clien "+items[1]+"\n");
+			Modele_recherche_pret mod =new Modele_recherche_pret(); 
+			int id_client=Integer.parseInt(items[1]);
+			int nb=mod.Calcul_nb_type_pret(id_client);
+			System.out.print("nombre de pret gros"+nb);
+			responseString=Integer.toString(nb);
+			
+		}
+		/* Write the response in the socket */
+		try {
+			dataOutputStream.writeBytes(responseString+'\n');
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	private void dealingTable(String route) {
+		/* explode route 
+		 * and put fragments in items[]
+		 */
+		Pattern pattern = Pattern.compile("/");
+		String[] items = pattern.split(route);
+		JSONArray array = new JSONArray();
+		
+		if (items.length == 3) {
+			
+			System.out.print("l'id clien dans type prettttt"+items[1]+"\n");
+			Modele_recherche_pret mod =new Modele_recherche_pret(); 
+			int id_du_client=Integer.parseInt(items[1]);
+			int nb_type_pret=Integer.parseInt(items[2]);			
+			array=(JSONArray) mod.typepret(id_du_client, nb_type_pret) ;
+			responseString=array.toJSONString();
+			System.out.print("contenu typepret "+responseString+"\n");
+			
+		}
+		if (items.length == 5) {
+			
+			System.out.print("l'id c'est ggggggg"+items[1]+"\n");
+			Modele_tableau_pret mod =new Modele_tableau_pret(); 
+			int id_type_pret=Integer.parseInt(items[1]);
+			int id_client=Integer.parseInt(items[2]);
+			Object[][] donne_jtable= new Object[6][5];
+			//donne_jtable=mod.recuperation_donne_pret(donne_jtable,id_type_pret, id_client,items[3]);
+			System.out.print("nombre de pret gros");
+			//responseString=Integer.toString();
+			
+		}
 		/* Write the response in the socket */
 		try {
 			dataOutputStream.writeBytes(responseString+'\n');
