@@ -95,7 +95,7 @@ public class newRate implements Model {
 		jObj.put("age", this.getAge());
 		jObj.put("duration", this.getDuration());
 		jObj.put("job", this.getJob());
-		jObj.put("healty", this.gethealthy());
+		jObj.put("healthy", this.gethealthy());
 		jObj.put("ratecompany", this.getRateCompany());
 		jObj.put("newRate", this.getNewRate());
 		jObj.put("risk", this.getRisk());
