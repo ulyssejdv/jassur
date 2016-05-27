@@ -1,5 +1,6 @@
 package com.jassur.dao;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -85,7 +86,37 @@ public class LoanDAO extends DAO<Loan> {
 
 	@Override
 	public Loan update(Loan obj) {
-		return obj;
+		String sql = "UPDATE loans l "
+				+ "JOIN rates r ON l.id_loan = r.loan_id "
+				+ "SET l.category_id= ? ,l.amount= ? , l.total_duration= ? ,"
+				+ "l.total_amount = ?, r.interest_rate = ?, r.duration = ? ,"
+				+ "r.monthly_payment = ?"
+				+ " WHERE l.id_loan = "+obj.getId()+""
+						+ ";";
+		System.out.println("SQL REQUEST : "+sql);
+		
+		System.out.println(obj);
+		try {
+	
+			PreparedStatement stateUpdate = connect.prepareStatement(sql);
+			stateUpdate.setInt(1,obj.getCategory().getId());
+			stateUpdate.setInt(2, obj.getAmount());
+			stateUpdate.setInt(3, obj.getTotalDuration());
+			stateUpdate.setDouble(4, obj.getTotalAmount());
+			stateUpdate.setDouble(5,obj.getRates().get(0).getInterestRate());
+			stateUpdate.setInt(6, obj.getRates().get(0).getDuration());
+			stateUpdate.setDouble(7, obj.getRates().get(0).getMonthlyPayment());
+			System.out.println("SQL REQUEST : "+sql);
+			
+			System.out.println(stateUpdate.toString());
+			stateUpdate.executeUpdate();
+			
+			return obj;
+		} catch (Exception e) {
+			
+			System.out.println(e.getMessage());
+			return null;
+		}
 	}
 
 	@Override

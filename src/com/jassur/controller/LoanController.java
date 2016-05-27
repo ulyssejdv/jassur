@@ -15,6 +15,7 @@ import com.jassur.model.Client;
 import com.jassur.model.Loan;
 import com.jassur.model.Model;
 import com.jassur.view.BaseGUI;
+import com.jassur.view.ClientCardPanel;
 import com.jassur.view.LoanFixedRateSimulationPanel;
 import com.jassur.view.LoanShowPanel;
 
@@ -170,7 +171,57 @@ public class LoanController implements Controller{
 
 	@Override
 	public void editAction(int id) {
-		// TODO Auto-generated method stub
+		
+		RequestBuilder rbc = new RequestBuilder(RequestBuilder.GET, "categories/");
+		RequestBuilder rb = new RequestBuilder(RequestBuilder.GET, "loans/"+id);
+		
+		
+		/* Send message with the builded request
+		 * and get his response string 
+		 */
+		String respc = Message.execRequest(rbc.toJSONString());
+		ArrayList<Category> categoryList = new ArrayList<Category>();
+		String resp = Message.execRequest(rb.toJSONString());
+		Loan l = new Loan();
+		Client c = new Client();
+		
+		try {
+			/* Transformation of the response String in JSON */
+			JSONParser parserc = new JSONParser();
+			Object objc = parserc.parse(respc);
+			
+			/* get categories/ return a JSON array */
+			JSONArray jArrayc = (JSONArray)objc;
+			
+			/* Analyze and instantiate all categories in the JSON response */
+			for(int i = 0; i < jArrayc.size(); i++) {
+				JSONObject jobc = (JSONObject)jArrayc.get(i);				
+				Category cat = new Category();
+				cat.parseJSON(jobc);
+				categoryList.add(cat);
+			}
+				/* Transformation of the response String in JSON */
+				JSONParser parser = new JSONParser();
+				Object obj = parser.parse(resp);
+							
+				/* get loans/ return a JSON array */
+				JSONObject jObject = (JSONObject)obj;
+				
+				l.parseJSON(jObject);
+				c.parseJSON((JSONObject) jObject.get("client_id"));
+				LoanFixedRateSimulationPanel lfrsp = new LoanFixedRateSimulationPanel(categoryList,c,l);
+				BaseGUI.render(lfrsp);
+			
+			
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		/* Render the client card panel */
+		
 		
 	}
 
@@ -181,6 +232,14 @@ public class LoanController implements Controller{
 		
 	}
 
+	public void updateSimulation(Loan loan,Client client) {
+		RequestBuilder rb = new RequestBuilder(RequestBuilder.PUT, "loans/"+loan.getId()+"/", loan);
+		String resp = Message.execRequest(rb.toJSONString());
+		ClientController cc=new ClientController();
+		cc.showAction(client.getId());
+		
+	}
+	
 	@Override
 	public void destroyAction(int id) {
 		RequestBuilder rb = new RequestBuilder(RequestBuilder.DELETE, "loans/"+id+"/");

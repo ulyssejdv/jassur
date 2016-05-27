@@ -111,7 +111,7 @@ public class LoanShowChartPanel extends JPanel {
         
         // create the chart...
         JFreeChart chart = ChartFactory.createStackedBarChart(
-            "Tableau de rembourssement",         // chart title
+            "Tableau de remboursement",         // chart title
             "Duree",               // domain axis label
             "Capital restant a rembourser",                  // range axis label
             dataset,                  // data
