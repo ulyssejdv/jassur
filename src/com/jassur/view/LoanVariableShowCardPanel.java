@@ -40,7 +40,7 @@ public class LoanVariableShowCardPanel extends JFrame implements ActionListener 
 	private JTable table_1;
 	private final JLabel label_1 = new JLabel(" en annee(s)");
 	
-
+ 
 
 
 	
