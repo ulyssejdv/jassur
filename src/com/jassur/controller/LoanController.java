@@ -183,8 +183,8 @@ public class LoanController implements Controller{
 
 	@Override
 	public void destroyAction(int id) {
-		// TODO Auto-generated method stub
-		
+		RequestBuilder rb = new RequestBuilder(RequestBuilder.DELETE, "loans/"+id+"/");
+		String resp = Message.execRequest(rb.toJSONString());
 	}
 	
 	public ArrayList<Loan> showClientLoans(Client client){

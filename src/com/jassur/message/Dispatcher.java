@@ -323,7 +323,20 @@ public class Dispatcher extends Thread {
 					}
 				}
 				responseString = "[]";
-			}	
+			}
+			else  if (items[0].equals("loans")) {
+				/* Get all clients and push them to a JSON array */
+				DAO<Loan> loanDAO = daoFactory.getLoanDAO();
+				loanDAO.setConnect(poolConnexion.pop().getConnection());
+				Loan l = loanDAO.find(Integer.parseInt(items[1]));
+				System.out.println(l);
+				if (l != null) {
+					if (loanDAO.delete(l)) {
+						System.out.println("Deleted");
+					}
+				}
+				responseString = "[]";
+			}
 		}
 
 		/* Write the response in the socket */

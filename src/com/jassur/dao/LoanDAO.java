@@ -66,7 +66,21 @@ public class LoanDAO extends DAO<Loan> {
 
 	@Override
 	public boolean delete(Loan obj) {
-		return false;
+		String sql = "DELETE l.*,r.*,s.* FROM loans l "
+				+ "JOIN rates r ON l.id_loan = r.loan_id "
+				+ "JOIN states s ON l.id_loan = s.loan_id "
+				+ "WHERE l.id_loan = "+obj.getId()+";";
+		System.out.println("SQL REQUEST : "+sql);
+		try {
+			int result = this.connect.createStatement().executeUpdate(sql);
+			
+			if (result > 0) {
+				return true;
+			}
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 	@Override
