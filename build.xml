@@ -119,7 +119,7 @@
 			<fileset dir="bin" />
             <manifest>
   				<attribute name="Main-Class" value="com.jassur.client.ClientJassur"/>
-            	<attribute name="Class-Path" value="lib/jcommon-1.0.0.jar lib/jfreechart-1.0.1.jar lib/json-simple-1.1.1.jar lib/mysql-connector-java-5.1.38-bin.jar"/>
+            	<attribute name="Class-Path" value="lib/jcommon-1.0.0.jar lib/jfreechart-1.0.1.jar lib/json-simple-1.1.1.jar lib/mysql-connector-java-5.1.38-bin.jar lib/itext-pdfa-5.5.9.jar lib/itext-xtra-5.5.9.jar lib/itextpdf-5.5.9.jar lib/xmlworker-5.5.9.jar"/>
             </manifest>
         </jar>
     </target>
