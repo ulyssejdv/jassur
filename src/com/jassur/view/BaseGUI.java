@@ -15,6 +15,7 @@ import com.jassur.controller.LoanController;
 //import com.jassur.controller.SimulateController;
 import com.jassur.controller.LoanVariableController;
 import com.jassur.test.Main_MVC;
+import com.jassur.test.Main_Rate;
 import com.jassur.view.BaseGUI.GotoSimulationpret;
 
 public class BaseGUI extends JFrame {
@@ -116,10 +117,14 @@ public class BaseGUI extends JFrame {
 		mntmRetrouverUnPrt.addActionListener(new GotoLoanListener());
 		mnPrts.add(mntmRetrouverUnPrt);
 		
+		JMenuItem CalculerTaux = new JMenuItem("Calculer un taux fixe");
+		CalculerTaux.addActionListener(new GotoRatesListener());
+		mnPrts.add(CalculerTaux);
 		
-		JMenu maSimul = new JMenu("Comparaison des simulation de Prêts");
+		
+		JMenuItem maSimul = new JMenuItem("Comparaison des simulations");
 		maSimul.addActionListener(new GotoSimulationpret());
-		menuBar.add(maSimul);
+		mnPrts.add(maSimul);
 		
 		/*
 		 * Help Menu
@@ -143,6 +148,14 @@ public class BaseGUI extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			LoanController lc = new LoanController();
 		    lc.showAction(3);
+		}
+	}
+	
+	class GotoRatesListener implements ActionListener {
+
+		
+		public void actionPerformed(ActionEvent e) {
+			Main_Rate main_tauxFixe = new Main_Rate();
 		}
 	}
 	

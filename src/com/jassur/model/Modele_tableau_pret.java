@@ -6,11 +6,16 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import com.jassur.database.PoolConnection;
 
 
 
 /** le modele du tableau des prets
+ * the model of loans table
  * @param 
  * @return
  * @author Sarah
@@ -38,9 +43,9 @@ public class Modele_tableau_pret {
 	 * @author Sarah
 	 * @see 
 	 */	
-	public int recherche_id_pret(String type_pret )
+	public int recherche_id_loan(String type_pret )
 	{
-		int id_type_pret;
+		int id_type_loan;
 		try {
 			ResultSet result = this.connect.createStatement(
 					ResultSet.TYPE_FORWARD_ONLY,
@@ -50,8 +55,8 @@ public class Modele_tableau_pret {
 					+ " WHERE label_category ='"+type_pret+"';");		
 			if(result.first())
 			{
-				id_type_pret=result.getInt(1);	
-				return id_type_pret;
+				id_type_loan=result.getInt(1);	
+				return id_type_loan;
 						
 			}		
 		} catch (SQLException e) {
@@ -61,16 +66,17 @@ public class Modele_tableau_pret {
 		
 	}
 	
-	/**Methode qui return le nombre de prets du client pour un type donnee
+	/**Methode qui retourne le nombre de prets du client pour un type donne
+	 * Return the number of loans for a client with a specific type
 	 * @param id_type_pret,id_client
 	 * @return nb_pret
 	 * @author Sarah
 	 * @see 
 	 */	
-	public int nombre_pret_client(int id_type_pret,int id_client)
+	public int number_loan_client(int id_type_loan,int id_client)
 	{
 			
-		int nb_pret;
+		int nb_loan;
 		String date_systeme =this.get_date();
 		try {
 			  ResultSet result = this.connect.createStatement(
@@ -78,13 +84,13 @@ public class Modele_tableau_pret {
 			  ResultSet.CONCUR_READ_ONLY
 				).executeQuery("SELECT COUNT(id_loan) "
 						+ "FROM loans l,states "
-						+ "WHERE client_id='"+id_client+"' AND category_id='"+id_type_pret+"'"
+						+ "WHERE client_id='"+id_client+"' AND category_id='"+id_type_loan+"'"
 						+ "AND (l.created_at >='"+date_systeme+"'OR l.updated_at >='"+date_systeme+"')"
 						+"AND id_loan=loan_id AND label_state='Simulation';");			
 				if(result.first())
 				{ 
-					nb_pret=result.getInt(1);
-					return nb_pret;
+					nb_loan=result.getInt(1);
+					return nb_loan;
 				}		
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -93,6 +99,7 @@ public class Modele_tableau_pret {
 	}
 	
 	/**Methode return la date en format annee-mois-jour
+	 * Return the date in format year-month-day
 	 * @param 
 	 * @return dat
 	 * @author Sarah
@@ -106,23 +113,23 @@ public class Modele_tableau_pret {
 		int year = Integer.valueOf(String.format("%1$tY",date));
 		year=year-2;
 		dat=year+dat;
-		return dat;
+		return dat; 
 	}
 	
-	/**Methode qui recupere les donnees des prets du client pour le type selectionne et le retourne
-	 * @param donne_jtable,id_type_pret,id_client,type_pret
-	 * @return donne_jtable
+	/**Methode qui recupere les donnees des prets du client pour le type selectionne et les retourne
+	 * Retrieve loans data for a client with a specific type and return it
+	 * @param data_jtable,id_type_loan,id_client,type_loan
+	 * @return data_jtable
 	 * @author Sarah
 	 * @see 
 	 */	
-	public Object[][]  recuperation_donne_pret(Object[][] donne_jtable,int id_type_pret,int id_client , String type_pret)
+	public JSONArray
+	recovery_data_loan(int id_type_loan,int id_client,String type_loan)
 	{
+		JSONArray array_table_type_loans = new JSONArray();
+		JSONObject o = new JSONObject();
 		
-		int col=0,ligne=0;
-		String date;
-		String durer;
-		String mensualite;
-		String totalmensualite;
+		int col=0;
 		String date_systeme =this.get_date();
 		
 		try {
@@ -131,37 +138,38 @@ public class Modele_tableau_pret {
 					ResultSet.CONCUR_READ_ONLY
 			).executeQuery("SELECT l.created_at,total_duration,amount,total_amount "
 					+ "FROM loans l,states "
-					+ "WHERE l.client_id='"+id_client+"'AND category_id='"+id_type_pret+"'"
+					+ "WHERE l.client_id='"+id_client+"'AND category_id='"+id_type_loan+"'"
 					+ "AND (l.created_at >='"+date_systeme+"'OR l.updated_at >='"+date_systeme+"')"
 					+"AND id_loan=loan_id AND client_id=user_id AND label_state='Simulation';");		
 			while(result.next())
 			{	
-				donne_jtable[ligne][col]=type_pret;
-				date=result.getString(1);
+				
+				String date="a"+result.getString(1)+"a";
 				col++;
-				donne_jtable[ligne][col]=date;
-				durer=result.getString(2);
+				o.put(col,date);
+				String duration="a"+result.getString(2)+"a";
 				col++;
-				donne_jtable[ligne][col]=durer;
-				mensualite=result.getString(3);
+				o.put(col,duration);
+				String monthly="a"+result.getString(3)+"a";
 				col++;
-				donne_jtable[ligne][col]=mensualite;
-				totalmensualite=result.getString(4);
+				o.put(col,monthly);
+				String totalmonthly="a"+result.getString(4)+"a";
 				col++;
-				donne_jtable[ligne][col]=totalmensualite;
-				col=0;	
-				ligne++;
+				o.put(col,totalmonthly);			
 				
 			}	
-			return donne_jtable;
+			array_table_type_loans.add(o);
+			
+			return array_table_type_loans;
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return donne_jtable;
+		return null;
 	}
 	
 	
 	/** Methode qui retourne la connexion
+	 * Return the connection
 	 * @param 
 	 * @return connect
 	 * @author Sarah
@@ -171,6 +179,7 @@ public class Modele_tableau_pret {
 			return connect;
 		}
 		/** Methode qui set la connexion
+		 * Set the connection
 		 * @param connect
 		 * @return 
 		 * @author Sarah

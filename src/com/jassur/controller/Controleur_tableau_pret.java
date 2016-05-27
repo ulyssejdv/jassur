@@ -3,65 +3,66 @@ import com.jassur.message.Message;
 import com.jassur.message.RequestBuilder;
 import com.jassur.model.Modele_tableau_pret;
 
-/**Controleur de la tableau pret
+/**Controleur du tableau pret
+ * Controler of loans table
  * @param 
  * @return
  * @author Sarah
- * @see Modele_tableau_pret
  */	
 public class Controleur_tableau_pret {
 
-	private Modele_tableau_pret mod;
-	private int id_type_pret;
-	private int nb_pret;
-	private Object[][] donne_jtable ;
+	private int id_type_loan;
+	private int nb_loan;
+	private Object[][] data_jtable ; 
 	
 	
 	/**Methode qui recupere l'id du type pret passe en parametre
-	 * @param type_pret
+	 * Method that retrieve the type loan id that we have in parameter
+	 * @param type_loan
 	 * @return
 	 * @author Sarah
-	 * @see Modele_tableau_pret
+	 * @see Modele_table_loan
 	 */
-	public void get_recherche_id_pret(String type_pret)
+	public void get_search_id_loan(String type_loan)
 	{
 		/* Build a new request */
-		RequestBuilder rb = new RequestBuilder(RequestBuilder.ID, "clients/"+type_pret);
+		RequestBuilder rb = new RequestBuilder(RequestBuilder.ID, "clients/"+type_loan);
 		String rep = Message.execRequest(rb.toJSONString());		
-		id_type_pret=Integer.parseInt(rep);
+		id_type_loan=Integer.parseInt(rep);
 		
 		
 	}
 	/**Methode qui renvoie le nombre de prets pour un type de pret 
-	 * @param id_client,type_pret
-	 * @return nb_pret
+	 * Method that send the number of loans for a type of loan that we selected
+	 * @param id_client,type_loan
+	 * @return nb_loan
 	 * @author Sarah
-	 * @see Modele_tableau_pret
 	 */
-	public int get_nombre_pret_client(int id_client,String type_pret )
+	public int get_number_loan_client(int id_client,String type_loan )
 	{
-		System.out.print("Dans nb pret client \n");
+		
 		/* Build a new request */
-		RequestBuilder rb = new RequestBuilder(RequestBuilder.NB_simulation_pret, "clients/"+id_type_pret+"/"+id_client);
+		RequestBuilder rb = new RequestBuilder(RequestBuilder.NB_simulation_loan, "clients/"+id_type_loan+"/"+id_client);
 		String rep = Message.execRequest(rb.toJSONString());		
-		nb_pret=Integer.parseInt(rep);
-		System.out.print("reponse serv nb pret du client "+nb_pret+"\n");
+		nb_loan=Integer.parseInt(rep);
 		
 		
-		donne_jtable= new Object[nb_pret][5];
-		this.set_tableau_donnee(type_pret, id_client);
 		
-		return nb_pret;
+		data_jtable= new Object[nb_loan][5];
+		this.set_table_data(type_loan, id_client);
+		
+		return nb_loan;
 	}
 	/**Methode qui verifie que le client a au moins un pret du type demander
+	 * Verify if the client have a loan (min 1) of the type that he want
 	 * @param 
 	 * @return boolean
 	 * @author Sarah
-	 * @see Modele_tableau_pret
+
 	 */
-	public boolean verif_tableau_vide()
+	public boolean verif_table_empty()
 	{
-		if(nb_pret==0)
+		if(nb_loan==0)
 		{
 			return true;
 		}
@@ -69,31 +70,51 @@ public class Controleur_tableau_pret {
 		
 	}
 	/**Methode remplit le tableau de donnees pour le jtable avec les prets du client du type choisi
-	 * @param type_pret,id_client
+	 * Method that insert data in the table for the jtable of loans of client (after the type choice)
+	 * @param type_loan,id_client
 	 * @return 
 	 * @author Sarah
-	 * @see Modele_tableau_pret
 	 */
-	public void set_tableau_donnee(String type_pret, int id_client)
+	public void set_table_data(String type_loan, int id_client)
 	{
-		System.out.print("Dans set tableau donnee \n");
-		/* Build a new request */
-		RequestBuilder rb = new RequestBuilder(RequestBuilder.Table, "clients/"+id_type_pret+"/"+id_client+"/"+type_pret);
-		String rep = Message.execRequest(rb.toJSONString());		
-		nb_pret=Integer.parseInt(rep);
-		System.out.print("reponse serv set table \n");
 		
+		/* Build a new request */
+		RequestBuilder rb = new RequestBuilder(RequestBuilder.Table, "clients/"+id_type_loan+"/"+id_client+"/"+type_loan);
+		String rep = Message.execRequest(rb.toJSONString());		
+		
+		
+		String[] firstSplit =rep.split("[a-z]");
+		String []second = new String[firstSplit.length];
+		int count=0;
+		for(int i=1;i<firstSplit.length;i=i+2)
+		{
+			second[count]=firstSplit[i];
+			count++;
+			
+			
+		}
+		count=0;
+		for(int line=0 ; line<nb_loan;line++)
+		{
+			data_jtable[line][0]=type_loan;
+			
+			for(int column =1 ; column<5 ;column++)
+			{
+				data_jtable[line][column]=second[count];
+				count++;
+			}
+		}
 	}
 	/**Method qui retourne a la vue le tableau des prets
+	 * Return to the view the table of loans
 	 * @param 
-	 * @return donne_jtable
+	 * @return data_jtable
 	 * @author Sarah
-	 * @see Modele_tableau_pret
 	 */
-	public Object[][] get_tableau_donnee()
+	public Object[][] get_table_data()
 	{
 		
-		return donne_jtable;
+		return data_jtable;
 	}
 	
 }

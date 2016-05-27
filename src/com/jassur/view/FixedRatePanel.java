@@ -63,7 +63,7 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 		this.controler=controler;
 		
 		setTitle("D\u00E9termination du taux d'int\u00E9rets de l'agence");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		contentPane = new JPanel();
 		setBounds(100, 100, 1020, 576);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
