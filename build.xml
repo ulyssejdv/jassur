@@ -17,6 +17,12 @@
         <pathelement location="lib/json-simple-1.1.1.jar"/>
         <pathelement location="lib/jcommon-1.0.0.jar"/>
         <pathelement location="lib/jfreechart-1.0.1.jar"/>
+    	
+    	<pathelement location="lib/itext-pdfa-5.5.9.jar"/>
+    	<pathelement location="lib/itext-xtra-5.5.9.jar"/>
+    	<pathelement location="lib/itextpdf-5.5.9.jar"/>
+    	<pathelement location="lib/xmlworker-5.5.9.jar"/>
+    	
     </path>
     <target name="init">
         <mkdir dir="bin"/>

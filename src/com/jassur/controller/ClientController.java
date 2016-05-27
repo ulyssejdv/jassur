@@ -9,15 +9,14 @@ import org.json.simple.parser.ParseException;
 
 import com.jassur.message.Message;
 import com.jassur.message.RequestBuilder;
-
 import com.jassur.model.Address;
 import com.jassur.model.Client;
+import com.jassur.model.Loan;
 import com.jassur.model.Model;
 import com.jassur.view.BaseGUI;
 import com.jassur.view.ClientCardPanel;
 import com.jassur.view.ClientFormPanel;
 import com.jassur.view.ClientListPanel;
-import com.jassur.view.MainFrame;
 
 public class ClientController implements Controller{
 	
@@ -75,13 +74,44 @@ public class ClientController implements Controller{
 			c.parseJSON(jObject);
 			
 		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		/* get all client's loans */
+
+		RequestBuilder rb1 = new RequestBuilder(RequestBuilder.GET, "loans/");
+		
+		/* Send message with the builded request
+		 * and get his response string 
+		 */
+		String resp1 = Message.execRequest(rb1.toJSONString());
+		ArrayList<Loan> loanList = new ArrayList<Loan>();
+		
+		try {
+			/* Transformation of the response String in JSON */
+			JSONParser parser = new JSONParser();
+			Object obj = parser.parse(resp1);
 			
+			/* get categories/ return a JSON array */
+			JSONArray jArray = (JSONArray)obj;
+			
+			/* Analyze and instantiate all categories in the JSON response */
+			for(int i = 0; i < jArray.size(); i++) {
+				JSONObject job = (JSONObject)jArray.get(i);				
+				Loan l = new Loan();
+				l.parseJSON(job);
+				if (l.getClient().getId()==id) {
+					loanList.add(l);
+				}
+					
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
 		}
 		
 		/* Render the client card panel */
 		LoanController lc=new LoanController();
-		
-		ClientCardPanel ccp = new ClientCardPanel(c/*,lc.showClientLoans(c)*/);
+		ClientCardPanel ccp = new ClientCardPanel(c,loanList);
 		BaseGUI.render(ccp);
 	}
 	
