@@ -39,4 +39,10 @@ public class DAOJSONFactory extends DAOFactory {
 		return null;
 	}
 
+	@Override
+	public DAO getNewRateDAO() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

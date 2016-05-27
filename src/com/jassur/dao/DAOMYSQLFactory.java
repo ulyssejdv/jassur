@@ -32,4 +32,10 @@ public class DAOMYSQLFactory extends DAOFactory {
 		return new StateDAO();
 	}
 
+	@Override
+	public DAO getNewRateDAO() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

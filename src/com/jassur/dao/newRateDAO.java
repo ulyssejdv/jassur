@@ -46,11 +46,6 @@ public class newRateDAO extends DAO<newRate> {
 		return null;
 	}
 
-/*
-	@Override
-	public Rate find(int id) {
-		
-	}*/
 
 	@Override
 	public ArrayList<newRate> find() {
