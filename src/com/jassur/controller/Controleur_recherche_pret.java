@@ -10,7 +10,7 @@ import com.jassur.model.Modele_recherche_pret;
  * @param 
  * @return
  * @author Sarah
- * @see Modele_recherche_pret
+
  */	
 public class Controleur_recherche_pret {
 
@@ -23,15 +23,15 @@ public class Controleur_recherche_pret {
 	/**methode qui recupere le nom de type de pret d'un client
 	 * Function that retrieve the name of loan type of the client with his id 
 	 * @param id_client
-	 * @return nb_type_pret
+	 * @return nb_type_loan
 	 * @author Sarah
 	 * @see Modele_recherche_pret
 	 */	
-	public int get_nb_pret_client(int id_client )
+	public int get_nb_loan_client(int id_client )
 	{
 		
 		/* Build a new request */
-		RequestBuilder rb = new RequestBuilder(RequestBuilder.NB_simulation_pret, "clients/"+id_client);
+		RequestBuilder rb = new RequestBuilder(RequestBuilder.NB_simulation_loan, "clients/"+id_client);
 		String rep = Message.execRequest(rb.toJSONString());		
 		nb_type_loan=Integer.parseInt(rep);
 		if(nb_type_loan==0){
@@ -49,9 +49,9 @@ public class Controleur_recherche_pret {
 	 * @param 
 	 * @return
 	 * @author Sarah
-	 * @see Modele_recherche_pret
+
 	 */	
-	public void set_tab_pret_client(int id_client ) 
+	public void set_tab_loan_client(int id_client ) 
 	{
 		/* Build a new request */
 		RequestBuilder rb = new RequestBuilder(RequestBuilder.Table, "clients/"+id_client+"/"+nb_type_loan);
@@ -76,9 +76,8 @@ public class Controleur_recherche_pret {
 	 * @param 
 	 * @return tab_type_loan
 	 * @author Sarah
-	 * @see 
 	 */	
-	public String [] get_tab_pret_client()
+	public String [] get_tab_loan_client()
 	{
 		
 		return tab_type_loan;

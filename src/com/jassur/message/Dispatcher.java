@@ -84,7 +84,7 @@ public class Dispatcher extends Thread {
 		case "Table":
 			this.dealingTable(route);
 			break;
-		case "NB_simulation_pret":
+		case "NB_simulation_loan":
 			this.dealingNB(route);
 			break;
 		default:
@@ -326,14 +326,14 @@ public class Dispatcher extends Thread {
 		if (items.length == 3) {
 			
 			Modele_Gestion_id mod =new Modele_Gestion_id(); ;
-			int id=mod.recherche_id(items[1],items[2]);
+			int id=mod.search_id(items[1],items[2]);
 			
 			responseString=Integer.toString(id);
 			
 		}if (items.length == 2) {
 			
 			Modele_tableau_pret mod =new Modele_tableau_pret(); ;
-			int id=mod.recherche_id_pret(items[1]);
+			int id=mod.recherche_id_loan(items[1]);
 			
 			responseString=Integer.toString(id);
 			
@@ -356,9 +356,9 @@ public class Dispatcher extends Thread {
 		if (items.length == 3) {
 			
 			Modele_tableau_pret mod =new Modele_tableau_pret(); 
-			int id_pret=Integer.parseInt(items[1]);
+			int id_loan=Integer.parseInt(items[1]);
 			int id_client=Integer.parseInt(items[2]);
-			int id=mod.nombre_pret_client(id_pret,id_client);
+			int id=mod.number_loan_client(id_loan,id_client);
 			
 			responseString=Integer.toString(id);
 			
@@ -367,7 +367,7 @@ public class Dispatcher extends Thread {
 			
 			Modele_recherche_pret mod =new Modele_recherche_pret(); 
 			int id_client=Integer.parseInt(items[1]);
-			int nb=mod.Calcul_nb_type_pret(id_client);
+			int nb=mod.Calcul_nb_type_loan(id_client);
 			
 			responseString=Integer.toString(nb);
 			
@@ -391,9 +391,9 @@ public class Dispatcher extends Thread {
 			
 			
 			Modele_recherche_pret mod =new Modele_recherche_pret(); 
-			int id_du_client=Integer.parseInt(items[1]);
-			int nb_type_pret=Integer.parseInt(items[2]);			
-			array=(JSONArray) mod.typepret(id_du_client, nb_type_pret) ;
+			int id_of_client=Integer.parseInt(items[1]);
+			int nb_type_loan=Integer.parseInt(items[2]);			
+			array=(JSONArray) mod.typepret(id_of_client, nb_type_loan) ;
 			responseString=array.toJSONString();
 			
 			
@@ -404,7 +404,7 @@ public class Dispatcher extends Thread {
 			Modele_tableau_pret mod =new Modele_tableau_pret(); 
 			int id_type_loan=Integer.parseInt(items[1]);
 			int id_client=Integer.parseInt(items[2]);			
-			array=(JSONArray) mod.recuperation_donne_pret(id_type_loan, id_client,items[3]);
+			array=(JSONArray) mod.recovery_data_loan(id_type_loan, id_client,items[3]);
 			responseString=array.toJSONString();
 			
 			

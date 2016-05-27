@@ -22,17 +22,18 @@ import com.jassur.controller.Controleur_Gestion_id;
  */	
 public class Vue_Gestion_id extends JFrame implements ActionListener{
 	
-	private JTextField jtfnom = new JTextField("");
-	private JTextField jtfprenom = new JTextField("");
-	private Label label_titre = new Label( );
-	private Label label_nom = new Label( );
-	private Label label_prenom = new Label( );
+	private JTextField jtfLastName = new JTextField("");
+	private JTextField jtfFirstName = new JTextField("");
+	private Label label_title = new Label( );
+	private Label label_LastName = new Label( );
+	private Label label_FirstName = new Label( );
 	private JButton id =new JButton("rechercher");
 	private Controleur_Gestion_id controler;
 	private int id_client;
-	private Vue_recherche_pret vue_pret ;
+	private Vue_recherche_pret view_loan ;
 	
 	/** Constructeur de la vue pour la gestion du client et son id
+	 * Constructor of the view: for the management of id client
 	 * @param controler
 	 * @return
 	 * @author Sarah
@@ -43,44 +44,44 @@ public class Vue_Gestion_id extends JFrame implements ActionListener{
 		this.controler=controler;
 		
 		Font police = new Font("Arial", Font.BOLD, 12);
-		jtfnom.setFont(police);
-		jtfnom.setPreferredSize(new Dimension(150, 30));
-		jtfnom.setForeground(Color.BLACK);
-		jtfprenom.setFont(police);
-		jtfprenom.setPreferredSize(new Dimension(150, 30));
-		jtfprenom.setForeground(Color.BLACK);
+		jtfLastName.setFont(police);
+		jtfLastName.setPreferredSize(new Dimension(150, 30));
+		jtfLastName.setForeground(Color.BLACK);
+		jtfFirstName.setFont(police);
+		jtfFirstName.setPreferredSize(new Dimension(150, 30));
+		jtfFirstName.setForeground(Color.BLACK);
 		
 		
-		label_titre.setFont(police);
-		label_titre.setForeground(Color.BLACK);
+		label_title.setFont(police);
+		label_title.setForeground(Color.BLACK);
 		
-		label_nom.setFont(police);
-		label_nom.setForeground(Color.BLACK);
+		label_LastName.setFont(police);
+		label_LastName.setForeground(Color.BLACK);
 		
-		label_prenom.setFont(police);
-		label_prenom.setForeground(Color.BLACK);
+		label_FirstName.setFont(police);
+		label_FirstName.setForeground(Color.BLACK);
 		
 	    
 	    id.addActionListener(this);
 	    
 		
-	    label_titre.setText("Informations du client");
-	    label_nom.setText("Entrez le nom : ");
-	    label_prenom.setText("Prenom : ");	
+	    label_title.setText("Informations du client");
+	    label_LastName.setText("Entrez le nom : ");
+	    label_FirstName.setText("Prenom : ");	
 		
 		this.setTitle("Comparateur de simulations");
 		this.setLayout(null);
 		this.add(id);
-		this.add(label_titre);
-		this.add(label_nom);
-		this.add(label_prenom);
-		this.add(jtfnom);
-		this.add(jtfprenom);
-		label_titre.setBounds(290, 30, 125, 60);
-		label_nom.setBounds(120, 150, 90, 30);
-		jtfnom.setBounds(215, 150, 130, 30);
-		label_prenom.setBounds(350, 150, 60, 30);
-		jtfprenom.setBounds(415, 150, 150, 30);
+		this.add(label_title);
+		this.add(label_LastName);
+		this.add(label_FirstName);
+		this.add(jtfLastName);
+		this.add(jtfFirstName);
+		label_title.setBounds(290, 30, 125, 60);
+		label_LastName.setBounds(120, 150, 90, 30);
+		jtfLastName.setBounds(215, 150, 130, 30);
+		label_FirstName.setBounds(350, 150, 60, 30);
+		jtfFirstName.setBounds(415, 150, 150, 30);
 		id.setBounds(280, 220, 200, 30);
 		
 		
@@ -91,6 +92,7 @@ public class Vue_Gestion_id extends JFrame implements ActionListener{
 	}
 	
 	/** Methode qui permet l'action du bouton id
+	 * Action on the id button 
 	 * @param arg0
 	 * @return
 	 * @author Sarah
@@ -100,20 +102,20 @@ public class Vue_Gestion_id extends JFrame implements ActionListener{
 		
 		if(arg0.getSource() == id )
 		{	
-			String nom=jtfnom.getText();
-			String prenom=jtfprenom.getText();
+			String lastName=jtfLastName.getText();
+			String firstName=jtfFirstName.getText();
 			
-			id_client=controler.get_id_client(nom,prenom);
+			id_client=controler.get_id_client(lastName,firstName);
 			if(id_client==0)
 			{
-				JOptionPane.showMessageDialog(this,"Le client "+nom+" "+prenom+" n'existe pas ",
+				JOptionPane.showMessageDialog(this,"Le client "+lastName+" "+firstName+" n'existe pas ",
 						"Erreur Client",JOptionPane.ERROR_MESSAGE);
-				jtfprenom.setText("");
-				jtfnom.setText("");
+				jtfFirstName.setText("");
+				jtfLastName.setText("");
 			}
 			else
 			{
-				vue_pret = new Vue_recherche_pret(id_client);
+				view_loan = new Vue_recherche_pret(id_client);
 				this.dispose();
 			}			
 			
