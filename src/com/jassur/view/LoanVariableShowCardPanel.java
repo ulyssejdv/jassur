@@ -30,7 +30,7 @@ public class LoanVariableShowCardPanel extends JFrame implements ActionListener 
 	private JButton calculateButton = new JButton("Calculer");
 	//Button for best scenarios
 	private JButton calculateBestButton = new JButton ("Afficher les sc\u00E9narios favorables");
-	private JButton calculateBadButton = new JButton ("Afficher les scénarios d\u00E9favorables");
+	private JButton calculateBadButton = new JButton ("Afficher les sc\u00E9narios d\u00E9favorables");
 	private JTextField calcSolution = new JTextField(10);
 	private final JLabel JLab_Amount = new JLabel("Le Montant");
 	private final JLabel JLab_nbYears = new JLabel("La Dur\u00E9e");
@@ -38,7 +38,7 @@ public class LoanVariableShowCardPanel extends JFrame implements ActionListener 
 	private final JTextPane textPane = new JTextPane();
 	private JTable table;
 	private JTable table_1;
-	private final JLabel label_1 = new JLabel(" en année(s)");
+	private final JLabel label_1 = new JLabel(" en annee(s)");
 	
 
 
@@ -47,6 +47,8 @@ public class LoanVariableShowCardPanel extends JFrame implements ActionListener 
 	public LoanVariableShowCardPanel (){
 		// sets up the view and adds the components
 	
+		
+		
 		
 		String[][] data = null;
 	    String[][] data2 = null;
@@ -92,6 +94,7 @@ public class LoanVariableShowCardPanel extends JFrame implements ActionListener 
 
 		
 		});
+		
 	
 	}
 	
@@ -105,6 +108,7 @@ public class LoanVariableShowCardPanel extends JFrame implements ActionListener 
 		this.setTitle("Simulation de pr\u00EAts  - JASSUR");
 		//size of the windows
 		setBounds(100, 100, 802, 574);	
+	
 		
 		calcPanel.setLayout(null);
 		amount.setBounds(349, 74, 86, 20);
@@ -144,6 +148,7 @@ public class LoanVariableShowCardPanel extends JFrame implements ActionListener 
 		calcPanel.add(JLab_nbYears);
 		JLab_LoanV.setBounds(262, 119, 77, 14);
 		
+		
 		calcPanel.add(JLab_LoanV);
 		textPane.setText("Simuler taux variable");
 		textPane.setFont(new Font("Tahoma", Font.PLAIN, 21));
@@ -162,7 +167,7 @@ public class LoanVariableShowCardPanel extends JFrame implements ActionListener 
 		panelCentral.setBounds(66, 256, 664, 246);
 		calcPanel.add(panelCentral);
 		panelCentral.setLayout(cl);
-		
+	
 		return panelCentral;
 	}
 
@@ -247,7 +252,7 @@ public class LoanVariableShowCardPanel extends JFrame implements ActionListener 
 		} catch (NumberFormatException e) {
 			displayErrorMessage("Attention :"
 					+"\n"+ "- Vous devez rentrer toutes les valeurs du formulaire"
-					+"\n"+  "- Vous devez utiliser des caractères numériques");
+					+"\n"+  "- Vous devez utiliser des caracteres numeriques");
 		}
 	}
 	
