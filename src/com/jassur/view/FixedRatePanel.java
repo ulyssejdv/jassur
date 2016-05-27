@@ -11,7 +11,12 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import com.jassur.controller.ControllerRate;
 import com.jassur.controller.RateController;
+import com.jassur.model.Address;
+import com.jassur.model.Client;
+import com.jassur.model.newRate;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.JFrame;
@@ -36,6 +41,7 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 	private String Job;
 	private RateController controler;
 	private JButton btnCalculer = new JButton("Evaluer");
+	private JButton btnSave = new JButton("Sauvegarder");
 	private JButton btnReset = new JButton("R\u00E9initialiser");
 	private JLabel lblTauxMaisonMre = new JLabel("Taux Maison M\u00E8re :");
 	private JLabel lblAge = new JLabel("Age :");
@@ -51,6 +57,8 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 	private ButtonGroup bg = new ButtonGroup();
 	private DecimalFormat df = new DecimalFormat();
 	private TextArea JtField = new TextArea();
+	private boolean ValueRadio;
+	private String InputRisk;
 
 
 
@@ -200,12 +208,74 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 		gbc_Jtfield.gridy = 14;
 		contentPane.add(JtField, gbc_Jtfield);
 
+		btnSave.addActionListener(this);
+		contentPane.add(btnSave);
+		GridBagConstraints gbc_btnSave = new GridBagConstraints();
+		gbc_btnSave.insets = new Insets(0, 0, 5, 5);
+		gbc_btnSave.gridx = 12;
+		gbc_btnSave.gridy = 15;
+		contentPane.add(btnSave, gbc_btnSave);
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent er) {
+				
+				taux =Double.parseDouble(lblEcran.getText());
+				//get values
+				InputRisk = JtField.getText();
+				InputAge = Integer.parseInt(tfAge.getText());
+				InputTauxMM = Double.parseDouble(tfTauxMM.getText());
+				InputDuration = Integer.parseInt(tfDuration.getText()) ;
+				if(rdbtnGood.isSelected())
+				{
+					ValueRadio =true;
+				}
+				else if (rdbtnBad.isSelected()){
+					ValueRadio =false;				
+				}
+				if(rdbtnCDD.isSelected())
+				{
+					Job="CDD";
+				}
+				else if (rdbtnCDI.isSelected()){
 
+					Job="CDI";
+				}else if (rdbtnInt.isSelected()){
+
+					Job="Interimaire";
+				}else if (rdbtnUnemployed.isSelected()){
+
+					Job="Chomeur";
+				}
+				
+				ControllerRate cc = new ControllerRate();
+
+					newRate r2 = new newRate();
+					r2.setAge(InputAge);
+					r2.setDuration(InputDuration);
+					r2.setRateCompany(InputTauxMM);
+					r2.sethealthy(ValueRadio);
+					r2.setJob(Job);
+					r2.setNewRate(taux);
+					r2.setRisk(InputRisk);
+
+					
+
+					
+
+					r2.setProfileId(r2.getProfileId());
+					if (r2.getProfileId() != 0) {
+						r2.setProfileId(r2.getProfileId());
+						cc.updateAction(r2);
+					} else {
+						cc.createAction(r2);
+					}
+			}
+		});
+		
 		btnCalculer.addActionListener(this);
 		contentPane.add(btnCalculer);
 		GridBagConstraints gbc_btnCalculer = new GridBagConstraints();
 		gbc_btnCalculer.insets = new Insets(0, 0, 5, 5);
-		gbc_btnCalculer.gridx = 12;
+		gbc_btnCalculer.gridx = 13;
 		gbc_btnCalculer.gridy = 15;
 		contentPane.add(btnCalculer, gbc_btnCalculer);
 		// Reset all fields of view with click to the button reset

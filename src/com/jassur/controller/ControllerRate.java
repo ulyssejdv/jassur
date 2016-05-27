@@ -98,7 +98,7 @@ public class ControllerRate implements Controller{
 			JSONParser parser = new JSONParser();
 			Object obj = parser.parse(resp);
 			
-			/* get ts/ return a JSON array */
+			/* get rates/ return a JSON array */
 			JSONObject jObject = (JSONObject)obj;
 			
 			c.parseJSON(jObject);
