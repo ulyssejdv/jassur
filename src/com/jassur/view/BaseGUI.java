@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 
 import com.jassur.controller.ClientController;
 import com.jassur.controller.HomeController;
+import com.jassur.controller.IndicatorController;
 import com.jassur.controller.LoanController;
 //import com.jassur.controller.SimulateController;
 import com.jassur.controller.LoanVariableController;
@@ -127,6 +128,18 @@ public class BaseGUI extends JFrame {
 		mnPrts.add(maSimul);
 		
 		/*
+		 * Indicators Menu
+		 */
+		
+		JMenu mnIndic = new JMenu("Indicateurs");
+		menuBar.add(mnIndic);
+		
+		JMenuItem mntmIndic = new JMenuItem("Voir Indicateurs");
+		mntmIndic.addActionListener(new GotoShowIndicator());
+		mnIndic.add(mntmIndic);
+		
+		
+		/*
 		 * Help Menu
 		 */
 		JMenu mnAide = new JMenu("Aide");
@@ -148,6 +161,16 @@ public class BaseGUI extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			LoanController lc = new LoanController();
 		    lc.showAction(3);
+		}
+	}
+	
+	class GotoShowIndicator implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			IndicatorController ic = new IndicatorController();
+			ic.indexAction();
+		    
 		}
 	}
 	
