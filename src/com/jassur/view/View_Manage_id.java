@@ -37,7 +37,7 @@ public class View_Manage_id extends JFrame implements ActionListener{
 	 * Constructor of the view: for the management of id client
 	 * @param controler
 	 * @return
-	 * @author Sarah
+	 * @author Sarah 
 	 * @see Controleur_Gestion_id
 	 */	
 	public View_Manage_id(Controller_Manage_id controler)
