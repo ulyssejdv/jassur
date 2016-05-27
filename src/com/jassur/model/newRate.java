@@ -22,7 +22,7 @@ public class newRate implements Model {
 	private int age;
 	private String job;
 	private String risk;
-	private int id_profile;
+	private int id_profile=0;
 	private boolean healthy;
 	
 	public newRate()

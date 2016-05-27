@@ -17,8 +17,8 @@ public class newRateDAO extends DAO<newRate> {
 	public newRate create(newRate obj) {
 		String sql = 
 				"INSERT INTO newrates "+
-				"(id_profile,age,duration,job,healthy, ratecompany,newRate , risk) "+
-				"VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+				"(age,duration,job,healthy, ratecompany,newRate , risk) "+
+				"VALUES (?, ?, ?, ?, ?, ?, ?)";
 		
 		try {
 			
