@@ -34,8 +34,7 @@ public class DAOMYSQLFactory extends DAOFactory {
 
 	@Override
 	public DAO getNewRateDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		return new newRateDAO();
 	}
 
 }
