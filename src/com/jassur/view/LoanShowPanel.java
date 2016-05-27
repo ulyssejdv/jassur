@@ -14,6 +14,7 @@ import javax.swing.JTabbedPane;
 
 import com.jassur.model.Client;
 import com.jassur.model.Loan;
+import com.jassur.print.LoanPdfTemplate;
 
 public class LoanShowPanel extends JPanel {
 	
@@ -77,6 +78,9 @@ public class LoanShowPanel extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			System.out.println(client.toHTML());
 			System.out.println(loan.toHTML());
+			
+			FrameNewPDF fnp = new FrameNewPDF(this.client, this.loan);
+			fnp.setVisible(true);
 		}
 		
 	}

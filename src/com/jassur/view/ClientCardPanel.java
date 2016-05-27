@@ -369,23 +369,23 @@ public class ClientCardPanel extends JPanel {
 			public void actionPerformed(ActionEvent event) {
 				
 				String action = ((JButton)event.getSource()).getText();
-				ClientController cc = new ClientController();
+				LoanController lc = new LoanController();
 				
-				/*Client c = ClientListPanel.this.clients.get(this.row);
+				Loan l = ClientCardPanel.this.loans.get(this.row);
 				
 				
 				switch (action) {
 				case "Voir":
-					cc.showAction(c.getId());
+					lc.showAction(l.getId());
 					break;
 				case "Supprimer":
-					cc.destroyAction(c.getId());
+					lc.destroyAction(l.getId());
 					break;
 				case "Modifier":
-					cc.editAction(c.getId());
+					lc.editAction(l.getId());
 				default:
 					break;
-				}*/
+				}
 			}
 		}     
 	}
