@@ -21,7 +21,7 @@ import com.jassur.database.PoolConnection;
  * @author Sarah
  * @see 
  */	
-public class Modele_tableau_pret {
+public class Model_table_loan {
 
 	protected Connection connect = null;
 
@@ -31,7 +31,7 @@ public class Modele_tableau_pret {
 	 * @author Sarah
 	 * @see 
 	 */		
-	public Modele_tableau_pret()
+	public Model_table_loan()
 	{
 			PoolConnection poolConnexion = new PoolConnection();
 			this.setConnect(poolConnexion.pop().getConnection());

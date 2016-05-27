@@ -12,7 +12,7 @@ import com.jassur.database.PoolConnection;
  * @author Sarah
  * @see 
  */	
-public class Modele_Gestion_id {
+public class Model_Manage_id {
 	
 	protected Connection connect = null;
 	private int id_client;

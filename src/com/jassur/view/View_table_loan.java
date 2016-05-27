@@ -12,18 +12,18 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import com.jassur.controller.Controleur_tableau_pret;
-import com.jassur.model.Modele_tableau_pret;
+import com.jassur.controller.Controller_table_loan;
+
 /** la vue pour le tableau des pret
  * @param 
  * @return
  * @author Sarah
  * @see Controleur_tableau_pret
  */	
-public class Vue_tableau_pret extends JFrame implements ActionListener {
+public class View_table_loan extends JFrame implements ActionListener {
 
 	
-	private Controleur_tableau_pret controler = new Controleur_tableau_pret();
+	private Controller_table_loan controler = new Controller_table_loan();
 	private int nb_loan;
 	private JTable jtable_loan ;
 	private JButton retour =new JButton("Retour");
@@ -40,7 +40,7 @@ public class Vue_tableau_pret extends JFrame implements ActionListener {
 	 * @author Sarah
 	 * @see Controleur_tableau_pret
 	 */		
-	public Vue_tableau_pret(String type_of_loan,int id_client)
+	public View_table_loan(String type_of_loan,int id_client)
 		{
 			
 		    
@@ -62,7 +62,7 @@ public class Vue_tableau_pret extends JFrame implements ActionListener {
 				this.setSize(800,500);		
 				this.setVisible(true);
 				this.setLocationRelativeTo(null);
-				this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			    this.setTitle("Comparateur de simulations");
 			    
 			  

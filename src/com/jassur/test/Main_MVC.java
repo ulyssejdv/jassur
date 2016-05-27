@@ -1,8 +1,8 @@
 package com.jassur.test;
  
- import com.jassur.model.Modele_Gestion_id;
- import com.jassur.controller.Controleur_Gestion_id;
- import com.jassur.view.Vue_Gestion_id;
+ import com.jassur.model.Model_Manage_id;
+ import com.jassur.controller.Controller_Manage_id;
+ import com.jassur.view.View_Manage_id;
 
 /**Main du programme 
  * @param 
@@ -15,11 +15,11 @@ public class Main_MVC {
 	public Main_MVC()
 	{
 		 //Instanciation de notre modele
-		Modele_Gestion_id Modele = new Modele_Gestion_id();
+		Model_Manage_id Modele = new Model_Manage_id();
 	    //Creation du controleur
-		Controleur_Gestion_id controler = new Controleur_Gestion_id();
+		Controller_Manage_id controler = new Controller_Manage_id();
 	    //Creation de notre fenetre avec le controleur en parametre
-	    Vue_Gestion_id Vue = new Vue_Gestion_id(controler);
+		View_Manage_id Vue = new View_Manage_id(controler);
 	}
 	
 	public static void main(String[] args) {

@@ -1,18 +1,16 @@
 package com.jassur.controller;
-import org.json.simple.JSONArray;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import com.jassur.message.Message;
 import com.jassur.message.RequestBuilder;
-import com.jassur.model.Modele_recherche_pret;
+
 /**Controleur de la recherche de pret
+ * Controller for loans research
  * @param 
  * @return
  * @author Sarah
 
  */	
-public class Controleur_recherche_pret {
+public class Controller_search_loan {
 
 	
 	private int nb_type_loan;

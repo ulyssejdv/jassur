@@ -15,7 +15,7 @@ import com.jassur.database.PoolConnection;
  * @author Sarah
  * @see 
  */	
-public class Modele_recherche_pret {
+public class Model_search_loan {
 	protected Connection connect = null;
 	
 	/**Constructeur du modele recherche pret
@@ -25,7 +25,7 @@ public class Modele_recherche_pret {
 	 * @author Sarah
 	 * @see 
 	 */		
-	public Modele_recherche_pret()
+	public Model_search_loan()
 	{
 		
 				PoolConnection poolConnexion = new PoolConnection();

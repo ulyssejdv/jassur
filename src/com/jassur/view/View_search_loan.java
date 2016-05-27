@@ -11,8 +11,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import com.jassur.controller.Controleur_recherche_pret;
-import com.jassur.model.Modele_recherche_pret;
+import com.jassur.controller.Controller_search_loan;
 /** la vue pour la recherche des type pret
  * View for the loan type research
  * @param 
@@ -20,11 +19,11 @@ import com.jassur.model.Modele_recherche_pret;
  * @author Sarah
  * @see Controleur_recherche_pret,Vue_tableau_pret
  */	
-public class Vue_recherche_pret extends JFrame implements ActionListener {
+public class View_search_loan extends JFrame implements ActionListener {
 	
 	
-	private Controleur_recherche_pret controler = new Controleur_recherche_pret();
-	private Vue_tableau_pret Vue_tableau_pret;	
+	private Controller_search_loan controler = new Controller_search_loan();
+	private View_table_loan View_table_loan;	
 	private JButton selection =new JButton("Lancer");
 	private Label label_title = new Label( );
 	private Label label_text = new Label( );
@@ -39,7 +38,7 @@ public class Vue_recherche_pret extends JFrame implements ActionListener {
 	 * @author Sarah
 	 * @see Controleur_recherche_pret
 	 */	
-	public Vue_recherche_pret(int id_client)
+	public View_search_loan(int id_client)
 	{
 		this.id_client=id_client;
 		
@@ -77,7 +76,7 @@ public class Vue_recherche_pret extends JFrame implements ActionListener {
 			this.setSize(700,370);					
 			this.setVisible(true);
 			this.setLocationRelativeTo(null);
-			this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			this.setTitle("Comparateur de simulations");
 			tab_type_pret_view = new String[nb_type_loan]; 
 			controler.set_tab_loan_client(id_client);
@@ -99,7 +98,7 @@ public class Vue_recherche_pret extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		
 		String selection_combobox = (String) combo.getSelectedItem();
-		Vue_tableau_pret = new Vue_tableau_pret( selection_combobox, id_client);
+		View_table_loan = new View_table_loan( selection_combobox, id_client);
 		
 	}
 }

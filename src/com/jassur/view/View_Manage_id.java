@@ -12,15 +12,16 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import com.jassur.controller.Controleur_Gestion_id;
+import com.jassur.controller.Controller_Manage_id;
 
-/** la vue pour la gestion du client et sont id
+/** la vue pour la gestion du client et son id
+ * The view for the id and client management
  * @param 
  * @return
  * @author Sarah
  * @see Controleur_Gestion_id,Vue_recherche_prêt
  */	
-public class Vue_Gestion_id extends JFrame implements ActionListener{
+public class View_Manage_id extends JFrame implements ActionListener{
 	
 	private JTextField jtfLastName = new JTextField("");
 	private JTextField jtfFirstName = new JTextField("");
@@ -28,9 +29,9 @@ public class Vue_Gestion_id extends JFrame implements ActionListener{
 	private Label label_LastName = new Label( );
 	private Label label_FirstName = new Label( );
 	private JButton id =new JButton("rechercher");
-	private Controleur_Gestion_id controler;
+	private Controller_Manage_id controler;
 	private int id_client;
-	private Vue_recherche_pret view_loan ;
+	private View_search_loan view_loan ;
 	
 	/** Constructeur de la vue pour la gestion du client et son id
 	 * Constructor of the view: for the management of id client
@@ -39,7 +40,7 @@ public class Vue_Gestion_id extends JFrame implements ActionListener{
 	 * @author Sarah
 	 * @see Controleur_Gestion_id
 	 */	
-	public Vue_Gestion_id(Controleur_Gestion_id controler)
+	public View_Manage_id(Controller_Manage_id controler)
 	{
 		this.controler=controler;
 		
@@ -87,7 +88,7 @@ public class Vue_Gestion_id extends JFrame implements ActionListener{
 		
 		this.setSize(700,370);	
 		this.setLocationRelativeTo(null);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setVisible(true);
 	}
 	
@@ -115,7 +116,7 @@ public class Vue_Gestion_id extends JFrame implements ActionListener{
 			}
 			else
 			{
-				view_loan = new Vue_recherche_pret(id_client);
+				view_loan = new View_search_loan(id_client);
 				this.dispose();
 			}			
 			

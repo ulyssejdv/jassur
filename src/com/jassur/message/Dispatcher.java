@@ -15,9 +15,9 @@ import com.jassur.model.Category;
 import com.jassur.model.Client;
 import com.jassur.model.Loan;
 import com.jassur.model.Model;
-import com.jassur.model.Modele_Gestion_id;
-import com.jassur.model.Modele_recherche_pret;
-import com.jassur.model.Modele_tableau_pret;
+import com.jassur.model.Model_Manage_id;
+import com.jassur.model.Model_search_loan;
+import com.jassur.model.Model_table_loan;
 
 public class Dispatcher extends Thread {
 	
@@ -325,14 +325,14 @@ public class Dispatcher extends Thread {
 		
 		if (items.length == 3) {
 			
-			Modele_Gestion_id mod =new Modele_Gestion_id(); ;
+			Model_Manage_id mod =new Model_Manage_id(); ;
 			int id=mod.search_id(items[1],items[2]);
 			
 			responseString=Integer.toString(id);
 			
 		}if (items.length == 2) {
 			
-			Modele_tableau_pret mod =new Modele_tableau_pret(); ;
+			Model_table_loan mod =new Model_table_loan(); ;
 			int id=mod.recherche_id_loan(items[1]);
 			
 			responseString=Integer.toString(id);
@@ -355,7 +355,7 @@ public class Dispatcher extends Thread {
 		
 		if (items.length == 3) {
 			
-			Modele_tableau_pret mod =new Modele_tableau_pret(); 
+			Model_table_loan mod =new Model_table_loan(); 
 			int id_loan=Integer.parseInt(items[1]);
 			int id_client=Integer.parseInt(items[2]);
 			int id=mod.number_loan_client(id_loan,id_client);
@@ -365,7 +365,7 @@ public class Dispatcher extends Thread {
 		}
 		if (items.length == 2) {
 			
-			Modele_recherche_pret mod =new Modele_recherche_pret(); 
+			Model_search_loan mod =new Model_search_loan(); 
 			int id_client=Integer.parseInt(items[1]);
 			int nb=mod.Calcul_nb_type_loan(id_client);
 			
@@ -390,7 +390,7 @@ public class Dispatcher extends Thread {
 		if (items.length == 3) {
 			
 			
-			Modele_recherche_pret mod =new Modele_recherche_pret(); 
+			Model_search_loan mod =new Model_search_loan(); 
 			int id_of_client=Integer.parseInt(items[1]);
 			int nb_type_loan=Integer.parseInt(items[2]);			
 			array=(JSONArray) mod.typepret(id_of_client, nb_type_loan) ;
@@ -401,7 +401,7 @@ public class Dispatcher extends Thread {
 		if (items.length == 4) {
 			
 			
-			Modele_tableau_pret mod =new Modele_tableau_pret(); 
+			Model_table_loan mod =new Model_table_loan(); 
 			int id_type_loan=Integer.parseInt(items[1]);
 			int id_client=Integer.parseInt(items[2]);			
 			array=(JSONArray) mod.recovery_data_loan(id_type_loan, id_client,items[3]);

@@ -1,7 +1,6 @@
 package com.jassur.controller;
 import com.jassur.message.Message;
 import com.jassur.message.RequestBuilder;
-import com.jassur.model.Modele_tableau_pret;
 
 /**Controleur du tableau pret
  * Controler of loans table
@@ -9,7 +8,7 @@ import com.jassur.model.Modele_tableau_pret;
  * @return
  * @author Sarah
  */	
-public class Controleur_tableau_pret {
+public class Controller_table_loan {
 
 	private int id_type_loan;
 	private int nb_loan;

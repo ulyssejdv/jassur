@@ -1,7 +1,7 @@
 package com.jassur.controller;
 import com.jassur.message.Message;
 import com.jassur.message.RequestBuilder;
-import com.jassur.model.Modele_Gestion_id;
+
 
 /**Controleur de la gestion des id  
  * controller of the id management
@@ -9,7 +9,7 @@ import com.jassur.model.Modele_Gestion_id;
  * @return
  * @author Sarah
  */	
-public class Controleur_Gestion_id  {
+public class Controller_Manage_id  {
 	
 	private int id_client_retrieve;
 
