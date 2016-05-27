@@ -39,7 +39,7 @@ public class LoanVariableShowCardPanel extends JFrame implements ActionListener 
 	private JTable table;
 	private JTable table_1;
 	private final JLabel label_1 = new JLabel(" en annee(s)");
-	
+	private JButton btnRetour = new JButton("Retour");
  
 
 
@@ -157,7 +157,8 @@ public class LoanVariableShowCardPanel extends JFrame implements ActionListener 
 		
 		calcPanel.add(textPane);
 		
-		JButton btnRetour = new JButton("Retour");
+		
+		btnRetour.addActionListener(this);	
 		btnRetour.setBounds(640, 501, 89, 23);
 		calcPanel.add(btnRetour);
 		
@@ -301,7 +302,12 @@ public class LoanVariableShowCardPanel extends JFrame implements ActionListener 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
-		System.out.println("call actionPerformed");
+		if(arg0.getSource() == btnRetour )
+		{		
+			this.getContentPane().removeAll();
+			this.dispose();	
+			
+		}	
 		
 	}
 }
