@@ -157,6 +157,10 @@ public class LoanVariableShowCardPanel extends JFrame implements ActionListener 
 		
 		calcPanel.add(textPane);
 		
+		JButton btnRetour = new JButton("Retour");
+		btnRetour.setBounds(640, 501, 89, 23);
+		calcPanel.add(btnRetour);
+		
 		return calcPanel;
 	}
 
@@ -164,7 +168,7 @@ public class LoanVariableShowCardPanel extends JFrame implements ActionListener 
 	private JPanel initPanelCentral(JPanel calcPanel, CardLayout cl) {
 		
 		JPanel panelCentral = new JPanel();
-		panelCentral.setBounds(66, 256, 664, 246);
+		panelCentral.setBounds(66, 256, 663, 215);
 		calcPanel.add(panelCentral);
 		panelCentral.setLayout(cl);
 	
@@ -185,7 +189,7 @@ public class LoanVariableShowCardPanel extends JFrame implements ActionListener 
 	    JScrollPane scrollPane = new JScrollPane(table);
 	    scrollPane.setMaximumSize(new Dimension(660, 250));
 	    scrollPane.setMinimumSize(new Dimension(660, 250));
-	    scrollPane.setPreferredSize(new Dimension(660, 250));
+	    scrollPane.setPreferredSize(new Dimension(660, 210));
 	    BestScenario.add(scrollPane);
 		
 	}
@@ -205,7 +209,7 @@ public class LoanVariableShowCardPanel extends JFrame implements ActionListener 
 	    JScrollPane scrollPane = new JScrollPane(table_1);
 	    scrollPane.setMaximumSize(new Dimension(660, 250));
 	    scrollPane.setMinimumSize(new Dimension(660, 250));
-	    scrollPane.setPreferredSize(new Dimension(660, 250));
+	    scrollPane.setPreferredSize(new Dimension(660, 210));
 	    BestScenario.add(scrollPane);
 		
 	}
