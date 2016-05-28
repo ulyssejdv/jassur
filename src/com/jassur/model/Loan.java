@@ -72,14 +72,15 @@ public class Loan implements Model {
 		
 		SimpleDateFormat formater = null;
         formater = new SimpleDateFormat("yy-MM-dd");
-        DateFormat df = DateFormat.getDateInstance();
         
         Date date = null;
+        date = new Date(this.getCreatedAt().getTime());
+        /*
 		try {
 			date = formater.parse(this.getCreatedAt().toString());
 		} catch (ParseException e) {
 			e.printStackTrace();
-		}
+		}*/
 		
 		
 		jObj.put("created_at", formater.format(date));
