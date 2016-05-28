@@ -310,7 +310,32 @@ public class Dispatcher extends Thread {
 						responseString = "[]"; // server error
 					}	
 				}
-			}	
+			}else if (items[0].equals("loans")) {
+				/* Get all clients and push them to a JSON array */
+				DAO<Loan> loanDAO = daoFactory.getLoanDAO();
+				loanDAO.setConnect(poolConnexion.pop().getConnection());
+				
+				System.out.println("Loan to find : "+Integer.parseInt(items[1]));
+				
+				Loan l = loanDAO.find(Integer.parseInt(items[1]));
+				
+				System.out.println("Ok client");
+				
+				if (l != null) {
+					
+					l.parseJSON(resource);
+					
+					System.out.println(l);
+					
+					l = loanDAO.update(l);
+					if(l != null) {
+						Model model = l;
+						responseString = model.toJSON().toJSONString();
+					} else {
+						responseString = "[]"; // server error
+					}	
+				}
+			}
 		}
 
 		/* Write the response in the socket */
@@ -345,7 +370,20 @@ public class Dispatcher extends Thread {
 					}
 				}
 				responseString = "[]";
-			}	
+			}
+			else  if (items[0].equals("loans")) {
+				/* Get all clients and push them to a JSON array */
+				DAO<Loan> loanDAO = daoFactory.getLoanDAO();
+				loanDAO.setConnect(poolConnexion.pop().getConnection());
+				Loan l = loanDAO.find(Integer.parseInt(items[1]));
+				System.out.println(l);
+				if (l != null) {
+					if (loanDAO.delete(l)) {
+						System.out.println("Deleted");
+					}
+				}
+				responseString = "[]";
+			}
 		}
 
 		/* Write the response in the socket */
