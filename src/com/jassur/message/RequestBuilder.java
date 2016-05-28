@@ -11,7 +11,7 @@ public class RequestBuilder {
 	public static final int POST = 3;
 	public static final int DELETE = 4;
 	public static final int ID = 5;
-	public static final int NB_simulation_pret = 6;
+	public static final int NB_simulation_loan = 6;
 	public static final int Table = 7;
 	
 	private int method;
@@ -52,8 +52,8 @@ public class RequestBuilder {
 		case ID:
 			obj.put("method", "ID");
 			break;
-		case NB_simulation_pret:
-			obj.put("method", "NB_simulation_pret");
+		case NB_simulation_loan:
+			obj.put("method", "NB_simulation_loan");
 			break;
 		case Table:
 			obj.put("method", "Table");

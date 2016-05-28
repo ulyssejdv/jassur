@@ -15,6 +15,8 @@ public abstract class DAOFactory {
 	
 	public abstract DAO getRateDAO();
 	
+	public abstract DAO getNewRateDAO();
+	
 	public abstract DAO getStateDAO();
 	
 	public static DAOFactory getFactory(int type) {

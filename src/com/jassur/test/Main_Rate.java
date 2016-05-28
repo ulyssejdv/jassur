@@ -1,11 +1,8 @@
 package com.jassur.test;
 
 import com.jassur.model.CalculateRate;
-import com.jassur.model.Modele_Gestion_id;
-import com.jassur.controller.Controleur_Gestion_id;
 import com.jassur.controller.RateController;
 import com.jassur.view.FixedRatePanel;
-import com.jassur.view.Vue_Gestion_id;
 
 public class Main_Rate {
 	

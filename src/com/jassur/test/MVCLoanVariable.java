@@ -8,7 +8,8 @@ import com.jassur.view.LoanVariableShowCardPanel;
 
 public class MVCLoanVariable {
 	
-	public static void main(String[] args){
+	public MVCLoanVariable()
+	{
 		LoanVariableShowCardPanel theView = new LoanVariableShowCardPanel();
 		
 		LoanVariable theModel = new LoanVariable();
@@ -23,7 +24,12 @@ public class MVCLoanVariable {
 				new LoanVariableShowCardPanel();
 			}
 		});
+	}
+	
+	public static void main(String[] args){
 		
+		MVCLoanVariable main = new  MVCLoanVariable();
+	  
 	}
 
 }

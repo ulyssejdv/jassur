@@ -6,6 +6,7 @@ import com.jassur.model.Client;
 import com.jassur.model.Loan;
 import com.jassur.model.Rate;
 import com.jassur.model.State;
+import com.jassur.model.newRate;
 
 public class DAOJSONFactory extends DAOFactory {
 
@@ -36,6 +37,12 @@ public class DAOJSONFactory extends DAOFactory {
 
 	@Override
 	public DAO<State> getStateDAO() {
+		return null;
+	}
+
+	@Override
+	public DAO<newRate> getNewRateDAO() {
+		
 		return null;
 	}
 

@@ -1,16 +1,14 @@
 package com.jassur.controller;
 import com.jassur.message.Message;
 import com.jassur.message.RequestBuilder;
-import com.jassur.model.Modele_tableau_pret;
 
 /**Controleur du tableau pret
  * Controler of loans table
  * @param 
  * @return
  * @author Sarah
- * @see Modele_tableau_pret
  */	
-public class Controleur_tableau_pret {
+public class Controller_table_loan {
 
 	private int id_type_loan;
 	private int nb_loan;
@@ -24,10 +22,10 @@ public class Controleur_tableau_pret {
 	 * @author Sarah
 	 * @see Modele_table_loan
 	 */
-	public void get_recherche_id_pret(String type_pret)
+	public void get_search_id_loan(String type_loan)
 	{
 		/* Build a new request */
-		RequestBuilder rb = new RequestBuilder(RequestBuilder.ID, "clients/"+type_pret);
+		RequestBuilder rb = new RequestBuilder(RequestBuilder.ID, "clients/"+type_loan);
 		String rep = Message.execRequest(rb.toJSONString());		
 		id_type_loan=Integer.parseInt(rep);
 		
@@ -38,20 +36,19 @@ public class Controleur_tableau_pret {
 	 * @param id_client,type_loan
 	 * @return nb_loan
 	 * @author Sarah
-	 * @see Modele_tableau_pret
 	 */
-	public int get_nombre_pret_client(int id_client,String type_loan )
+	public int get_number_loan_client(int id_client,String type_loan )
 	{
 		
 		/* Build a new request */
-		RequestBuilder rb = new RequestBuilder(RequestBuilder.NB_simulation_pret, "clients/"+id_type_loan+"/"+id_client);
+		RequestBuilder rb = new RequestBuilder(RequestBuilder.NB_simulation_loan, "clients/"+id_type_loan+"/"+id_client);
 		String rep = Message.execRequest(rb.toJSONString());		
 		nb_loan=Integer.parseInt(rep);
 		
 		
 		
 		data_jtable= new Object[nb_loan][5];
-		this.set_tableau_donnee(type_loan, id_client);
+		this.set_table_data(type_loan, id_client);
 		
 		return nb_loan;
 	}
@@ -60,9 +57,9 @@ public class Controleur_tableau_pret {
 	 * @param 
 	 * @return boolean
 	 * @author Sarah
-	 * @see Modele_tableau_loan
+
 	 */
-	public boolean verif_tableau_vide()
+	public boolean verif_table_empty()
 	{
 		if(nb_loan==0)
 		{
@@ -76,9 +73,8 @@ public class Controleur_tableau_pret {
 	 * @param type_loan,id_client
 	 * @return 
 	 * @author Sarah
-	 * @see Modele_tableau_pret
 	 */
-	public void set_tableau_donnee(String type_loan, int id_client)
+	public void set_table_data(String type_loan, int id_client)
 	{
 		
 		/* Build a new request */
@@ -113,9 +109,8 @@ public class Controleur_tableau_pret {
 	 * @param 
 	 * @return data_jtable
 	 * @author Sarah
-	 * @see Modele_tableau_pret
 	 */
-	public Object[][] get_tableau_donnee()
+	public Object[][] get_table_data()
 	{
 		
 		return data_jtable;

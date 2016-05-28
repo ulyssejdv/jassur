@@ -15,30 +15,32 @@ import com.jassur.database.PoolConnection;
  * @author Sarah
  * @see 
  */	
-public class Modele_recherche_pret {
+public class Model_search_loan {
 	protected Connection connect = null;
 	
 	/**Constructeur du modele recherche pret
+	 * Constructor of the search loan model
 	 * @param 
 	 * @return
 	 * @author Sarah
 	 * @see 
 	 */		
-	public Modele_recherche_pret()
+	public Model_search_loan()
 	{
 		
 				PoolConnection poolConnexion = new PoolConnection();
 				this.setConnect(poolConnexion.pop().getConnection());
 	}
 	/**Methode qui calcule le nombre de type de pret different pour un client
-	 * @param id_du_client
-	 * @return nb_type_pret
+	 * Method that calculate the number of type loans for a client
+	 * @param id_of_client
+	 * @return nb_type_loan
 	 * @author Sarah
 	 * @see 
 	 */	
-	public int Calcul_nb_type_pret(int id_du_client){
+	public int Calcul_nb_type_loan(int id_of_client){
 			
-			int nb_type_pret;
+			int nb_type_loan;
 			
 			try {
 				ResultSet res = this.connect.createStatement(
@@ -47,11 +49,11 @@ public class Modele_recherche_pret {
 				).executeQuery(
 						"SELECT count(distinct category_id) "
 						+ "FROM loans"
-						+ " WHERE client_id='"+id_du_client+"';");			
+						+ " WHERE client_id='"+id_of_client+"';");			
 				if(res.first())
 				{				
-					nb_type_pret=res.getInt(1);
-					return nb_type_pret;
+					nb_type_loan=res.getInt(1);
+					return nb_type_loan;
 				}				
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -62,12 +64,13 @@ public class Modele_recherche_pret {
 		}
 	
 	/**Methode return le tableau des types de pret du client
-	 * @param id_client,tab_type_pret
-	 * @return tab_type_pret
+	 * Return the type of loans table for a client
+	 * @param id_client,tab_type_loan
+	 * @return tab_type_loan
 	 * @author Sarah
 	 * @see 
 	 */	
-	public  JSONArray typepret(int id_client,int nb_type_pret ){
+	public  JSONArray typepret(int id_client,int nb_type_loan ){
 		
 		JSONArray array_table_type_loans = new JSONArray();
 		JSONObject o = new JSONObject();
@@ -97,6 +100,7 @@ public class Modele_recherche_pret {
 	}
 	
 	/** Methode qui retourne la connexion
+	 * return the connection
 	 * @param 
 	 * @return connect
 	 * @author Sarah
@@ -106,6 +110,7 @@ public class Modele_recherche_pret {
 		return connect;
 	}
 	/** Methode qui set la connexion
+	 * set the connection
 	 * @param connect
 	 * @return 
 	 * @author Sarah

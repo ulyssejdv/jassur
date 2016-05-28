@@ -30,23 +30,29 @@ public class LoanVariableController{
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			double unMontant, uneDuree  ;
-			double unTaux ;
+			double amount;
+			int nbYears  ;
+			double loanV ;
 			
 			
 			try {
-				unMontant = theView.getUnMontant();
-				uneDuree = theView.getUneDuree();
-				unTaux = theView.getUnTaux();
+				amount = theView.getAmount();
+				nbYears = theView.getnbYears();
+				loanV = theView.getLoanV();
 				
-				theModel.addValues(unMontant, uneDuree, unTaux );
+				//calculate constant taux -> theModel Class
+				theModel.addValues(amount, nbYears, loanV);
+				
+				// the solution
 				theView.setCalcSolution(theModel.getCalculationValue());
+				
+	
 			}
 			catch(NumberFormatException ex){
 				
 				System.out.println(ex);
 				// if no values = alert
-				theView.displayErrorMessage("Vous devez rentrer des valeurs");
+				theView.displayErrorMessage("Vous devez rentrer toutes les valeurs");
 			}
 			
 		}

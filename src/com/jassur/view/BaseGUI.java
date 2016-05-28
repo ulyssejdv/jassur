@@ -15,6 +15,7 @@ import com.jassur.controller.IndicatorController;
 import com.jassur.controller.LoanController;
 //import com.jassur.controller.SimulateController;
 import com.jassur.controller.LoanVariableController;
+import com.jassur.test.MVCLoanVariable;
 import com.jassur.test.Main_MVC;
 import com.jassur.test.Main_Rate;
 import com.jassur.view.BaseGUI.GotoSimulationpret;
@@ -109,10 +110,7 @@ public class BaseGUI extends JFrame {
 				}
 			});
 		
-		// add item "taux variable"
-		JMenuItem mntmTauxVariable = new JMenuItem ("Choisir taux variable");
-		mntmTauxVariable.addActionListener(new GotoLoanListener());
-		cr.add(mntmTauxVariable);
+		
 		
 		JMenuItem mntmRetrouverUnPrt = new JMenuItem("Retrouver un pr\u00eat");
 		mntmRetrouverUnPrt.addActionListener(new GotoLoanListener());
@@ -122,6 +120,10 @@ public class BaseGUI extends JFrame {
 		CalculerTaux.addActionListener(new GotoRatesListener());
 		mnPrts.add(CalculerTaux);
 		
+		// add item "taux variable"
+		JMenuItem mnTauxVariable = new JMenuItem ("Choisir taux variable");
+		mnTauxVariable.addActionListener(new GotoLoanVariableListener());
+		mnPrts.add(mnTauxVariable);
 		
 		JMenuItem maSimul = new JMenuItem("Comparaison des simulations");
 		maSimul.addActionListener(new GotoSimulationpret());
@@ -219,5 +221,13 @@ public class BaseGUI extends JFrame {
 		
 	}
 	
+	class GotoLoanVariableListener implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			MVCLoanVariable main_loanVariation = new MVCLoanVariable();
+		    
+		}
+	}
 
 }

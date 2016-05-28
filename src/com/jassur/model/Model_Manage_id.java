@@ -12,27 +12,28 @@ import com.jassur.database.PoolConnection;
  * @author Sarah
  * @see 
  */	
-public class Modele_Gestion_id {
+public class Model_Manage_id {
 	
 	protected Connection connect = null;
 	private int id_client;
-	private String nom;
-	private String prenom;
+	private String lastName;
+	private String firstName;
 	
 	/** Methode qui recherche l'id du client
+	 * Method that search the id client
 	 * @param nom_jtf,prenom_jtf
 	 * @return id_client
 	 * @author Sarah
 	 * @see 
 	 */	
-			public int recherche_id(String nom_jtf ,String prenom_jtf)
+			public int search_id(String lastName_jtf ,String firstName_jtf)
 			{
 				
 				PoolConnection poolConnexion = new PoolConnection();
 				this.setConnect(poolConnexion.pop().getConnection()); 
 				
-				nom=nom_jtf;
-				prenom=prenom_jtf;
+				lastName=lastName_jtf;
+				firstName=firstName_jtf;
 				
 				try {
 					ResultSet result = this.connect.createStatement(
@@ -41,7 +42,7 @@ public class Modele_Gestion_id {
 					).executeQuery(
 									"SELECT id_client"
 									+ " From clients "
-									+ "where last_name='"+nom+"'and first_name='"+prenom+"';");
+									+ "where last_name='"+lastName+"'and first_name='"+firstName+"';");
 					if(result.first()) 
 					{
 						id_client=result.getInt(1);
@@ -56,6 +57,7 @@ public class Modele_Gestion_id {
 			}
 			
 			/** Methode qui retourne la connexion
+			 * Return the connection
 			 * @param 
 			 * @return connect
 			 * @author Sarah
@@ -65,6 +67,7 @@ public class Modele_Gestion_id {
 				return connect;
 			}
 			/** Methode qui set la connexion
+			 * set the connection
 			 * @param connect
 			 * @return 
 			 * @author Sarah
