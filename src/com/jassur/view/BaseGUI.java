@@ -100,7 +100,7 @@ public class BaseGUI extends JFrame {
 		JMenuItem cr = new JMenu("Nouvelle simulation");
 		mnPrts.add(cr);
 		
-		// add item "taux fixe"
+		/* add item "taux fixe"
 		JMenuItem mntmTauxFixe = new JMenuItem ("Choisir taux fixe");
 		cr.add(mntmTauxFixe);
 		mntmTauxFixe.addActionListener(new ActionListener() {
@@ -108,17 +108,17 @@ public class BaseGUI extends JFrame {
 				LoanController lc = new LoanController();
 				lc.indexAction();
 				}
-			});
+			});*/
 		
-		
+
 		
 		JMenuItem mntmRetrouverUnPrt = new JMenuItem("Retrouver un pr\u00eat");
 		mntmRetrouverUnPrt.addActionListener(new GotoLoanListener());
 		mnPrts.add(mntmRetrouverUnPrt);
 		
-		JMenuItem CalculerTaux = new JMenuItem("Calculer un taux fixe");
+		/*JMenuItem CalculerTaux = new JMenuItem("Calculer un taux fixe");
 		CalculerTaux.addActionListener(new GotoRatesListener());
-		mnPrts.add(CalculerTaux);
+		mnPrts.add(CalculerTaux);*/
 		
 		// add item "taux variable"
 		JMenuItem mnTauxVariable = new JMenuItem ("Choisir taux variable");

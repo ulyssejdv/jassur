@@ -10,6 +10,8 @@ import org.json.simple.parser.ParseException;
 
 import com.jassur.dao.DAO;
 import com.jassur.dao.DAOFactory;
+import com.jassur.database.ConfigurationDB;
+import com.jassur.database.Connexion;
 import com.jassur.database.PoolConnection;
 import com.jassur.model.Category;
 import com.jassur.model.Client;
@@ -38,10 +40,20 @@ public class Dispatcher extends Thread {
 	}
 
 	public void run() {
-		this.analyze(this.request);
+		try {
+			this.analyze(this.request);
+		} catch (BadRequestException bre) {
+			try {
+				String resp = "{error: \""+bre.getMessage()+"\"}";
+				dataOutputStream.writeBytes(responseString+'\n');
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
-	public void analyze(String request) {
+
+	public void analyze(String request) throws BadRequestException {
 
 		String method = "";
 		String route = "";
@@ -55,8 +67,20 @@ public class Dispatcher extends Thread {
 			obj = parser.parse(request);
 			JSONObject jsonObj = (JSONObject)obj;
 
-			method = (String) jsonObj.get("method");
-			route = (String) jsonObj.get("route");
+			
+			if (jsonObj.containsKey("method")) {
+				method = (String) jsonObj.get("method");
+			} else {
+				throw new BadRequestException("method not found");
+			}
+			
+			if (jsonObj.containsKey("route")) {
+				route = (String) jsonObj.get("route");
+			} else {
+				throw new BadRequestException("route not found");
+			}
+			
+
 
 			if (jsonObj.containsKey("resource")) {
 				resource = (JSONObject) jsonObj.get("resource");
@@ -169,6 +193,12 @@ public class Dispatcher extends Thread {
 
 		}
 
+		
+		ConfigurationDB conf = new ConfigurationDB();
+		poolConnexion.push(new Connexion(conf));
+		
+		
+		
 		/* Write the response in the socket */
 		try {
 			dataOutputStream.writeBytes(responseString+'\n');
@@ -223,22 +253,11 @@ public class Dispatcher extends Thread {
 				}
 			}
 			/* New Rate */
+
 			else if (items[0].equals("newRate")) {
-				DAO<newRate> newRateDAO = daoFactory.getNewRateDAO();
-				newRateDAO.setConnect(poolConnexion.pop().getConnection());
-				newRate c = new newRate();
-				c.parseJSON(resource);
-				System.out.println("Insert : "+c);
-				c = newRateDAO.create(c);
 
-				if(c != null) {
-					Model model = c;
-					responseString = model.toJSON().toJSONString();
-				} else {
-					responseString = "[]"; // server error
-				}
 
-			}
+
 		}
 
 		/* Write the response in the socket */
@@ -246,6 +265,7 @@ public class Dispatcher extends Thread {
 			dataOutputStream.writeBytes(responseString+'\n');
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
 		}
 	}
 
@@ -288,7 +308,32 @@ public class Dispatcher extends Thread {
 						responseString = "[]"; // server error
 					}	
 				}
-			}	
+			}else if (items[0].equals("loans")) {
+				/* Get all clients and push them to a JSON array */
+				DAO<Loan> loanDAO = daoFactory.getLoanDAO();
+				loanDAO.setConnect(poolConnexion.pop().getConnection());
+				
+				System.out.println("Loan to find : "+Integer.parseInt(items[1]));
+				
+				Loan l = loanDAO.find(Integer.parseInt(items[1]));
+				
+				System.out.println("Ok client");
+				
+				if (l != null) {
+					
+					l.parseJSON(resource);
+					
+					System.out.println(l);
+					
+					l = loanDAO.update(l);
+					if(l != null) {
+						Model model = l;
+						responseString = model.toJSON().toJSONString();
+					} else {
+						responseString = "[]"; // server error
+					}	
+				}
+			}
 		}
 
 		/* Write the response in the socket */
@@ -323,7 +368,20 @@ public class Dispatcher extends Thread {
 					}
 				}
 				responseString = "[]";
-			}	
+			}
+			else  if (items[0].equals("loans")) {
+				/* Get all clients and push them to a JSON array */
+				DAO<Loan> loanDAO = daoFactory.getLoanDAO();
+				loanDAO.setConnect(poolConnexion.pop().getConnection());
+				Loan l = loanDAO.find(Integer.parseInt(items[1]));
+				System.out.println(l);
+				if (l != null) {
+					if (loanDAO.delete(l)) {
+						System.out.println("Deleted");
+					}
+				}
+				responseString = "[]";
+			}
 		}
 
 		/* Write the response in the socket */
@@ -333,6 +391,8 @@ public class Dispatcher extends Thread {
 			e.printStackTrace();
 		}
 	}
+	
+	
 	private void dealingID(String route) {
 		/* explode route 
 		 * and put fragments in items[]

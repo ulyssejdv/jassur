@@ -59,8 +59,12 @@ public class State {
 	}
 	
 	public void parseJSON(JSONObject jo) {
-		//this.id=(int)(long)jo.get("id_state");
-		//this.loanId = (int)(long)jo.get("loan_id");
+		if(jo.get("id_state").equals(null)){
+			this.id=0;
+		}else this.id=(int)(long)jo.get("id_state");
+		if(jo.get("loan_id").equals(null)){
+			this.loanId=0;
+		}else this.loanId = (int)(long)jo.get("loan_id");
 		this.userId = (int)(long)jo.get("user_id");
 		this.labelState = (String)jo.get("label_state");	
 	}

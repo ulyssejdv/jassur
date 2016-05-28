@@ -371,6 +371,9 @@ public class ClientCardPanel extends JPanel {
 				String action = ((JButton)event.getSource()).getText();
 				LoanController lc = new LoanController();
 				
+
+				ClientController cc=new ClientController();
+
 				Loan l = ClientCardPanel.this.loans.get(this.row);
 				
 				
@@ -380,6 +383,8 @@ public class ClientCardPanel extends JPanel {
 					break;
 				case "Supprimer":
 					lc.destroyAction(l.getId());
+
+					cc.showAction(ClientCardPanel.this.client.getId());
 					break;
 				case "Modifier":
 					lc.editAction(l.getId());
