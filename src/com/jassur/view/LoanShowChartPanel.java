@@ -2,8 +2,8 @@ package com.jassur.view;
 
 import java.awt.Color;
 import java.awt.GradientPaint;
+
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -57,19 +57,13 @@ public class LoanShowChartPanel extends JPanel {
 
         // create the dataset...
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-
+        
+        Date d = new Date(this.loan.getCreatedAt().getTime());
         
         SimpleDateFormat formater = null;
         formater = new SimpleDateFormat("MM/yy");
         DateFormat df = DateFormat.getDateInstance();
-        
-        Date date = null;
-		try {
-			date = formater.parse("01/01/2016");
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+       
         
 		int totalDuration = this.loan.getTotalDuration();
 	    double interest = 0;
@@ -83,16 +77,16 @@ public class LoanShowChartPanel extends JPanel {
 	    	interest = this.loan.interestPerMonth(remainingCapital);
 	    	
 	    	// capital restant
-	    	dataset.addValue(remainingCapital, series1, formater.format(date));
+	    	dataset.addValue(remainingCapital, series1, formater.format(d));
 	    	
 	    	// assurance
-	    	dataset.addValue(insurance, series2, formater.format(date));
+	    	dataset.addValue(insurance, series2, formater.format(d));
 	    	
 	    	// interest
-	    	dataset.addValue(interest, series3, formater.format(date));
+	    	dataset.addValue(interest, series3, formater.format(d));
 	    	
 	    	
-	    	date = addMonth(date, 1);
+	    	d = addMonth(d, 1);
 	    }
         
         return dataset;

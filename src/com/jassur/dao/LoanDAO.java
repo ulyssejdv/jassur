@@ -20,8 +20,8 @@ public class LoanDAO extends DAO<Loan> {
 		
 		String sql = 
 				"INSERT INTO loans "+
-				"(client_id, category_id, amount, total_duration, total_amount) "+
-				"VALUES (?, ?, ?, ?, ?)";
+				"(client_id, category_id, amount, total_duration, total_amount, created_at) "+
+				"VALUES (?, ?, ?, ?, ?, ?)";
 		
 		try {
 			PreparedStatement statement = connect.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -30,6 +30,7 @@ public class LoanDAO extends DAO<Loan> {
 			statement.setInt(3, obj.getAmount());
 			statement.setInt(4, obj.getTotalDuration());
 			statement.setDouble(5, obj.getTotalAmount());
+			statement.setDate(6, new Date(new java.util.Date().getTime()));
 			int rowInserted = statement.executeUpdate();
 			
 			if (rowInserted > 0) {
@@ -142,6 +143,7 @@ public class LoanDAO extends DAO<Loan> {
 				loan.setAmount(result.getInt("amount"));
 				loan.setTotalAmount(result.getInt("total_amount"));
 				loan.setTotalDuration(result.getInt("total_duration"));
+				loan.setCreatedAt(result.getDate("created_at"));
 				
 				/* Get the category */
 				 CategoryDAO categoryDAO = new CategoryDAO();

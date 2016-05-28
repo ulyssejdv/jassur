@@ -5,3 +5,4 @@
 /dist/
 *.txt
 .DS_Store
+.lck

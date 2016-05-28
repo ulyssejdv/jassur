@@ -1,6 +1,10 @@
 package com.jassur.model;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -34,11 +38,11 @@ public class Loan implements Model {
 	private int category_id;
 	private double insurance;
 	
+	private Date createdAt;
 	
 	private int id = 0;
 	
-	
-	
+
 	/*
 	 * Constructors
 	 */
@@ -64,6 +68,21 @@ public class Loan implements Model {
 		jObj.put("amount", this.getAmount());
 		jObj.put("total_duration", this.getTotalDuration());
 		jObj.put("total_amount", this.getTotalAmount());
+		
+		
+		SimpleDateFormat formater = null;
+        formater = new SimpleDateFormat("yy-MM-dd");
+        DateFormat df = DateFormat.getDateInstance();
+        
+        Date date = null;
+		try {
+			date = formater.parse(this.getCreatedAt().toString());
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		
+		jObj.put("created_at", formater.format(date));
 
 		if (this.getClient() != null) {
 			jObj.put("client_id", this.getClient().toJSON());
@@ -100,6 +119,21 @@ public class Loan implements Model {
 		this.amount = (int)(long)jo.get("amount");
 		this.totalDuration = (int)(long)jo.get("total_duration");
 		this.totalAmount = (double)jo.get("total_amount");
+		
+		
+		SimpleDateFormat formater = null;
+        formater = new SimpleDateFormat("yy-MM-dd");
+        DateFormat df = DateFormat.getDateInstance();
+        
+        Date date = null;
+		try {
+			date = formater.parse((String)jo.get("created_at"));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		this.createdAt = date;
+		
 		if (jo.containsKey("states")) {
 			JSONArray jarray = (JSONArray) jo.get("states");
 			
@@ -226,6 +260,14 @@ public class Loan implements Model {
 	 * Getters & Setters
 	 * -------------------------------------------------
 	 */
+	
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
 	
 	public int getClientId() {
 		return this.client_id;

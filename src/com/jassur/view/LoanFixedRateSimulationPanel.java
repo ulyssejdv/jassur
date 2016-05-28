@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
@@ -222,6 +223,7 @@ public class LoanFixedRateSimulationPanel extends JPanel {
 		btnEnregistrerLaSimulation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Loan l=new Loan();
+				l.setCreatedAt(new Date(new java.util.Date().getTime()));
 				l.setCategory(categories.get(comboBoxCategories.getSelectedIndex()));
 				l.setAmount(Integer.parseInt(textFieldMontantTotal.getText()));
 				l.setTotalDuration(Integer.parseInt(textDureDuPrt.getText()));
