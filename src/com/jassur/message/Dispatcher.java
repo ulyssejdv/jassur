@@ -11,6 +11,7 @@ import org.json.simple.parser.ParseException;
 import com.jassur.dao.DAO;
 import com.jassur.dao.DAOFactory;
 import com.jassur.database.ConfigurationDB;
+import com.jassur.database.Connexion;
 import com.jassur.database.PoolConnection;
 import com.jassur.model.Category;
 import com.jassur.model.Client;
@@ -189,6 +190,8 @@ public class Dispatcher extends Thread {
 		}
 		
 		ConfigurationDB conf = new ConfigurationDB();
+		poolConnexion.push(new Connexion(conf));
+		
 		
 		
 		/* Write the response in the socket */

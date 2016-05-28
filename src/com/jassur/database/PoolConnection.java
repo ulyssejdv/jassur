@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class PoolConnection {
 	
-	public final static int MAX_CONNEXION = 30;
+	public final static int MAX_CONNEXION = 15;
 	
 	private int size = 0;
 	
