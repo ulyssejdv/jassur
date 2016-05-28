@@ -46,7 +46,7 @@ public class BaseGUI extends JFrame {
 			cp.revalidate(); 
 			cp.repaint();
 		}
-		
+				
 		return MAIN_FRAME;
 	}
 
@@ -55,7 +55,7 @@ public class BaseGUI extends JFrame {
 	 */
 	public BaseGUI(JPanel p) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 915, 576);
+		setBounds(0, 0, 1124, 700);
 		setResizable(false);
 		
 		JMenuBar menuBar = new JMenuBar();
