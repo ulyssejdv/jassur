@@ -23,6 +23,11 @@
     	<pathelement location="lib/itextpdf-5.5.9.jar"/>
     	<pathelement location="lib/xmlworker-5.5.9.jar"/>
     	
+    	<pathelement location="lib/jgoodies-common-1.8.0-source.jar"/>
+    	<pathelement location="lib/jgoodies-common-1.8.0.jar"/>
+    	<pathelement location="lib/jgoodies-forms-1.8.0-source.jar"/>
+    	<pathelement location="lib/jgoodies-forms-1.8.0.jar"/>
+    	
     </path>
     <target name="init">
         <mkdir dir="bin"/>
@@ -119,7 +124,7 @@
 			<fileset dir="bin" />
             <manifest>
   				<attribute name="Main-Class" value="com.jassur.client.ClientJassur"/>
-            	<attribute name="Class-Path" value="lib/jcommon-1.0.0.jar lib/jfreechart-1.0.1.jar lib/json-simple-1.1.1.jar lib/mysql-connector-java-5.1.38-bin.jar lib/itext-pdfa-5.5.9.jar lib/itext-xtra-5.5.9.jar lib/itextpdf-5.5.9.jar lib/xmlworker-5.5.9.jar"/>
+            	<attribute name="Class-Path" value="lib/jcommon-1.0.0.jar lib/jfreechart-1.0.1.jar lib/json-simple-1.1.1.jar lib/mysql-connector-java-5.1.38-bin.jar lib/itext-pdfa-5.5.9.jar lib/itext-xtra-5.5.9.jar lib/itextpdf-5.5.9.jar lib/xmlworker-5.5.9.jar lib/jgoodies-common-1.8.0-source.jar lib/jgoodies-common-1.8.0.jar lib/jgoodies-forms-1.8.0-source.jar lib/jgoodies-forms-1.8.0.jar"/>
             </manifest>
         </jar>
     </target>
