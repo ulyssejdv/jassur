@@ -70,7 +70,7 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 	public FixedRatePanel(RateController controler) {
 		this.controler=controler;
 		
-		setTitle("D\u00E9termination du taux d'int\u00E9rets de l'agence");
+		setTitle("D\u00E9termination des taux d'int\u00E9rets de l'agence");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		contentPane = new JPanel();
 		setBounds(100, 100, 1020, 576);
@@ -92,7 +92,7 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.insets = new Insets(0, 0, 5, 5);
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField.fill = GridBagConstraints.LINE_START;
 		gbc_textField.gridx = 13;
 		gbc_textField.gridy = 3;
 		contentPane.add(tfTauxMM, gbc_textField);
@@ -107,7 +107,7 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 
 		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
 		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_1.fill = GridBagConstraints.LINE_START;
 		gbc_textField_1.gridx = 13;
 		gbc_textField_1.gridy = 5;
 		contentPane.add(tfAge, gbc_textField_1);
@@ -123,7 +123,7 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 
 		GridBagConstraints gbc_textField_2 = new GridBagConstraints();
 		gbc_textField_2.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_2.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField_2.fill = GridBagConstraints.LINE_START;
 		gbc_textField_2.gridx = 13;
 		gbc_textField_2.gridy = 7;
 		contentPane.add(tfDuration, gbc_textField_2);
@@ -131,13 +131,13 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 
 		JLabel lblEtatDeSant = new JLabel("Etat de sant\u00E9 :");
 		GridBagConstraints gbc_lblEtatDeSant = new GridBagConstraints();
+		gbc_lblEtatDeSant.anchor = GridBagConstraints.LINE_END;
 		gbc_lblEtatDeSant.insets = new Insets(0, 0, 5, 5);
 		gbc_lblEtatDeSant.gridx = 11;
 		gbc_lblEtatDeSant.gridy = 9;
 		contentPane.add(lblEtatDeSant, gbc_lblEtatDeSant);
 
 		//RadioButton
-
 		GridBagConstraints gbc_rdbtnBon = new GridBagConstraints();
 		gbc_rdbtnBon.insets = new Insets(0, 0, 5, 5);
 		gbc_rdbtnBon.gridx = 13;
@@ -146,6 +146,7 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 
 		GridBagConstraints gbc_rdbtnMauvais = new GridBagConstraints();
 		gbc_rdbtnMauvais.insets = new Insets(0, 0, 5, 5);
+		gbc_rdbtnMauvais.anchor = GridBagConstraints.BASELINE_LEADING;
 		gbc_rdbtnMauvais.gridx = 14;
 		gbc_rdbtnMauvais.gridy = 9;
 		contentPane.add(rdbtnBad, gbc_rdbtnMauvais);
@@ -172,13 +173,15 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 
 		GridBagConstraints gbc_rdbtnrdbtnCDI = new GridBagConstraints();
 		gbc_rdbtnrdbtnCDI.insets = new Insets(0, 0, 5, 5);
-		gbc_rdbtnrdbtnCDI.gridx = 14;
+		gbc_rdbtnrdbtnCDI.anchor = GridBagConstraints.BASELINE_LEADING;
+		gbc_rdbtnrdbtnCDI.gridx = 13;
 		gbc_rdbtnrdbtnCDI.gridy = 11;
 		contentPane.add(rdbtnCDI, gbc_rdbtnrdbtnCDI);
 
 		GridBagConstraints gbc_rdbtnUnemployed = new GridBagConstraints();
 		gbc_rdbtnUnemployed.insets = new Insets(0, 0, 5, 5);
-		gbc_rdbtnUnemployed.gridx = 15;
+		gbc_rdbtnUnemployed.anchor = GridBagConstraints.BASELINE_LEADING;
+		gbc_rdbtnUnemployed.gridx = 14;
 		gbc_rdbtnUnemployed.gridy = 11;
 		contentPane.add(rdbtnUnemployed, gbc_rdbtnUnemployed);
 
@@ -190,6 +193,7 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 
 		JLabel lblRsultat = new JLabel("R\u00E9sultat :");
 		GridBagConstraints gbc_lblRsultat = new GridBagConstraints();
+		gbc_lblRsultat.anchor = GridBagConstraints.LINE_END;
 		gbc_lblRsultat.insets = new Insets(0, 0, 5, 5);
 		gbc_lblRsultat.gridx = 11;
 		gbc_lblRsultat.gridy = 13;
@@ -203,11 +207,12 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 
 		JtField.setPreferredSize(new Dimension(350,35));
 		GridBagConstraints gbc_Jtfield = new GridBagConstraints();
-		gbc_Jtfield.insets = new Insets(10, 0, 20, 5);
-		gbc_Jtfield.gridx = 17;
+		gbc_Jtfield.insets = new Insets(0, 0, 5, 5);
+		gbc_Jtfield.anchor = GridBagConstraints.WEST;
+		gbc_Jtfield.gridx = 13;
 		gbc_Jtfield.gridy = 14;
 		contentPane.add(JtField, gbc_Jtfield);
-
+	
 		btnSave.addActionListener(this);
 		contentPane.add(btnSave);
 		GridBagConstraints gbc_btnSave = new GridBagConstraints();
@@ -246,7 +251,7 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 					Job="Chomeur";
 				}
 				
-				ControllerRate cc = new ControllerRate();
+				ControllerRate nr = new ControllerRate();
 
 					newRate r2 = new newRate();
 					r2.setAge(InputAge);
@@ -264,9 +269,11 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 					r2.setProfileId(r2.getProfileId());
 					if (r2.getProfileId() != 0) {
 						r2.setProfileId(r2.getProfileId());
-						cc.updateAction(r2);
+						nr.updateAction(r2);
 					} else {
-						cc.createAction(r2);
+						nr.createAction(r2);
+						JOptionPane.showMessageDialog(contentPane, "Sauvegarde enregistr\u00E9e avec succ\u00E8s !");
+
 					}
 			}
 		});
