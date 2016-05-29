@@ -131,6 +131,7 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 
 		JLabel lblEtatDeSant = new JLabel("Etat de sant\u00E9 :");
 		GridBagConstraints gbc_lblEtatDeSant = new GridBagConstraints();
+		gbc_lblEtatDeSant.anchor = GridBagConstraints.LINE_END;
 		gbc_lblEtatDeSant.insets = new Insets(0, 0, 5, 5);
 		gbc_lblEtatDeSant.gridx = 11;
 		gbc_lblEtatDeSant.gridy = 9;
@@ -145,6 +146,7 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 
 		GridBagConstraints gbc_rdbtnMauvais = new GridBagConstraints();
 		gbc_rdbtnMauvais.insets = new Insets(0, 0, 5, 5);
+		gbc_rdbtnMauvais.anchor = GridBagConstraints.BASELINE_LEADING;
 		gbc_rdbtnMauvais.gridx = 14;
 		gbc_rdbtnMauvais.gridy = 9;
 		contentPane.add(rdbtnBad, gbc_rdbtnMauvais);
@@ -171,13 +173,15 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 
 		GridBagConstraints gbc_rdbtnrdbtnCDI = new GridBagConstraints();
 		gbc_rdbtnrdbtnCDI.insets = new Insets(0, 0, 5, 5);
-		gbc_rdbtnrdbtnCDI.gridx = 14;
+		gbc_rdbtnrdbtnCDI.anchor = GridBagConstraints.BASELINE_LEADING;
+		gbc_rdbtnrdbtnCDI.gridx = 13;
 		gbc_rdbtnrdbtnCDI.gridy = 11;
 		contentPane.add(rdbtnCDI, gbc_rdbtnrdbtnCDI);
 
 		GridBagConstraints gbc_rdbtnUnemployed = new GridBagConstraints();
 		gbc_rdbtnUnemployed.insets = new Insets(0, 0, 5, 5);
-		gbc_rdbtnUnemployed.gridx = 15;
+		gbc_rdbtnUnemployed.anchor = GridBagConstraints.BASELINE_LEADING;
+		gbc_rdbtnUnemployed.gridx = 14;
 		gbc_rdbtnUnemployed.gridy = 11;
 		contentPane.add(rdbtnUnemployed, gbc_rdbtnUnemployed);
 
@@ -189,6 +193,7 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 
 		JLabel lblRsultat = new JLabel("R\u00E9sultat :");
 		GridBagConstraints gbc_lblRsultat = new GridBagConstraints();
+		gbc_lblRsultat.anchor = GridBagConstraints.LINE_END;
 		gbc_lblRsultat.insets = new Insets(0, 0, 5, 5);
 		gbc_lblRsultat.gridx = 11;
 		gbc_lblRsultat.gridy = 13;
