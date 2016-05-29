@@ -15,7 +15,7 @@ import java.awt.SystemColor;
 import java.awt.Font;
 import java.awt.CardLayout;
 import java.awt.Dimension;
-//import com.jgoodies.forms.factories.DefaultComponentFactory;
+import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 
 // the interface. What the user sees
@@ -159,10 +159,10 @@ public class LoanVariableShowCardPanel extends JFrame implements ActionListener 
 		lblSimulationDeTaux.setBounds(44, 11, 303, 42);
 		calcPanel.add(lblSimulationDeTaux);
 		
-		/*JLabel lblNewJgoodiesLabel = DefaultComponentFactory.getInstance().createLabel("New JGoodies label");
+		JLabel lblNewJgoodiesLabel = DefaultComponentFactory.getInstance().createLabel("");
 		lblNewJgoodiesLabel.setIcon(new ImageIcon(LoanVariableShowCardPanel.class.getResource("/images/gestion/cadre5.png")));
 		lblNewJgoodiesLabel.setBounds(74, 53, 650, 210);
-		calcPanel.add(lblNewJgoodiesLabel);*/
+		calcPanel.add(lblNewJgoodiesLabel);
 		
 		JLabel lblEnAnne = new JLabel("en ann\u00E9es");
 		lblEnAnne.setBounds(440, 98, 77, 14);
