@@ -39,12 +39,16 @@ public class LoanFixedRateSimulationPanel extends JPanel {
 	private Client client;
 	private Loan loan;
 	
+	private double tauxGen;
+	
 	/**
 	* Create the panel.
 	 * @wbp.parser.constructor
 	*/
-	public LoanFixedRateSimulationPanel(ArrayList<Category> categories,Client client) {
+	public LoanFixedRateSimulationPanel(ArrayList<Category> categories,Client client, double tauxGen) {
 		setBackground(Color.WHITE);
+		
+		this.tauxGen = tauxGen;
 
 		this.client = client;
 		setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
@@ -124,10 +128,10 @@ public class LoanFixedRateSimulationPanel extends JPanel {
 		
 		JComboBox comboBoxTauxDintrtDu = new JComboBox();
 
-		String[] taux={"1.2","1.5","2"};
+		String[] taux={String.valueOf(this.tauxGen)};
 		comboBoxTauxDintrtDu.addItem(taux[0]);
-		comboBoxTauxDintrtDu.addItem(taux[1]);
-		comboBoxTauxDintrtDu.addItem(taux[2]);
+		//comboBoxTauxDintrtDu.addItem(taux[1]);
+		//comboBoxTauxDintrtDu.addItem(taux[2]);
 
 		/*for (Rate object: rates){
 			comboBoxTauxDintrtDu.addItem(object.getInterestRate());*/
@@ -532,9 +536,9 @@ public class LoanFixedRateSimulationPanel extends JPanel {
 	    client.setId(11);
 	    //Termine le processus lorsqu'on clique sur la croix rouge
 	    fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    LoanFixedRateSimulationPanel test =new LoanFixedRateSimulationPanel(categories,client);
-		test.setVisible(true);
-		fenetre.setContentPane(test);
+	    //LoanFixedRateSimulationPanel test =new LoanFixedRateSimulationPanel(categories,client);
+		//test.setVisible(true);
+		//fenetre.setContentPane(test);
 	    //Et enfin, la rendre visible        
 	    fenetre.setVisible(true);
 	    
