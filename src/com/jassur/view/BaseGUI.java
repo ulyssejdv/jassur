@@ -180,7 +180,7 @@ public class BaseGUI extends JFrame {
 
 		
 		public void actionPerformed(ActionEvent e) {
-			Main_Rate main_tauxFixe = new Main_Rate();
+			//Main_Rate main_tauxFixe = new Main_Rate();
 		}
 	}
 	

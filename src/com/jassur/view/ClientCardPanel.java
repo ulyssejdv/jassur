@@ -28,6 +28,7 @@ import com.jassur.controller.ClientController;
 import com.jassur.controller.LoanController;
 import com.jassur.model.Client;
 import com.jassur.model.Loan;
+import com.jassur.test.Main_Rate;
 import com.jassur.view.ClientListPanel.ButtonEditor;
 import com.jassur.view.ClientListPanel.ButtonRenderer;
 import com.jassur.view.ClientListPanel.JTableModel;
@@ -226,8 +227,10 @@ public class ClientCardPanel extends JPanel {
 		}
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			LoanController lc = new LoanController();
-			lc.newAction(this.client);
+			//LoanController lc = new LoanController();
+			//lc.newAction(this.client);
+			
+			Main_Rate main_tauxFixe = new Main_Rate(BaseGUI.MAIN_FRAME, this.client);
 		}
 		
 	}

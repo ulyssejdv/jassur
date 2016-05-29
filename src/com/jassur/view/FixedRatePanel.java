@@ -5,25 +5,25 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.TextArea;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import com.jassur.controller.ControllerRate;
+import com.jassur.controller.LoanController;
 import com.jassur.controller.RateController;
-import com.jassur.model.Address;
 import com.jassur.model.Client;
 import com.jassur.model.newRate;
-import javax.swing.ButtonGroup;
-import javax.swing.JOptionPane;
-import javax.swing.JFrame;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.text.DecimalFormat;
-import java.awt.event.ActionEvent;
 
 public class FixedRatePanel extends JFrame implements ActionListener {
 
@@ -60,15 +60,16 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 	private boolean ValueRadio;
 	private String InputRisk;
 
-
+	private Client client;
 
 	/**
 	 * @author jeremy
 	 *Create the panel.
 	 */
 
-	public FixedRatePanel(RateController controler) {
+	public FixedRatePanel(RateController controler, BaseGUI basegui, Client client) {
 		this.controler=controler;
+		this.client = client;
 		
 		setTitle("D\u00E9termination des taux d'int\u00E9rets de l'agence");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -275,6 +276,11 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 						JOptionPane.showMessageDialog(contentPane, "Sauvegarde enregistr\u00E9e avec succ\u00E8s !");
 
 					}
+					
+					LoanController lc = new LoanController();
+					lc.newAction(FixedRatePanel.this.client, taux);
+					
+					FixedRatePanel.this.dispose();
 			}
 		});
 		
