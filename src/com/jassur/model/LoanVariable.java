@@ -16,22 +16,22 @@ public class LoanVariable {
 	
 	
 	// calculate constant loan
-	public void addValues (double unMontant, double uneDuree, double unTaux ){
+	public void addValues (double amount, double nbYears, double loanV ){
 		// Math pow = puissance
 		// 12 calculate per month
-	    System.out.println("unMontant="+unMontant+" | uneDuree = "+uneDuree+" | unTaux="+unTaux);
-		calculationValue = Util.round(((unMontant * (unTaux/100))/ 12 ) / (1 - (1/(Math.pow( (1 + ((unTaux/100)/12)),(uneDuree*12))))),2);
+	    System.out.println("amount="+amount+" | nbYears = "+nbYears+" | loanV="+loanV);
+		calculationValue = Util.round(((amount * (loanV/100))/ 12 ) / (1 - (1/(Math.pow( (1 + ((loanV/100)/12)),(nbYears*12))))),2);
 
 	}
 
 	//good scenario
-	public void addBestValues (double unMontant, int uneDuree, double unTaux ){
+	public void addBestValues (double amount, int nbYears, double loanV ){
 		calculationBestValue = calculationValue ;
 		System.out.println("calculationValue="+calculationValue);
 
 	}
 	
-	public void addWorstValues (double unMontant, int uneDuree, double unTaux ){
+	public void addWorstValues (double amount, int nbYears, double loanV ){
 		calculationWorstValue = calculationValue * 1.0009 ;
 		
 	}

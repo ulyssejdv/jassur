@@ -15,6 +15,7 @@ import java.awt.SystemColor;
 import java.awt.Font;
 import java.awt.CardLayout;
 import java.awt.Dimension;
+import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 
 // the interface. What the user sees
@@ -35,7 +36,6 @@ public class LoanVariableShowCardPanel extends JFrame implements ActionListener 
 	private final JLabel JLab_Amount = new JLabel("Le Montant");
 	private final JLabel JLab_nbYears = new JLabel("La Dur\u00E9e");
 	private final JLabel JLab_LoanV = new JLabel("Le Taux %");
-	private final JTextPane textPane = new JTextPane();
 	private JTable table;
 	private JTable table_1;
 	private final JLabel label_1 = new JLabel(" en annee(s)");
@@ -150,17 +150,16 @@ public class LoanVariableShowCardPanel extends JFrame implements ActionListener 
 		
 		
 		calcPanel.add(JLab_LoanV);
-		textPane.setText("Simuler taux variable");
-		textPane.setFont(new Font("Tahoma", Font.PLAIN, 21));
-		textPane.setBackground(SystemColor.menu);
-		textPane.setBounds(50, 11, 332, 33);
-		
-		calcPanel.add(textPane);
 		
 		
 		btnRetour.addActionListener(this);	
 		btnRetour.setBounds(640, 501, 89, 23);
 		calcPanel.add(btnRetour);
+		
+		JLabel lblSimulationDeTaux = new JLabel("Simulation de taux variable");
+		lblSimulationDeTaux.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblSimulationDeTaux.setBounds(44, 11, 303, 42);
+		calcPanel.add(lblSimulationDeTaux);
 		
 		return calcPanel;
 	}
