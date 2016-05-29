@@ -39,7 +39,7 @@ public class Controller_table_loan {
 	 */
 	public int get_number_loan_client(int id_client,String type_loan )
 	{
-		 
+		  
 		/* Build a new request */
 		RequestBuilder rb = new RequestBuilder(RequestBuilder.NB_simulation_loan, "clients/"+id_type_loan+"/"+id_client);
 		String rep = Message.execRequest(rb.toJSONString());		
