@@ -52,7 +52,9 @@ public class LoanVariableController{
 				
 				System.out.println(ex);
 				// if no values = alert
-				theView.displayErrorMessage("Vous devez rentrer toutes les valeurs");
+				theView.displayErrorMessage("Attention :"
+						+"\n"+ "- Vous devez rentrer toutes les valeurs du formulaire"
+						+"\n"+  "- Vous devez utiliser des caracteres numeriques");
 			}
 			
 		}
