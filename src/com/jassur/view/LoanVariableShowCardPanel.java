@@ -24,7 +24,6 @@ public class LoanVariableShowCardPanel extends JFrame implements ActionListener 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
 	private JTextField amount = new JTextField(10);
 	private JTextField nbYears = new JTextField(10);
 	private JTextField loanV = new JTextField(10);
@@ -116,11 +115,7 @@ public class LoanVariableShowCardPanel extends JFrame implements ActionListener 
 		calcPanel.add(nbYears);
 		loanV.setBounds(349, 116, 86, 20);
 		calcPanel.add(loanV);
-		calculateButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		
+	
 		
 		//create button for calculate the total
 		calculateButton.setBounds(230, 146, 104, 23);
