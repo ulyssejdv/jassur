@@ -194,14 +194,14 @@ public class LoanDAO extends DAO<Loan> {
 					"SELECT distinct id_loan "+
 				    "FROM loans;");
 			
-			if(result.first()){
+			//if(result.first()){
 				LoanDAO ld =new LoanDAO();
 				ld.setConnect(connect);
 				while (result.next()) {
 					int loan_id=result.getInt("id_loan");
 					loans.add(ld.find(loan_id));
 				}
-			}
+			//}
 
 			
 		} catch (SQLException e) {
