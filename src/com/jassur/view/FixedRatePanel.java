@@ -137,7 +137,6 @@ public class FixedRatePanel extends JFrame implements ActionListener {
 		contentPane.add(lblEtatDeSant, gbc_lblEtatDeSant);
 
 		//RadioButton
-
 		GridBagConstraints gbc_rdbtnBon = new GridBagConstraints();
 		gbc_rdbtnBon.insets = new Insets(0, 0, 5, 5);
 		gbc_rdbtnBon.gridx = 13;
