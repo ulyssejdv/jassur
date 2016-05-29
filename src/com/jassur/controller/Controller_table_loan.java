@@ -39,18 +39,25 @@ public class Controller_table_loan {
 	 */
 	public int get_number_loan_client(int id_client,String type_loan )
 	{
-		
+		  
 		/* Build a new request */
 		RequestBuilder rb = new RequestBuilder(RequestBuilder.NB_simulation_loan, "clients/"+id_type_loan+"/"+id_client);
 		String rep = Message.execRequest(rb.toJSONString());		
 		nb_loan=Integer.parseInt(rep);
 		
+		if(nb_loan==0)
+		{
+			return nb_loan;
+		}
+		else
+		{
+			data_jtable= new Object[nb_loan][5];
+			this.set_table_data(type_loan, id_client);
+			
+			return nb_loan;
+		}
 		
 		
-		data_jtable= new Object[nb_loan][5];
-		this.set_table_data(type_loan, id_client);
-		
-		return nb_loan;
 	}
 	/**Methode qui verifie que le client a au moins un pret du type demander
 	 * Verify if the client have a loan (min 1) of the type that he want
