@@ -120,6 +120,7 @@ public class LoanVariableShowCardPanel extends JFrame implements ActionListener 
 		//create button for calculate the total
 		calculateButton.setBounds(230, 146, 104, 23);
 		calcPanel.add(calculateButton);
+		calcSolution.setEditable(false);
 		
 		calcSolution.setBounds(349, 147, 86, 20);
 		calcPanel.add(calcSolution);
