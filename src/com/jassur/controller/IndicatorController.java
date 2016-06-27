@@ -106,12 +106,193 @@ public class IndicatorController implements Controller{
 	}
 		    
 			/* Render the indicator panel */
-	    	IndicatorPanel ip= new IndicatorPanel(indicator);
+	    	//IndicatorPanel ip= new IndicatorPanel(indicator);
+	    	
+	    	//BaseGUI.render(ip);
+	    	IndicatorPanel ip = new IndicatorPanel();
 	    	BaseGUI.render(ip);
 	}
 
-	
+	public void indicatorImmobilier(){
 
+		/* Build a new request */
+		RequestBuilder rb = new RequestBuilder(RequestBuilder.GET, "loans/");
+		
+		/* Send message with the builded request
+		 * and get his response string 
+		 */
+		String resp = Message.execRequest(rb.toJSONString());
+		ArrayList<Loan> loan = new ArrayList<Loan>();
+		//LoanDAO id = new LoanDAO();
+		//loan = id.find();
+		
+		try {
+			/* Transformation of the response String in JSON */
+			JSONParser parser = new JSONParser();
+			Object obj = parser.parse(resp);
+			
+			
+			JSONArray jArray = (JSONArray)obj;
+			
+			/* Analyze and instantiate all loans in the JSON response */
+			for(int i = 0; i < jArray.size(); i++) {
+				JSONObject job = (JSONObject)jArray.get(i);				
+				Loan l = new Loan();
+				l.parseJSON(job);
+				if(l.getCategory().getLabelCategory().equals("Immobilier"))
+					loan.add(l);
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		Indicator indicator=new Indicator();
+	    int simulation=0;
+	    	for (Loan l : loan) 
+	    		if (l.getStates().get(0).getLabelState().equals("Simulation"))
+	    		simulation++;
+
+	    	indicator.setNbSimulation(simulation);
+
+	    int en_cours=0;
+	    	for (Loan l : loan) 
+	    		if (l.getStates().get(0).getLabelState().equals("En Cours"))
+	    		en_cours++;
+
+	    	indicator.setNbEnCours(en_cours);
+
+	    int nb=0;
+	    int duree=0;
+	    	for (Loan l : loan) {
+	    		nb++;
+	    		duree+=l.getTotalDuration();
+
+	    	}
+	    	indicator.setAvgDurationLoan(duree/nb);
+	    	
+	    	int interest=0;
+	    	for (Loan l : loan) {
+	    	
+	    	interest += l.getTotalAmount() - l.getAmount();
+
+	    	}
+	   		    indicator.setSumInterest(interest);
+
+
+	    int nb2=0;
+	    int amount=0;
+	    	for (Loan l : loan) {
+	    		nb2++;
+	    		amount+= l.getTotalAmount();
+
+	    		    indicator.setAvgLoansAmount(amount/nb2);
+	    		
+	    }
+	    	
+	    	int amountLoan=0;
+	    	for (Loan l : loan) {
+	    		amountLoan++;
+	    		
+	    	
+	    	indicator.setNbLoans(amountLoan);
+	}
+		    
+			/* Render the indicator panel */
+	    	IndicatorPanel ip= new IndicatorPanel(indicator);
+	    	BaseGUI.render(ip);
+	
+	}
+
+	
+	public void indicatorAutomobile(){
+
+
+		/* Build a new request */
+		RequestBuilder rb = new RequestBuilder(RequestBuilder.GET, "loans/");
+		
+		/* Send message with the builded request
+		 * and get his response string 
+		 */
+		String resp = Message.execRequest(rb.toJSONString());
+		ArrayList<Loan> loan = new ArrayList<Loan>();
+		//LoanDAO id = new LoanDAO();
+		//loan = id.find();
+		
+		try {
+			/* Transformation of the response String in JSON */
+			JSONParser parser = new JSONParser();
+			Object obj = parser.parse(resp);
+			
+			
+			JSONArray jArray = (JSONArray)obj;
+			
+			/* Analyze and instantiate all loans in the JSON response */
+			for(int i = 0; i < jArray.size(); i++) {
+				JSONObject job = (JSONObject)jArray.get(i);				
+				Loan l = new Loan();
+				l.parseJSON(job);
+				if(l.getCategory().getLabelCategory().equals("Automobile"))
+					loan.add(l);
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		Indicator indicator=new Indicator();
+	    int simulation=0;
+	    	for (Loan l : loan) 
+	    		if (l.getStates().get(0).getLabelState().equals("Simulation"))
+	    		simulation++;
+
+	    	indicator.setNbSimulation(simulation);
+
+	    int en_cours=0;
+	    	for (Loan l : loan) 
+	    		if (l.getStates().get(0).getLabelState().equals("En Cours"))
+	    		en_cours++;
+
+	    	indicator.setNbEnCours(en_cours);
+
+	    int nb=0;
+	    int duree=0;
+	    	for (Loan l : loan) {
+	    		nb++;
+	    		duree+=l.getTotalDuration();
+
+	    	}
+	    	indicator.setAvgDurationLoan(duree/nb);
+	    	
+	    	int interest=0;
+	    	for (Loan l : loan) {
+	    	
+	    	interest += l.getTotalAmount() - l.getAmount();
+
+	    	}
+	   		    indicator.setSumInterest(interest);
+
+
+	    int nb2=0;
+	    int amount=0;
+	    	for (Loan l : loan) {
+	    		nb2++;
+	    		amount+= l.getTotalAmount();
+
+	    		    indicator.setAvgLoansAmount(amount/nb2);
+	    		
+	    }
+	    	
+	    	int amountLoan=0;
+	    	for (Loan l : loan) {
+	    		amountLoan++;
+	    		
+	    	
+	    	indicator.setNbLoans(amountLoan);
+	}
+		    
+			/* Render the indicator panel */
+	    	IndicatorPanel ip= new IndicatorPanel(indicator);
+	    	BaseGUI.render(ip);
+	
+	
+	}
 	@Override
 	public void newAction() {
 		// TODO Auto-generated method stub

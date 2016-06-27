@@ -3,6 +3,7 @@ package com.jassur.view;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import com.jassur.controller.IndicatorController;
 import com.jassur.model.Indicator;
 /**
  *
@@ -48,7 +49,7 @@ public class IndicatorPanel extends JPanel{
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
-    private void initComponents() {
+    public IndicatorPanel() {
 
         lblNbLoansCoS = new javax.swing.JLabel();
         lblAvgLoanDuration = new javax.swing.JLabel();
@@ -201,6 +202,16 @@ public class IndicatorPanel extends JPanel{
 
     private void jbtnLauchActionPerformed(java.awt.event.ActionEvent evt) {                                          
         // TODO add your handling code here:
+    	
+    	if(jRBImmo.isSelected()){
+    		IndicatorController ic = new IndicatorController();
+    		ic.indicatorImmobilier();
+    	}
+    	
+    	if(jRBAuto.isSelected()){
+    		IndicatorController ic = new IndicatorController();
+    		ic.indicatorAutomobile();
+    	}
     	
     }                                         
 
