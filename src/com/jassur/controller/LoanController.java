@@ -60,8 +60,8 @@ public class LoanController implements Controller{
 		    client.setAddress(new Address());
 		    
 			/* Render the client list panel */
-			LoanFixedRateSimulationPanel lfrsp = new LoanFixedRateSimulationPanel(categoryList,client);
-			BaseGUI.render(lfrsp);	
+			//LoanFixedRateSimulationPanel lfrsp = new LoanFixedRateSimulationPanel(categoryList,client);
+			//BaseGUI.render(lfrsp);	
 		}
 
 
@@ -106,7 +106,7 @@ public class LoanController implements Controller{
 	 * Controller method for display loan form
 	 * @param idClient
 	 */
-	public void newAction(Client client) {
+	public void newAction(Client client, double taux) {
 		/* Build a new request */
 		RequestBuilder rb = new RequestBuilder(RequestBuilder.GET, "categories/");
 		
@@ -137,7 +137,7 @@ public class LoanController implements Controller{
 		
 		
 		
-		LoanFixedRateSimulationPanel lfrsp = new LoanFixedRateSimulationPanel(categoryList,client);
+		LoanFixedRateSimulationPanel lfrsp = new LoanFixedRateSimulationPanel(categoryList,client,taux);
 		BaseGUI.render(lfrsp);
 	}
 

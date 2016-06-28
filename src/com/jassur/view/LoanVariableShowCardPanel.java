@@ -15,6 +15,7 @@ import java.awt.SystemColor;
 import java.awt.Font;
 import java.awt.CardLayout;
 import java.awt.Dimension;
+import com.jgoodies.forms.factories.DefaultComponentFactory;
 
 
 // the interface. What the user sees
@@ -23,7 +24,6 @@ public class LoanVariableShowCardPanel extends JFrame implements ActionListener 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
 	private JTextField amount = new JTextField(10);
 	private JTextField nbYears = new JTextField(10);
 	private JTextField loanV = new JTextField(10);
@@ -35,21 +35,17 @@ public class LoanVariableShowCardPanel extends JFrame implements ActionListener 
 	private final JLabel JLab_Amount = new JLabel("Le Montant");
 	private final JLabel JLab_nbYears = new JLabel("La Dur\u00E9e");
 	private final JLabel JLab_LoanV = new JLabel("Le Taux %");
-	private final JTextPane textPane = new JTextPane();
 	private JTable table;
 	private JTable table_1;
 	private final JLabel label_1 = new JLabel(" en annee(s)");
 	private JButton btnRetour = new JButton("Retour");
+	private final JLabel lblParMois = new JLabel("par mois");
  
 
 
 	
 	public LoanVariableShowCardPanel (){
 		// sets up the view and adds the components
-	
-		
-		
-		
 		String[][] data = null;
 	    String[][] data2 = null;
 	    
@@ -73,8 +69,8 @@ public class LoanVariableShowCardPanel extends JFrame implements ActionListener 
 		// link between button and panel Best Scenario
 		calculateBestButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("CALL actionPerformed");
-				// update data table best senario
+				
+				// update data table best scenario
 				updateTableSenario(table,true);
 			
 				cl.show(panelCentral,"name_626830455542738");
@@ -103,9 +99,10 @@ public class LoanVariableShowCardPanel extends JFrame implements ActionListener 
 		
 		JPanel calcPanel = new JPanel();
 		
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//title
 		this.setTitle("Simulation de pr\u00EAts  - JASSUR");
+		this.setResizable(false);
 		//size of the windows
 		setBounds(100, 100, 802, 574);	
 	
@@ -118,15 +115,12 @@ public class LoanVariableShowCardPanel extends JFrame implements ActionListener 
 		calcPanel.add(nbYears);
 		loanV.setBounds(349, 116, 86, 20);
 		calcPanel.add(loanV);
-		calculateButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		
+	
 		
 		//create button for calculate the total
 		calculateButton.setBounds(230, 146, 104, 23);
 		calcPanel.add(calculateButton);
+		calcSolution.setEditable(false);
 		
 		calcSolution.setBounds(349, 147, 86, 20);
 		calcPanel.add(calcSolution);
@@ -150,17 +144,28 @@ public class LoanVariableShowCardPanel extends JFrame implements ActionListener 
 		
 		
 		calcPanel.add(JLab_LoanV);
-		textPane.setText("Simuler taux variable");
-		textPane.setFont(new Font("Tahoma", Font.PLAIN, 21));
-		textPane.setBackground(SystemColor.menu);
-		textPane.setBounds(50, 11, 332, 33);
-		
-		calcPanel.add(textPane);
 		
 		
 		btnRetour.addActionListener(this);	
 		btnRetour.setBounds(640, 501, 89, 23);
 		calcPanel.add(btnRetour);
+		
+		JLabel lblSimulationDeTaux = new JLabel("Simulation de taux variable");
+		lblSimulationDeTaux.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblSimulationDeTaux.setBounds(44, 11, 303, 42);
+		calcPanel.add(lblSimulationDeTaux);
+		
+		JLabel lblNewJgoodiesLabel = DefaultComponentFactory.getInstance().createLabel("");
+		lblNewJgoodiesLabel.setIcon(new ImageIcon(LoanVariableShowCardPanel.class.getResource("/images/gestion/cadre5.png")));
+		lblNewJgoodiesLabel.setBounds(74, 53, 650, 210);
+		calcPanel.add(lblNewJgoodiesLabel);
+		
+		JLabel lblEnAnne = new JLabel("en ann\u00E9es");
+		lblEnAnne.setBounds(440, 98, 77, 14);
+		calcPanel.add(lblEnAnne);
+		lblParMois.setBounds(440, 150, 80, 14);
+		
+		calcPanel.add(lblParMois);
 		
 		return calcPanel;
 	}

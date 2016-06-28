@@ -41,16 +41,12 @@ public class LoanShowTablePanel extends JPanel {
 	    String pattern = "0.00";
 	    DecimalFormat decimalFormat = new DecimalFormat(pattern);
 	    
+	    Date d = new Date(l.getCreatedAt().getTime());
+	    
 	    SimpleDateFormat formater = null;
-        formater = new SimpleDateFormat("MM/yy");
+        formater = new SimpleDateFormat("MM/yyyy");
         DateFormat df = DateFormat.getDateInstance();
-        
-        Date date = null;
-		try {
-			date = formater.parse("01/01/2016");
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+ 
 	    
 	    
 	    int totalDuration = this.loan.getTotalDuration();
@@ -62,7 +58,7 @@ public class LoanShowTablePanel extends JPanel {
 	    
 	    jTable = new JTable(tblModel);
 	    
-	    Object[] o = new Object[] {0,formater.format(date),"-","-","-","-",decimalFormat.format((double)remainingCapital)};
+	    Object[] o = new Object[] {0,formater.format(d),"-","-","-","-",decimalFormat.format((double)remainingCapital)};
 	    ((TblModel)jTable.getModel()).addRow(o);
 	   
 	    
@@ -72,11 +68,11 @@ public class LoanShowTablePanel extends JPanel {
 	    	remainingCapital = this.loan.remainingCapital(remainingCapital,interest,monthlyPayment);
 	    	interest = this.loan.interestPerMonth(remainingCapital);
 	    	double principal = this.loan.principal(monthlyPayment, interest);
-	    	date = addMonth(date, 1);
+	    	d = addMonth(d, 1);
 	    	
 	    	o = new Object[] {
 	    			i,
-	    			formater.format(date),
+	    			formater.format(d),
 	    			decimalFormat.format((double)interest),
 	    			decimalFormat.format((double)principal),
 	    			insurance,

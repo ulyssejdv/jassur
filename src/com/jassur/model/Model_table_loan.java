@@ -140,7 +140,7 @@ public class Model_table_loan {
 					+ "FROM loans l,states "
 					+ "WHERE l.client_id='"+id_client+"'AND category_id='"+id_type_loan+"'"
 					+ "AND (l.created_at >='"+date_systeme+"'OR l.updated_at >='"+date_systeme+"')"
-					+"AND id_loan=loan_id AND client_id=user_id AND label_state='Simulation';");		
+					+"AND id_loan=loan_id AND label_state='Simulation';");		
 			while(result.next())
 			{	
 				

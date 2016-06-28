@@ -5,7 +5,11 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.GroupLayout;
@@ -24,6 +28,7 @@ import com.jassur.controller.ClientController;
 import com.jassur.controller.LoanController;
 import com.jassur.model.Client;
 import com.jassur.model.Loan;
+import com.jassur.test.Main_Rate;
 import com.jassur.view.ClientListPanel.ButtonEditor;
 import com.jassur.view.ClientListPanel.ButtonRenderer;
 import com.jassur.view.ClientListPanel.JTableModel;
@@ -167,21 +172,20 @@ public class ClientCardPanel extends JPanel {
 		table = new JTable(model);
 		table.setBounds(0, 0, this.getWidth(), this.getHeight());
 		
+		
+		
+		
 		/* feed the table */
 		for (Loan l: this.loans) {
-			/*Object[]  obj = new Object[]{ 
-					c.getLastName(), 
-					c.getFirstName(), 
-					c.getPhone(), 
-					c.getEmail(), 
-					"Voir", 
-					"Modifier",
-					"Supprimer"
-					
-			};*/
+			
+			Date d = new Date(l.getCreatedAt().getTime());
+			
+			SimpleDateFormat formater = null;
+	        formater = new SimpleDateFormat("yyyy-MM-dd");
+	        DateFormat df = DateFormat.getDateInstance();
 			
 			Object[]  obj = new Object[]{ 
-					"Date", 
+					formater.format(d), 
 					l.getAmount(), 
 					l.getRates().get(0).getInterestRate(), 
 					l.getStates().get(0).getLabelState(), 
@@ -223,8 +227,10 @@ public class ClientCardPanel extends JPanel {
 		}
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			LoanController lc = new LoanController();
-			lc.newAction(this.client);
+			//LoanController lc = new LoanController();
+			//lc.newAction(this.client);
+			
+			Main_Rate main_tauxFixe = new Main_Rate(BaseGUI.MAIN_FRAME, this.client);
 		}
 		
 	}

@@ -4,21 +4,18 @@
 Pour utiliser les commandes qui suivent, il est nécessaire d'installer Ant sur son OS !
 On peut utiliser [la documentation officielle](http://ant.apache.org)
 
-###Création du repertoire bin :
-```
-$ ant init
-```
+
 ###Supprimer le répertoire bin :
 ```
 $ ant clean
 ```
 ###Compilation du projet :
 ```
-$ ant compile
+$ ant build-project
 ```
 ###Démarer le serveur :
 ```
-$ ant startServer
+$ ant ServerJassur
 ```
 ###Créer le JAR distribuable du client :
 ```

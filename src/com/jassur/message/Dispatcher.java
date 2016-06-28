@@ -67,19 +67,19 @@ public class Dispatcher extends Thread {
 			obj = parser.parse(request);
 			JSONObject jsonObj = (JSONObject)obj;
 
-			
+
 			if (jsonObj.containsKey("method")) {
 				method = (String) jsonObj.get("method");
 			} else {
 				throw new BadRequestException("method not found");
 			}
-			
+
 			if (jsonObj.containsKey("route")) {
 				route = (String) jsonObj.get("route");
 			} else {
 				throw new BadRequestException("route not found");
 			}
-			
+
 
 
 			if (jsonObj.containsKey("resource")) {
@@ -193,12 +193,12 @@ public class Dispatcher extends Thread {
 
 		}
 
-		
+
 		ConfigurationDB conf = new ConfigurationDB();
 		poolConnexion.push(new Connexion(conf));
-		
-		
-		
+
+
+
 		/* Write the response in the socket */
 		try {
 			dataOutputStream.writeBytes(responseString+'\n');
@@ -255,17 +255,31 @@ public class Dispatcher extends Thread {
 			/* New Rate */
 
 			else if (items[0].equals("newRate")) {
+				DAO<newRate> newRateDAO = daoFactory.getNewRateDAO();
+				newRateDAO.setConnect(poolConnexion.pop().getConnection());
+				newRate r = new newRate();
+				
+				r.parseJSON(resource);
+
+				System.out.println("Insert : "+r);
+				r = newRateDAO.create(r);
+
+				if(r != null) {
+					Model model = r;
+					responseString = model.toJSON().toJSONString();
+				} else {
+					responseString = "[]"; // server error
+				}
 
 
+			}
 
-		}
-
-		/* Write the response in the socket */
-		try {
-			dataOutputStream.writeBytes(responseString+'\n');
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+			/* Write the response in the socket */
+			try {
+				dataOutputStream.writeBytes(responseString+'\n');
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -312,19 +326,19 @@ public class Dispatcher extends Thread {
 				/* Get all clients and push them to a JSON array */
 				DAO<Loan> loanDAO = daoFactory.getLoanDAO();
 				loanDAO.setConnect(poolConnexion.pop().getConnection());
-				
+
 				System.out.println("Loan to find : "+Integer.parseInt(items[1]));
-				
+
 				Loan l = loanDAO.find(Integer.parseInt(items[1]));
-				
+
 				System.out.println("Ok client");
-				
+
 				if (l != null) {
-					
+
 					l.parseJSON(resource);
-					
+
 					System.out.println(l);
-					
+
 					l = loanDAO.update(l);
 					if(l != null) {
 						Model model = l;
@@ -391,8 +405,8 @@ public class Dispatcher extends Thread {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
+
 	private void dealingID(String route) {
 		/* explode route 
 		 * and put fragments in items[]
