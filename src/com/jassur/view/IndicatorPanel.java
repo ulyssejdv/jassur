@@ -1,5 +1,7 @@
 package com.jassur.view;
 
+import java.util.Date;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -14,6 +16,13 @@ public class IndicatorPanel extends JPanel{
     /**
      * Creates new form IndicatorPanel
      */
+	
+	public IndicatorPanel(boolean zero){
+		JLabel erreur = new JLabel("0 pret concerné");
+		add(erreur);
+	}
+	
+	
     public IndicatorPanel(Indicator indicator) {
     	JLabel lblTitle = new JLabel("Indicators");
 		System.out.println("Indicators");
@@ -102,14 +111,14 @@ public class IndicatorPanel extends JPanel{
 
         lblPeriod.setText("Periode");
 
-        jCBMonth.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Decembre" }));
+        jCBMonth.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12" }));
         jCBMonth.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCBMonthActionPerformed(evt);
             }
         });
 
-        jCBYear.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2016", "2015", "2014", "2013", "2012" }));
+        jCBYear.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "2016", "2015", "2014" }));
         jCBYear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCBYearActionPerformed(evt);
@@ -205,12 +214,16 @@ public class IndicatorPanel extends JPanel{
     	
     	if(jRBImmo.isSelected()){
     		IndicatorController ic = new IndicatorController();
-    		ic.indicatorImmobilier();
+    		Date date = new Date(Integer.parseInt((String) jCBYear.getSelectedItem()),Integer.parseInt((String) jCBMonth.getSelectedItem()),1);
+    		System.out.println(date);
+    		ic.indicatorImmobilier(date);
+    	
     	}
     	
     	if(jRBAuto.isSelected()){
     		IndicatorController ic = new IndicatorController();
-    		ic.indicatorAutomobile();
+    		Date date = new Date(Integer.parseInt((String) jCBYear.getSelectedItem()),Integer.parseInt((String) jCBMonth.getSelectedItem()),1);
+    		ic.indicatorAutomobile(date);
     	}
     	
     }                                         

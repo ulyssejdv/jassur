@@ -1,6 +1,7 @@
 package com.jassur.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -13,7 +14,7 @@ public class Loan implements Model {
 	private Client client;
 	private int client_id;
 	private Category category;
-	
+	private Date created_at;
 	
 	
 	/*
@@ -312,6 +313,14 @@ public class Loan implements Model {
 		return "Loan [client=" + client + ", client_id=" + client_id + ", category=" + category + ", rates=" + rates
 				+ ", states=" + states + ", amount=" + amount + ", totalDuration=" + totalDuration + ", totalAmount="
 				+ totalAmount + ", category_id=" + category_id + ", id=" + id + "]";
+	}
+
+	public Date getCreated_at() {
+		return created_at;
+	}
+
+	public void setCreated_at(Date created_at) {
+		this.created_at = created_at;
 	}
 
 }

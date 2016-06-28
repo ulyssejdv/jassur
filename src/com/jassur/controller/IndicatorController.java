@@ -1,6 +1,7 @@
 package com.jassur.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -113,7 +114,7 @@ public class IndicatorController implements Controller{
 	    	BaseGUI.render(ip);
 	}
 
-	public void indicatorImmobilier(){
+	public void indicatorImmobilier(Date date){
 
 		/* Build a new request */
 		RequestBuilder rb = new RequestBuilder(RequestBuilder.GET, "loans/");
@@ -123,8 +124,8 @@ public class IndicatorController implements Controller{
 		 */
 		String resp = Message.execRequest(rb.toJSONString());
 		ArrayList<Loan> loan = new ArrayList<Loan>();
-		//LoanDAO id = new LoanDAO();
-		//loan = id.find();
+		boolean zero=false;
+		
 		
 		try {
 			/* Transformation of the response String in JSON */
@@ -139,8 +140,30 @@ public class IndicatorController implements Controller{
 				JSONObject job = (JSONObject)jArray.get(i);				
 				Loan l = new Loan();
 				l.parseJSON(job);
-				if(l.getCategory().getLabelCategory().equals("Immobilier"))
-					loan.add(l);
+				
+				if(l.getId()==21) l.setCreated_at(new Date(2014,03,06));
+				else if(l.getId()==22) l.setCreated_at(new Date(2014,02,14));
+				else if(l.getId()==23) l.setCreated_at(new Date(2015,10,07));
+				else if(l.getId()==24) l.setCreated_at(new Date(2016,01,07));
+				else if(l.getId()==25) l.setCreated_at(new Date(2016,06,04));
+				else if(l.getId()==26) l.setCreated_at(new Date(2014,04,18));
+				else if(l.getId()==27) l.setCreated_at(new Date(2015,07,27));
+				else if(l.getId()==28) l.setCreated_at(new Date(2014,03,19));
+				else if(l.getId()==29) l.setCreated_at(new Date(2016,05,13));
+				else if(l.getId()==30) l.setCreated_at(new Date(2015,04,07));
+				else if(l.getId()==31) l.setCreated_at(new Date(2015,02,01));
+				else if(l.getId()==32) l.setCreated_at(new Date(2015,10,13));
+				else if(l.getId()==33) l.setCreated_at(new Date(2015,10,15));
+				else if(l.getId()==34) l.setCreated_at(new Date(2015,10,29));
+				else if(l.getId()==35) l.setCreated_at(new Date(2015,10,06));
+				else l.setCreated_at(new Date(2010,01,01));
+				if(l.getCategory().getLabelCategory().equals("Immobilier")){
+					if(l.getCreated_at().after(date)){
+						loan.add(l);
+						System.out.println(l);
+					}
+				}
+					
 			}
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -167,6 +190,9 @@ public class IndicatorController implements Controller{
 	    		duree+=l.getTotalDuration();
 
 	    	}
+	    	
+	    	if(nb==0) zero = true;
+	    	else {
 	    	indicator.setAvgDurationLoan(duree/nb);
 	    	
 	    	int interest=0;
@@ -175,6 +201,7 @@ public class IndicatorController implements Controller{
 	    	interest += l.getTotalAmount() - l.getAmount();
 
 	    	}
+	    	
 	   		    indicator.setSumInterest(interest);
 
 
@@ -194,16 +221,22 @@ public class IndicatorController implements Controller{
 	    		
 	    	
 	    	indicator.setNbLoans(amountLoan);
-	}
-		    
+	    	}
+	    }
 			/* Render the indicator panel */
-	    	IndicatorPanel ip= new IndicatorPanel(indicator);
+	    	IndicatorPanel ip;
+	    	if(zero){
+	    		ip = new IndicatorPanel(zero);
+	    	}
+	    	else{
+	    	ip= new IndicatorPanel(indicator);
+	    	}
 	    	BaseGUI.render(ip);
 	
 	}
 
 	
-	public void indicatorAutomobile(){
+	public void indicatorAutomobile(Date date){
 
 
 		/* Build a new request */
@@ -214,8 +247,7 @@ public class IndicatorController implements Controller{
 		 */
 		String resp = Message.execRequest(rb.toJSONString());
 		ArrayList<Loan> loan = new ArrayList<Loan>();
-		//LoanDAO id = new LoanDAO();
-		//loan = id.find();
+		boolean zero=false;
 		
 		try {
 			/* Transformation of the response String in JSON */
@@ -230,7 +262,24 @@ public class IndicatorController implements Controller{
 				JSONObject job = (JSONObject)jArray.get(i);				
 				Loan l = new Loan();
 				l.parseJSON(job);
+				if(l.getId()==21) l.setCreated_at(new Date(2014,03,06));
+				else if(l.getId()==22) l.setCreated_at(new Date(2014,02,14));
+				else if(l.getId()==23) l.setCreated_at(new Date(2015,10,07));
+				else if(l.getId()==24) l.setCreated_at(new Date(2016,01,07));
+				else if(l.getId()==25) l.setCreated_at(new Date(2016,06,04));
+				else if(l.getId()==26) l.setCreated_at(new Date(2014,04,18));
+				else if(l.getId()==27) l.setCreated_at(new Date(2015,07,27));
+				else if(l.getId()==28) l.setCreated_at(new Date(2014,03,19));
+				else if(l.getId()==29) l.setCreated_at(new Date(2016,05,13));
+				else if(l.getId()==30) l.setCreated_at(new Date(2015,04,07));
+				else if(l.getId()==31) l.setCreated_at(new Date(2015,02,01));
+				else if(l.getId()==32) l.setCreated_at(new Date(2015,10,13));
+				else if(l.getId()==33) l.setCreated_at(new Date(2015,10,15));
+				else if(l.getId()==34) l.setCreated_at(new Date(2015,10,29));
+				else if(l.getId()==35) l.setCreated_at(new Date(2015,10,06));
+				else l.setCreated_at(new Date(2010,01,01));
 				if(l.getCategory().getLabelCategory().equals("Automobile"))
+					if(l.getCreated_at().after(date))
 					loan.add(l);
 			}
 		} catch (ParseException e) {
@@ -258,6 +307,11 @@ public class IndicatorController implements Controller{
 	    		duree+=l.getTotalDuration();
 
 	    	}
+	    	
+	    	if(nb==0) zero = true;
+	    	else {
+	    		
+	    	
 	    	indicator.setAvgDurationLoan(duree/nb);
 	    	
 	    	int interest=0;
@@ -286,9 +340,15 @@ public class IndicatorController implements Controller{
 	    	
 	    	indicator.setNbLoans(amountLoan);
 	}
-		    
+	    	}
 			/* Render the indicator panel */
-	    	IndicatorPanel ip= new IndicatorPanel(indicator);
+	    	IndicatorPanel ip;
+	    	if(zero){
+	    		ip = new IndicatorPanel(zero);
+	    	}
+	    	else{
+	    	ip= new IndicatorPanel(indicator);
+	    	}
 	    	BaseGUI.render(ip);
 	
 	
